@@ -7,22 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE3E2B74489B0027FB84 /* ColoredButton.swift */; };
 		28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B608282B7181B900829229 /* WellnessHub_AppApp.swift */; };
 		28B6082B2B7181B900829229 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6082A2B7181B900829229 /* ContentView.swift */; };
 		28B6082D2B7181BB00829229 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28B6082C2B7181BB00829229 /* Assets.xcassets */; };
 		28B608302B7181BB00829229 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28B6082F2B7181BB00829229 /* Preview Assets.xcassets */; };
-		28B6083F2B732A0800829229 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6083E2B732A0800829229 /* HomeView.swift */; };
+		28B6083F2B732A0800829229 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6083E2B732A0800829229 /* Home.swift */; };
 		28B608422B732D3600829229 /* DropDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B608412B732D3600829229 /* DropDownComponent.swift */; };
+		28B6084B2B73386D00829229 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084A2B73386D00829229 /* LogIn.swift */; };
+		28B6084E2B733B4C00829229 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084D2B733B4C00829229 /* Extensions.swift */; };
+		28B608502B7428AF00829229 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084F2B7428AF00829229 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		289AFE3E2B74489B0027FB84 /* ColoredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredButton.swift; sourceTree = "<group>"; };
 		28B608252B7181B900829229 /* WellnessHub App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WellnessHub App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28B608282B7181B900829229 /* WellnessHub_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessHub_AppApp.swift; sourceTree = "<group>"; };
 		28B6082A2B7181B900829229 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		28B6082C2B7181BB00829229 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28B6082F2B7181BB00829229 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		28B6083E2B732A0800829229 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		28B6083E2B732A0800829229 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		28B608412B732D3600829229 /* DropDownComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownComponent.swift; sourceTree = "<group>"; };
+		28B6084A2B73386D00829229 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		28B6084D2B733B4C00829229 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		28B6084F2B7428AF00829229 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,8 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				28B6084C2B733B1700829229 /* Helpers */,
+				28B608492B73385100829229 /* LogIn */,
 				28B608402B732D1500829229 /* Home */,
 				28B608282B7181B900829229 /* WellnessHub_AppApp.swift */,
 				28B6082A2B7181B900829229 /* ContentView.swift */,
@@ -75,10 +85,28 @@
 		28B608402B732D1500829229 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				28B6083E2B732A0800829229 /* HomeView.swift */,
+				28B6083E2B732A0800829229 /* Home.swift */,
 				28B608412B732D3600829229 /* DropDownComponent.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		28B608492B73385100829229 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				28B6084A2B73386D00829229 /* LogIn.swift */,
+				28B6084F2B7428AF00829229 /* CustomTextField.swift */,
+				289AFE3E2B74489B0027FB84 /* ColoredButton.swift */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		28B6084C2B733B1700829229 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				28B6084D2B733B4C00829229 /* Extensions.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +179,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28B6083F2B732A0800829229 /* HomeView.swift in Sources */,
+				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
+				289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */,
+				28B6084B2B73386D00829229 /* LogIn.swift in Sources */,
+				28B6084E2B733B4C00829229 /* Extensions.swift in Sources */,
+				28B6083F2B732A0800829229 /* Home.swift in Sources */,
 				28B608422B732D3600829229 /* DropDownComponent.swift in Sources */,
 				28B6082B2B7181B900829229 /* ContentView.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
@@ -304,7 +336,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -332,7 +364,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
