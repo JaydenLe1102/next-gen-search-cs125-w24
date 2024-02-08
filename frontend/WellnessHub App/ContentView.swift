@@ -8,26 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    //view properties
+    @State private var showSignUp: Bool = false
     var body: some View {
-        TabView {
-            HomeView()
-                .background(.red)
-                .tabItem { Label("Home", systemImage: "1.circle") }
+        NavigationStack {
+            LogIn(showSignUp: $showSignUp)
+                .navigationDestination(isPresented: $showSignUp) {
+                    
+                }
             
-            Text("Diet")
-                .background(.cyan)
-                .tabItem { Label("Diet", systemImage: "1.circle") }
-            Text("Exercise")
-                .background(.blue)
-                .tabItem { Label("Exercise", systemImage: "1.circle") }
-            Text("Sleep")
-                .background(.yellow)
-                .tabItem { Label("Sleep", systemImage: "1.circle") }
-            Text("Profile")
-                .background(.pink)
-                .tabItem { Label("Profile", systemImage: "1.circle") }
         }
     }
+    
+
 }
 
 #Preview {
