@@ -1,26 +1,30 @@
-
-
 //
-//  LogIn.swift
+//  SignUp.swift
 //  WellnessHub App
 //
-//  Created by BobaHolic on 2/6/24.
+//  Created by BobaHolic on 2/8/24.
 //
 
 import SwiftUI
 
-struct LogIn: View {
+struct SignUp: View {
     @Binding var showSignUp: Bool
     //view properties
+    @State private var fullName: String = ""
     @State private var emailID: String = ""
     @State private var password: String = ""
+    @State private var confirmedPassword: String = ""
+
+    
 
     var body: some View {
         VStack(alignment: .leading, spacing:15, content: {
             
+            //back button
+            
             Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             
-            Text("Login")
+            Text("Sign Up")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .hSpacing()
@@ -32,27 +36,28 @@ struct LogIn: View {
 //                .padding(.top, -5)
             
             VStack(spacing: 25) {
+                
+                CustomTextField(icon: "person", hint: "Full Name", value: $fullName)
+                    .padding(.top, 5)
                 //Custom  Text Field
                 CustomTextField(icon: "at", hint: "Email ID", value: $emailID)
+                
+               
                 
                 CustomTextField(icon: "lock", hint: "Password", isPassword: true, value: $password)
                     .padding(.top, 5)
                 
-                Button("Forgot Password?") {
-                    
-                }
+                CustomTextField(icon: "lock", hint: "Confirm Password", isPassword: true, value: $confirmedPassword)
+                    .padding(.top, 5)
                 
-                .font(.callout)
-                .fontWeight(.heavy)
-                .tint(.yellow)
-                .hSpacing()
+            
                 
                 //login button
-                ColoredButton(title: "Login") {
+                ColoredButton(title: "Sign Up") {
                     
                 }
                 //disabling until the email and pw are entered
-                .disableWithOpacity(emailID.isEmpty || password.isEmpty)
+                .disableWithOpacity(fullName.isEmpty || emailID.isEmpty ||  password.isEmpty || confirmedPassword.isEmpty)
 
             }
             .padding(.top,20)
@@ -61,9 +66,9 @@ struct LogIn: View {
             
             Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             HStack(spacing: 6) {
-                Text("Don't have an account?")
-                Button("Sign Up") {
-                    showSignUp.toggle()
+                Text("Already have an account?")
+                Button("Log In") {
+                    showSignUp = false
                     
                 }
                 .fontWeight(.bold)
