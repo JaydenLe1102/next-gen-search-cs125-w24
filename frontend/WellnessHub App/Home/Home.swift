@@ -7,46 +7,51 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct Home: View {
     @State private var selectedOption = "Week"
-        
+    
     var body: some View {
-        VStack {
-            Text("Hello, Home View!")
-            
-            Picker("Select Time", selection: $selectedOption) {
-                Text("Day").tag("Day")
-                Text("Week").tag("Week")
-                Text("Month").tag("Month")
+                VStack {
+                    Text("Hello, Home!")
+        
+                    Picker("Select Time", selection: $selectedOption) {
+                        Text("Day").tag("Day")
+                        Text("Week").tag("Week")
+                        Text("Month").tag("Month")
+                    }
+                }
+                .toolbar(content: {
+                    Button {
+                        // Action for Day button
+                    } label: {
+                        Text("Day")
+                    }
+        
+                    Button {
+                        // Action for Week button
+                    } label: {
+                        Text("Week")
+                    }
+        
+                    Button {
+                        // Action for Month button
+                    } label: {
+                        Text("Month")
+                    }
+                })
             }
-        }
-        .toolbar(content: {
-            Button {
-                // Action for Day button
-            } label: {
-                Text("Day")
+            struct HomeView_Previews: PreviewProvider {
+                static var previews: some View {
+                    Home()
+                }
             }
-            
-            Button {
-                // Action for Week button
-            } label: {
-                Text("Week")
-            }
-            
-            Button {
-                // Action for Month button
-            } label: {
-                Text("Month")
-            }
-        })
     }
-    struct HomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            HomeView()
-        }
-    }
+#Preview {
+    Home()
 }
 
-#Preview {
-    HomeView()
-}
+//extension View {
+//    func getRect() ->CGRect{
+//        return UIScreen.main.bounds
+//    }
+//}

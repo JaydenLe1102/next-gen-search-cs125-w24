@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE3E2B74489B0027FB84 /* ColoredButton.swift */; };
 		289AFE412B7577A00027FB84 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE402B7577A00027FB84 /* SignUp.swift */; };
+		289AFE472B7D4A680027FB84 /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE462B7D4A680027FB84 /* Restaurants.swift */; };
+		289AFE4B2B7D8A6D0027FB84 /* RestaurantModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */; };
+		289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4C2B7DAEFA0027FB84 /* Diet.swift */; };
+		289AFE4F2B7DB2C30027FB84 /* RestaurantDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4E2B7DB2C30027FB84 /* RestaurantDetails.swift */; };
+		289AFE512B8138160027FB84 /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE502B8138160027FB84 /* Searchbar.swift */; };
+		289AFE532B8139670027FB84 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE522B8139670027FB84 /* TopBar.swift */; };
+		289AFE562B81764A0027FB84 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE552B81764A0027FB84 /* Recipes.swift */; };
+		289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE572B817BBA0027FB84 /* RecipeModal.swift */; };
+		289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE592B817BDA0027FB84 /* RecipeDetails.swift */; };
 		28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B608282B7181B900829229 /* WellnessHub_AppApp.swift */; };
 		28B6082B2B7181B900829229 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6082A2B7181B900829229 /* ContentView.swift */; };
 		28B6082D2B7181BB00829229 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28B6082C2B7181BB00829229 /* Assets.xcassets */; };
@@ -23,6 +32,15 @@
 /* Begin PBXFileReference section */
 		289AFE3E2B74489B0027FB84 /* ColoredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredButton.swift; sourceTree = "<group>"; };
 		289AFE402B7577A00027FB84 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		289AFE462B7D4A680027FB84 /* Restaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
+		289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantModal.swift; sourceTree = "<group>"; };
+		289AFE4C2B7DAEFA0027FB84 /* Diet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diet.swift; sourceTree = "<group>"; };
+		289AFE4E2B7DB2C30027FB84 /* RestaurantDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetails.swift; sourceTree = "<group>"; };
+		289AFE502B8138160027FB84 /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
+		289AFE522B8139670027FB84 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
+		289AFE552B81764A0027FB84 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
+		289AFE572B817BBA0027FB84 /* RecipeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModal.swift; sourceTree = "<group>"; };
+		289AFE592B817BDA0027FB84 /* RecipeDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetails.swift; sourceTree = "<group>"; };
 		28B608252B7181B900829229 /* WellnessHub App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WellnessHub App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28B608282B7181B900829229 /* WellnessHub_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessHub_AppApp.swift; sourceTree = "<group>"; };
 		28B6082A2B7181B900829229 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -46,6 +64,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		289AFE442B7D4A270027FB84 /* Diet */ = {
+			isa = PBXGroup;
+			children = (
+				289AFE542B81761F0027FB84 /* Recipes */,
+				289AFE452B7D4A3E0027FB84 /* Restaurants */,
+				289AFE4C2B7DAEFA0027FB84 /* Diet.swift */,
+			);
+			path = Diet;
+			sourceTree = "<group>";
+		};
+		289AFE452B7D4A3E0027FB84 /* Restaurants */ = {
+			isa = PBXGroup;
+			children = (
+				289AFE462B7D4A680027FB84 /* Restaurants.swift */,
+				289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */,
+				289AFE4E2B7DB2C30027FB84 /* RestaurantDetails.swift */,
+				289AFE502B8138160027FB84 /* Searchbar.swift */,
+				289AFE522B8139670027FB84 /* TopBar.swift */,
+			);
+			path = Restaurants;
+			sourceTree = "<group>";
+		};
+		289AFE542B81761F0027FB84 /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				289AFE552B81764A0027FB84 /* Recipes.swift */,
+				289AFE572B817BBA0027FB84 /* RecipeModal.swift */,
+				289AFE592B817BDA0027FB84 /* RecipeDetails.swift */,
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
 		28B6081C2B7181B900829229 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +115,7 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				289AFE442B7D4A270027FB84 /* Diet */,
 				28B6084C2B733B1700829229 /* Helpers */,
 				28B608492B73385100829229 /* LogIn_SignUp */,
 				28B608402B732D1500829229 /* Home */,
@@ -182,13 +233,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				289AFE4B2B7D8A6D0027FB84 /* RestaurantModal.swift in Sources */,
+				289AFE472B7D4A680027FB84 /* Restaurants.swift in Sources */,
+				289AFE4F2B7DB2C30027FB84 /* RestaurantDetails.swift in Sources */,
+				289AFE562B81764A0027FB84 /* Recipes.swift in Sources */,
 				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
+				289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */,
+				289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */,
+				289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */,
 				289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */,
 				28B6084B2B73386D00829229 /* LogIn.swift in Sources */,
+				289AFE532B8139670027FB84 /* TopBar.swift in Sources */,
 				28B6084E2B733B4C00829229 /* Extensions.swift in Sources */,
 				28B6083F2B732A0800829229 /* Home.swift in Sources */,
 				28B608422B732D3600829229 /* DropDownComponent.swift in Sources */,
 				28B6082B2B7181B900829229 /* ContentView.swift in Sources */,
+				289AFE512B8138160027FB84 /* Searchbar.swift in Sources */,
 				289AFE412B7577A00027FB84 /* SignUp.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
 			);

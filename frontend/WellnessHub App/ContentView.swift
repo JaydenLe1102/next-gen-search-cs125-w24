@@ -10,16 +10,21 @@ import SwiftUI
 struct ContentView: View {
     //view properties
     @State private var showSignUp: Bool = false
+    @State private var showHome: Bool = false
+
 
     var body: some View {
         NavigationStack {
-            LogIn(showSignUp: $showSignUp)
+            LogIn(showSignUp: $showSignUp, showHome: $showHome)
                 .navigationDestination(isPresented: $showSignUp) {
                     SignUp(showSignUp: $showSignUp)
-                    
+
                 }
             
+            
         }
+        .background(Color(.systemBackground))
+
     }
     
 
