@@ -45,7 +45,7 @@ struct Recipes: View {
                 }
         
             }
-            .padding(.horizontal,20)
+            
         })
     }
 }
