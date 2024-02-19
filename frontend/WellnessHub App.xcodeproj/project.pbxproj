@@ -19,6 +19,10 @@
 		289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE572B817BBA0027FB84 /* RecipeModal.swift */; };
 		289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE592B817BDA0027FB84 /* RecipeDetails.swift */; };
 		289AFE5D2B81B1D20027FB84 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE5C2B81B1D20027FB84 /* Profile.swift */; };
+		289AFE602B83ECFE0027FB84 /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE5F2B83ECFE0027FB84 /* Sleep.swift */; };
+		289AFE622B83ED340027FB84 /* TotalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE612B83ED340027FB84 /* TotalTime.swift */; };
+		289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE632B83ED480027FB84 /* RecommendationModal.swift */; };
+		289AFE662B8416820027FB84 /* ExactTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE652B8416820027FB84 /* ExactTime.swift */; };
 		28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B608282B7181B900829229 /* WellnessHub_AppApp.swift */; };
 		28B6082B2B7181B900829229 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6082A2B7181B900829229 /* ContentView.swift */; };
 		28B6082D2B7181BB00829229 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28B6082C2B7181BB00829229 /* Assets.xcassets */; };
@@ -43,6 +47,10 @@
 		289AFE572B817BBA0027FB84 /* RecipeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModal.swift; sourceTree = "<group>"; };
 		289AFE592B817BDA0027FB84 /* RecipeDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetails.swift; sourceTree = "<group>"; };
 		289AFE5C2B81B1D20027FB84 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		289AFE5F2B83ECFE0027FB84 /* Sleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep.swift; sourceTree = "<group>"; };
+		289AFE612B83ED340027FB84 /* TotalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTime.swift; sourceTree = "<group>"; };
+		289AFE632B83ED480027FB84 /* RecommendationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationModal.swift; sourceTree = "<group>"; };
+		289AFE652B8416820027FB84 /* ExactTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExactTime.swift; sourceTree = "<group>"; };
 		28B608252B7181B900829229 /* WellnessHub App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WellnessHub App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28B608282B7181B900829229 /* WellnessHub_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessHub_AppApp.swift; sourceTree = "<group>"; };
 		28B6082A2B7181B900829229 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +114,17 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		289AFE5E2B83ECEF0027FB84 /* Sleep */ = {
+			isa = PBXGroup;
+			children = (
+				289AFE5F2B83ECFE0027FB84 /* Sleep.swift */,
+				289AFE612B83ED340027FB84 /* TotalTime.swift */,
+				289AFE632B83ED480027FB84 /* RecommendationModal.swift */,
+				289AFE652B8416820027FB84 /* ExactTime.swift */,
+			);
+			path = Sleep;
+			sourceTree = "<group>";
+		};
 		28B6081C2B7181B900829229 = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +144,7 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				289AFE5E2B83ECEF0027FB84 /* Sleep */,
 				289AFE5B2B81B1BE0027FB84 /* Profile */,
 				289AFE442B7D4A270027FB84 /* Diet */,
 				28B6084C2B733B1700829229 /* Helpers */,
@@ -244,17 +264,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				289AFE622B83ED340027FB84 /* TotalTime.swift in Sources */,
 				289AFE4B2B7D8A6D0027FB84 /* RestaurantModal.swift in Sources */,
+				289AFE662B8416820027FB84 /* ExactTime.swift in Sources */,
 				289AFE472B7D4A680027FB84 /* Restaurants.swift in Sources */,
 				289AFE4F2B7DB2C30027FB84 /* RestaurantDetails.swift in Sources */,
 				289AFE562B81764A0027FB84 /* Recipes.swift in Sources */,
 				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
+				289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */,
 				289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */,
 				289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */,
 				289AFE5D2B81B1D20027FB84 /* Profile.swift in Sources */,
 				289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */,
 				289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */,
 				28B6084B2B73386D00829229 /* LogIn.swift in Sources */,
+				289AFE602B83ECFE0027FB84 /* Sleep.swift in Sources */,
 				289AFE532B8139670027FB84 /* TopBar.swift in Sources */,
 				28B6084E2B733B4C00829229 /* Extensions.swift in Sources */,
 				28B6083F2B732A0800829229 /* Home.swift in Sources */,
