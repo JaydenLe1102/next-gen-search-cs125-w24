@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var manager: HealthDataManager
     @State private var selectedOption = "Week"
         
     var body: some View {
@@ -39,6 +40,10 @@ struct HomeView: View {
                 Text("Month")
             }
         })
+        .onAppear{
+            manager.fetchSteps() 
+            manager.fetchCalories()
+        }
     }
     struct HomeView_Previews: PreviewProvider {
         static var previews: some View {

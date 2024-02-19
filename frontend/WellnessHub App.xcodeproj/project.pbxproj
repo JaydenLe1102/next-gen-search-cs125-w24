@@ -13,6 +13,7 @@
 		28B608302B7181BB00829229 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28B6082F2B7181BB00829229 /* Preview Assets.xcassets */; };
 		28B6083F2B732A0800829229 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6083E2B732A0800829229 /* HomeView.swift */; };
 		28B608422B732D3600829229 /* DropDownComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B608412B732D3600829229 /* DropDownComponent.swift */; };
+		929351932B747FDA009A3969 /* HealthDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929351922B747FDA009A3969 /* HealthDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,8 @@
 		28B6082F2B7181BB00829229 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		28B6083E2B732A0800829229 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		28B608412B732D3600829229 /* DropDownComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownComponent.swift; sourceTree = "<group>"; };
+		929351922B747FDA009A3969 /* HealthDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataManager.swift; sourceTree = "<group>"; };
+		929351942B757AD8009A3969 /* WellnessHub App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WellnessHub App.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,8 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				929351942B757AD8009A3969 /* WellnessHub App.entitlements */,
+				929351912B747FB3009A3969 /* HealthService */,
 				28B608402B732D1500829229 /* Home */,
 				28B608282B7181B900829229 /* WellnessHub_AppApp.swift */,
 				28B6082A2B7181B900829229 /* ContentView.swift */,
@@ -79,6 +84,14 @@
 				28B608412B732D3600829229 /* DropDownComponent.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		929351912B747FB3009A3969 /* HealthService */ = {
+			isa = PBXGroup;
+			children = (
+				929351922B747FDA009A3969 /* HealthDataManager.swift */,
+			);
+			path = HealthService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +166,7 @@
 			files = (
 				28B6083F2B732A0800829229 /* HomeView.swift in Sources */,
 				28B608422B732D3600829229 /* DropDownComponent.swift in Sources */,
+				929351932B747FDA009A3969 /* HealthDataManager.swift in Sources */,
 				28B6082B2B7181B900829229 /* ContentView.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
 			);
@@ -285,21 +299,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WellnessHub App/WellnessHub App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WellnessHub App/Preview Content\"";
+				DEVELOPMENT_TEAM = FAKAGZ6NHX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = " Please allow access to health information for recommendations";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WellnessHub-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -313,21 +333,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WellnessHub App/WellnessHub App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WellnessHub App/Preview Content\"";
+				DEVELOPMENT_TEAM = FAKAGZ6NHX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = " Please allow access to health information for recommendations";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WellnessHub-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var manager: HealthDataManager
     var body: some View {
         TabView {
             HomeView()
                 .background(.red)
                 .tabItem { Label("Home", systemImage: "1.circle") }
+                .environmentObject(manager)
             
             Text("Diet")
                 .background(.cyan)
@@ -28,6 +30,8 @@ struct ContentView: View {
                 .tabItem { Label("Profile", systemImage: "1.circle") }
         }
     }
+    
+    
 }
 
 #Preview {
