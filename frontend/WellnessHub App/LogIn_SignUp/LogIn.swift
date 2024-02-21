@@ -12,6 +12,7 @@ import SwiftUI
 struct LogIn: View {
     @Binding var showSignUp: Bool
     @Binding var showHome: Bool
+    @Binding var isLoggedIn: Bool
 
     //view properties
     @State private var emailID: String = ""
@@ -41,11 +42,12 @@ struct LogIn: View {
                     
                     .font(.callout)
                     .fontWeight(.heavy)
-                    .tint(.yellow)
+                    .tint(.gray)
                     .hSpacing()
                     
                     ColoredButton(title: "Log In") {
                         showHome = true
+                        isLoggedIn = true
                     }
                     
                     
@@ -69,7 +71,7 @@ struct LogIn: View {
                         
                     }
                     .fontWeight(.bold)
-                    .tint(.yellow)
+                    .tint(.teal)
                 }
                 .font(.callout)
                 .hSpacing()

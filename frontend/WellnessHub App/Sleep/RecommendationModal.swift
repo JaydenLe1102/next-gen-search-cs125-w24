@@ -24,10 +24,9 @@ struct RecommendationModal: View {
                         .padding()
                         
                     Text(recommendation)
-                        .foregroundStyle(Color.black)
                         .padding([.bottom, .horizontal])
                 }
-                .background(Color.black.opacity(0.08))
+                 .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
                 .frame(width: 140)
         })

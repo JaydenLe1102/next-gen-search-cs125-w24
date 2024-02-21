@@ -15,7 +15,7 @@ struct ContentView: View {
     //view properties
     @State private var showSignUp: Bool = false
     @State private var showHome: Bool = false
-    
+    @State private var isLoggedIn = authManager.isAuthenticated
     @State private var selectedTab = 1
 
 
@@ -28,19 +28,25 @@ struct ContentView: View {
                 
                 Exercises().tag(3)
 
-                
                 Sleep().tag(4)
                 
                 Profile().tag(5)
-
             }
             .overlay(alignment: .bottom, content: {
                 CustomTabView(selectedTab: $selectedTab)
+                    .background(.white)
+                    .overlay(
+                                Rectangle()
+                                    .frame(height: 0.35)
+                                    .foregroundColor(.gray)
+                                    .offset(y: -39)
+                                    .edgesIgnoringSafeArea(.top)
+                            )
             })
         }
         else {
             NavigationStack {
-                LogIn(showSignUp: $showSignUp, showHome: $showHome)
+                LogIn(showSignUp: $showSignUp, showHome: $showHome, isLoggedIn: $isLoggedIn)
                     .navigationDestination(isPresented: $showSignUp) {
                         SignUp(showSignUp: $showSignUp)
                     }
@@ -48,7 +54,6 @@ struct ContentView: View {
             .background(Color(.systemBackground))
         }
     }
-
 }
 
 #Preview {

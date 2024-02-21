@@ -21,6 +21,7 @@ struct Diet: View {
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .padding(.horizontal)
+            
                         
 
                         if selectedOption == 0 {
@@ -28,14 +29,12 @@ struct Diet: View {
                                         Restaurants()
                                             .padding(.vertical)
                                     }
-                                    .background(Color(.systemBackground))
                                     .searchable(text: $searchText)
                         } else {
                                     NavigationStack {
                                         Recipes()
                                             .padding(.vertical)
                                     }
-                                    .background(Color(.systemBackground))
                                     .searchable(text: $searchText)
                         }
         }
