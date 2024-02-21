@@ -21,12 +21,26 @@ struct ContentView: View {
 
     var body: some View {
         if authManager.isAuthenticated {
-            MainTab(selectedTab: $selectedTab)
-            
+            TabView(selection: $selectedTab) {
+                Home().tag(1)
+                
+                Diet().tag(2)
+                
+                Exercises().tag(3)
+
+                
+                Sleep().tag(4)
+                
+                Profile().tag(5)
+
+            }
+            .overlay(alignment: .bottom, content: {
+                CustomTabView(selectedTab: $selectedTab)
+            })
         }
         else {
             NavigationStack {
-                LogIn(showSignUp: $showSignUp, showHome: $showHome, selectedTab: $selectedTab)
+                LogIn(showSignUp: $showSignUp, showHome: $showHome)
                     .navigationDestination(isPresented: $showSignUp) {
                         SignUp(showSignUp: $showSignUp)
                     }

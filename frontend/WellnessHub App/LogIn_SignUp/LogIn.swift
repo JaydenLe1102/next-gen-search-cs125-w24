@@ -12,7 +12,7 @@ import SwiftUI
 struct LogIn: View {
     @Binding var showSignUp: Bool
     @Binding var showHome: Bool
-    @Binding var selectedTab: Int
+
     //view properties
     @State private var emailID: String = ""
     @State private var password: String = ""
@@ -50,7 +50,7 @@ struct LogIn: View {
                     
                     
                     .navigationDestination(isPresented: $showHome) {
-                        MainTab(selectedTab: $selectedTab)
+                        Home()
                     }
                     
                     //disabling until the email and pw are entered
