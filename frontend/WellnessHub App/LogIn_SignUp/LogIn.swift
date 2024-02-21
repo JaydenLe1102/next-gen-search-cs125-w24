@@ -12,9 +12,11 @@ import SwiftUI
 struct LogIn: View {
     @Binding var showSignUp: Bool
     @Binding var showHome: Bool
+    @Binding var selectedTab: Int
     //view properties
     @State private var emailID: String = ""
     @State private var password: String = ""
+    @StateObject private var authManager = AuthenticationManager.shared
 
     var body: some View {
             VStack(alignment: .leading, spacing:15, content: {
@@ -48,7 +50,7 @@ struct LogIn: View {
                     
                     
                     .navigationDestination(isPresented: $showHome) {
-                        Home()
+                        MainTab(selectedTab: $selectedTab)
                     }
                     
                     //disabling until the email and pw are entered

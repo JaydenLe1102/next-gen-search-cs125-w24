@@ -49,16 +49,32 @@ struct Profile: View {
                 Text("Health Goal:")
             })
             
-            Button(action: {
-                            }) {
-                                Text("Edit Profile")
-                                    .frame(maxWidth: .infinity)
-                                    .foregroundColor(Color.blue)
-                                    .padding()
-                                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.blue.opacity(0.2)))
-                            }
-        })
-        .padding(.horizontal, 20)
+            
+            VStack {
+                Button(action: {
+                                }) {
+                                    Text("Edit Profile")
+                                        .frame(maxWidth: .infinity)
+                                        .foregroundColor(Color.blue)
+                                        .padding()
+                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.blue.opacity(0.2)))
+                                }
+                
+                Button(action: {
+                                }) {
+                                    Text("Logout")
+                                        .frame(maxWidth: .infinity)
+                                        .foregroundColor(Color.blue)
+                                        .padding()
+                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.blue.opacity(0.2)))
+                                }
+            }
+            
+            })
+            .padding(.horizontal, 20)
+        
+        
+        
 
     }
 }

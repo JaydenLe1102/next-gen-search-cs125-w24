@@ -5,12 +5,9 @@ from flask import Flask, request, jsonify
 import pyrebase
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
+from app.config.creds import config, firebaseDatabaseConfig
 
-# Replace the config and firebaseDatabaseConfig with one in docs
-config = {
-}
-firebaseDatabaseConfig = {
-}
+
 
 #Using pyrebase to authenticate
 firebase = pyrebase.initialize_app(config)

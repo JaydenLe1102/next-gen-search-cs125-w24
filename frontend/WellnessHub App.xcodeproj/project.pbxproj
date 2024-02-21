@@ -13,7 +13,6 @@
 		289AFE4B2B7D8A6D0027FB84 /* RestaurantModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */; };
 		289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4C2B7DAEFA0027FB84 /* Diet.swift */; };
 		289AFE4F2B7DB2C30027FB84 /* RestaurantDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4E2B7DB2C30027FB84 /* RestaurantDetails.swift */; };
-		289AFE512B8138160027FB84 /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE502B8138160027FB84 /* Searchbar.swift */; };
 		289AFE532B8139670027FB84 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE522B8139670027FB84 /* TopBar.swift */; };
 		289AFE562B81764A0027FB84 /* Recipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE552B81764A0027FB84 /* Recipes.swift */; };
 		289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE572B817BBA0027FB84 /* RecipeModal.swift */; };
@@ -35,6 +34,8 @@
 		28B6084B2B73386D00829229 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084A2B73386D00829229 /* LogIn.swift */; };
 		28B6084E2B733B4C00829229 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084D2B733B4C00829229 /* Extensions.swift */; };
 		28B608502B7428AF00829229 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084F2B7428AF00829229 /* CustomTextField.swift */; };
+		92297B8D2B86A2A500C8E4E1 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B8C2B86A2A500C8E4E1 /* AuthenticationManager.swift */; };
+		92297B8F2B86A7A800C8E4E1 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B8E2B86A7A800C8E4E1 /* MainTab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +45,6 @@
 		289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantModal.swift; sourceTree = "<group>"; };
 		289AFE4C2B7DAEFA0027FB84 /* Diet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diet.swift; sourceTree = "<group>"; };
 		289AFE4E2B7DB2C30027FB84 /* RestaurantDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetails.swift; sourceTree = "<group>"; };
-		289AFE502B8138160027FB84 /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		289AFE522B8139670027FB84 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		289AFE552B81764A0027FB84 /* Recipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipes.swift; sourceTree = "<group>"; };
 		289AFE572B817BBA0027FB84 /* RecipeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModal.swift; sourceTree = "<group>"; };
@@ -67,6 +67,8 @@
 		28B6084A2B73386D00829229 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		28B6084D2B733B4C00829229 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		28B6084F2B7428AF00829229 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		92297B8C2B86A2A500C8E4E1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		92297B8E2B86A7A800C8E4E1 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,6 @@
 				289AFE462B7D4A680027FB84 /* Restaurants.swift */,
 				289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */,
 				289AFE4E2B7DB2C30027FB84 /* RestaurantDetails.swift */,
-				289AFE502B8138160027FB84 /* Searchbar.swift */,
 				289AFE522B8139670027FB84 /* TopBar.swift */,
 			);
 			path = Restaurants;
@@ -159,6 +160,7 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				92297B8B2B86A28300C8E4E1 /* Authentication */,
 				289AFE672B8423340027FB84 /* Exercises */,
 				289AFE5E2B83ECEF0027FB84 /* Sleep */,
 				289AFE5B2B81B1BE0027FB84 /* Profile */,
@@ -171,6 +173,7 @@
 				28B6082C2B7181BB00829229 /* Assets.xcassets */,
 				28B6082E2B7181BB00829229 /* Preview Content */,
 				289AFE712B851D5B0027FB84 /* CustomTabView.swift */,
+				92297B8E2B86A7A800C8E4E1 /* MainTab.swift */,
 			);
 			path = "WellnessHub App";
 			sourceTree = "<group>";
@@ -209,6 +212,14 @@
 				28B6084D2B733B4C00829229 /* Extensions.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		92297B8B2B86A28300C8E4E1 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				92297B8C2B86A2A500C8E4E1 /* AuthenticationManager.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,11 +299,13 @@
 				289AFE4F2B7DB2C30027FB84 /* RestaurantDetails.swift in Sources */,
 				289AFE722B851D5B0027FB84 /* CustomTabView.swift in Sources */,
 				289AFE562B81764A0027FB84 /* Recipes.swift in Sources */,
+				92297B8D2B86A2A500C8E4E1 /* AuthenticationManager.swift in Sources */,
 				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
 				289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */,
 				289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */,
 				289AFE6D2B842FF10027FB84 /* Exercise.swift in Sources */,
 				289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */,
+				92297B8F2B86A7A800C8E4E1 /* MainTab.swift in Sources */,
 				289AFE5D2B81B1D20027FB84 /* Profile.swift in Sources */,
 				289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */,
 				289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */,
@@ -304,7 +317,6 @@
 				28B6083F2B732A0800829229 /* Home.swift in Sources */,
 				28B608422B732D3600829229 /* DropDownComponent.swift in Sources */,
 				28B6082B2B7181B900829229 /* ContentView.swift in Sources */,
-				289AFE512B8138160027FB84 /* Searchbar.swift in Sources */,
 				289AFE412B7577A00027FB84 /* SignUp.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
 			);
