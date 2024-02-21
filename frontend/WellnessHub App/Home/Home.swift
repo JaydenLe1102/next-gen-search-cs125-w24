@@ -40,11 +40,7 @@ struct Home: View {
                     }
                 })
             }
-            struct HomeView_Previews: PreviewProvider {
-                static var previews: some View {
-                    Home()
-                }
-            }
+ 
     }
 #Preview {
     Home()

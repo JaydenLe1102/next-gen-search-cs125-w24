@@ -30,10 +30,6 @@ struct RecommendationModal: View {
                 .background(Color.black.opacity(0.08))
                 .cornerRadius(13)
                 .frame(width: 140)
-            
-     
-   
-
         })
         
     }
