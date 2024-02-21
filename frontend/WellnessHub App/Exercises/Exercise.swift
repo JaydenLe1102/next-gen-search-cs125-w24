@@ -29,9 +29,11 @@ struct Exercise: View {
 
                 .padding()
                 .frame(maxWidth: .infinity)
+                .frame(height: 90)
             })
-            .background(Color.black.opacity(0.08))
+            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
             .cornerRadius(13)
+            
             
             VStack(alignment: .leading, content: {
                 VStack(alignment: .leading, content: {
@@ -45,9 +47,10 @@ struct Exercise: View {
                 })
                 .padding()
                 .frame(maxWidth: .infinity)
+                .frame(height: 90)
 
             })
-            .background(Color.black.opacity(0.08))
+            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
             .cornerRadius(13)
             
             VStack(alignment: .leading, content: {
@@ -62,9 +65,10 @@ struct Exercise: View {
                 })
                 .padding()
                 .frame(maxWidth: .infinity)
+                .frame(height: 90)
 
             })
-            .background(Color.black.opacity(0.08))
+            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
             .cornerRadius(13)
         })
     }

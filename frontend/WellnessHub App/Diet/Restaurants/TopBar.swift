@@ -18,7 +18,8 @@ struct TopBar: View {
                     .frame(width: 35, height: 35)
                     .font(.title2)
                     .padding(10)
-                    .background(Color.black.opacity(0.08))
+                    .background(.black.opacity(0.08))
+                    .foregroundStyle(.teal)
                     .cornerRadius(25.0)
             }
         }
@@ -28,7 +29,7 @@ struct TopBar: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 18, height: 18)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.teal)
 
                 Text("California, US")
                     .font(.footnote)

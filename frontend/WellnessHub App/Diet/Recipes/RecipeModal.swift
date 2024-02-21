@@ -25,7 +25,7 @@ struct RecipeModal: View {
             }){
                 VStack(spacing: 0) {
                     Text(name)
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(.black)
                         .padding(.top)
                     Image(systemName: imageURL)
                         .resizable()
@@ -34,14 +34,14 @@ struct RecipeModal: View {
                     
                     HStack(spacing: 20, content: {
                         Text(time)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(.black)
                         
                         Text(calories)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(.black)
                     })
                     .padding(.bottom)
                 }
-                .background(Color.black.opacity(0.08))
+                .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
      
             }
@@ -57,5 +57,5 @@ struct RecipeModal: View {
 }
 
 #Preview {
-    RecipeModal(name: "Recipe 1", time: "4 hours", calories: "300 cal",description:"This is a description", imageURL: "photo")
+    Recipes()
 }
