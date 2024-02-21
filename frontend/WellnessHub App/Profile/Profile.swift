@@ -60,6 +60,8 @@ struct Profile: View {
                                     .frame(maxWidth: .infinity)
                                     .foregroundColor(.teal)
                                     .padding()
+                                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                                    
 
                             }
             Spacer()
@@ -73,5 +75,5 @@ struct Profile: View {
 }
 
 #Preview {
-    ContentView()
+    Profile()
 }

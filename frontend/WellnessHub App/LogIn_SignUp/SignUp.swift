@@ -72,7 +72,7 @@ struct SignUp: View {
                     
                 }
                 .fontWeight(.bold)
-                .tint(.yellow)
+                .tint(.teal)
             }
             .font(.callout)
             .hSpacing()
