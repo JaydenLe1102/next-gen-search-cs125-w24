@@ -76,14 +76,24 @@ def store_user_info():
         last_name = request.json['last_name']
         age = request.json['age']
         gender = request.json['gender']
-        
+        height= request.json['height']
+        weight = request.json['weight']
+        activity_level= request.json['activity_level']
+        dietary_preference = request.json['dietary_preference']
+        health_goal = request.json['health_goal']
+
         # Store user information in Firestore
         user_info = {
             "email": email,
             "first_name": first_name,
             "last_name": last_name,
             "age": age,
-            "gender": gender
+            "gender": gender,
+            "height": height,
+            "weight": weight,
+            "activity_level": activity_level,
+            "dietary_preference": dietary_preference,
+            "health_goal": health_goal
             # Add additional fields here as needed
         }
         print(user_uid)

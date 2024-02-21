@@ -3,3 +3,4 @@ venv
 .DS_Store
 .env
 serviceAccountKey.json
+authenticate.py
