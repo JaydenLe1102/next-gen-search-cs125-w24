@@ -28,31 +28,20 @@ struct RecipeDetails: View {
                 
                 Text(name)
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(.black)
       
                 HStack(spacing: 100, content:{
                     Text(calories)
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(.black)
                     
                     Text(time)
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(.black)
                     })
                 
                 Text("Description: ")
                 
                 Text("Instruction: ")
-//                RoundedRectangle(cornerRadius: 15)
-//                    .frame(height: 200) // Set the height as needed
-//                    .foregroundColor(Color.black.opacity(0.08))
-//                
-//                Button(action: {
-//                                }) {
-//                                    Text("See Menu")
-//                                        .frame(maxWidth: .infinity)
-//                                        .foregroundColor(Color.blue)
-//                                        .padding()
-//                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.blue.opacity(0.2)))
-//                                }
+
             })
             .padding(.horizontal, 10)
             .frame(width:getRect().width)

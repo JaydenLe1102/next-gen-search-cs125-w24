@@ -30,50 +30,48 @@ struct RestaurantDetails: View {
                 
                 Text(name)
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(Color.black)
                 HStack {
                     ForEach(0..<Int(rating), id: \.self) { _ in
                         Image(systemName: "star.fill")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundStyle(.yellow)
                     }
                     
                     if rating - Double(Int(rating)) > 0 {
                         Image(systemName: "star.leadinghalf.filled")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundStyle(.yellow)
                     }
                     
                     ForEach(0..<5 - Int(ceil(rating)), id: \.self) { _ in
                         Image(systemName: "star")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundStyle(.yellow)
                     }
                 }
                 
                 
                 if status == "Open" {
                     HStack(content: {
-                        Text(status).foregroundColor(Color.green)
+                        Text(status).foregroundColor(.green)
                         Text("Hours")
                     })
                 }
                 else {
-                    Text(status).foregroundColor(Color.red)
+                    Text(status).foregroundColor(.red)
                 }
                 
                 Text(location)
-                    .foregroundStyle(Color.black)
                 
                 Text("Address: ")
                 RoundedRectangle(cornerRadius: 15)
                     .frame(height: 200) // Set the height as needed
-                    .foregroundColor(Color.black.opacity(0.08))
+                    .foregroundColor(.black.opacity(0.08))
                 
                 Button(action: {
                                 }) {
                                     Text("See Menu")
                                         .frame(maxWidth: .infinity)
-                                        .foregroundColor(Color.blue)
+                                        .foregroundColor(.teal)
                                         .padding()
-                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.blue.opacity(0.2)))
+                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
                                 }
             })
             .padding(.horizontal, 10)

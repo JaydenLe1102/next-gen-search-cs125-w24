@@ -27,12 +27,14 @@ struct TotalTime: View {
                 }
                 Text(duration)
                     .font(.system(size: 50))
+                
             })
             .padding()
+            .background(Color(red: 214/255, green: 239/255, blue: 244/255)
+)
             
             
         }
-        .background(Color.black.opacity(0.08))
         .cornerRadius(13)
         
     }

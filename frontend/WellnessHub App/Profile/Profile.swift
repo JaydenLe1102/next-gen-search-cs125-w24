@@ -10,7 +10,7 @@ import SwiftUI
 struct Profile: View {
     var body: some View {
         VStack(alignment: .leading,spacing: 50, content: {
-            HStack(spacing: 105, content: {
+            HStack(spacing: 95, content: {
                 VStack(content: {
                     Image(systemName: "person.circle")
                         .resizable()
@@ -18,11 +18,14 @@ struct Profile: View {
                         .frame(width: 90, height: 90)
                         .font(.title2)
                         .padding(10)
-                        .background(Color.black.opacity(0.08))
+                        .foregroundStyle(.teal)
+                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                         .cornerRadius(70.0)
+                    
                     
                     Text("Name")
                 })
+                .padding(.horizontal, 15)
                 
                 VStack(spacing: 40, content: {
                     VStack(content: {
@@ -47,22 +50,28 @@ struct Profile: View {
                 Text("Activity Level:")
                 Text("Dietary Preferences:")
                 Text("Health Goal:")
+                Text("Location:")
+
             })
             
             Button(action: {
                             }) {
                                 Text("Edit Profile")
                                     .frame(maxWidth: .infinity)
-                                    .foregroundColor(Color.blue)
+                                    .foregroundColor(.teal)
                                     .padding()
-                                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.blue.opacity(0.2)))
+
                             }
+            Spacer()
         })
         .padding(.horizontal, 20)
+        .padding(.top, 30)
+        
+        
 
     }
 }
 
 #Preview {
-    Profile()
+    ContentView()
 }

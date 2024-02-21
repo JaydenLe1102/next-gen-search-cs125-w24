@@ -30,38 +30,45 @@ struct RestaurantModal: View {
                     
                     VStack(alignment: .leading, spacing: 5, content: {
                         Text(name)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(.black)
                         HStack {
                             ForEach(0..<Int(rating), id: \.self) { _ in
                                 Image(systemName: "star.fill")
-                                    .foregroundStyle(Color.yellow)
+                                    .foregroundStyle(.yellow)
                             }
                             
                             if rating - Double(Int(rating)) > 0 {
                                 Image(systemName: "star.leadinghalf.filled")
-                                    .foregroundStyle(Color.yellow)
+                                    .foregroundStyle(.yellow)
                             }
                             
                             ForEach(0..<5 - Int(ceil(rating)), id: \.self) { _ in
                                 Image(systemName: "star")
-                                    .foregroundStyle(Color.yellow)
+                                    .foregroundStyle(.yellow)
                             }
                         }
                         
                         if status == "Open" {
-                            Text(status).foregroundColor(Color.green)
+                            Text(status).foregroundColor(.green)
                         }
                         else {
-                            Text(status).foregroundColor(Color.red)
+                            Text(status).foregroundColor(.red)
                         }
                             
                         Text(location)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(.black)
                     })
                     .padding()
                 }
-                .background(Color.black.opacity(0.08))
+//                .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
+                .overlay(
+                            Rectangle()
+                                .frame(height: 0.35)
+                                .foregroundColor(Color.gray)
+                                .offset(y: 82)
+                                .edgesIgnoringSafeArea(.top)
+                        )
                 
             }
             .padding(.horizontal)

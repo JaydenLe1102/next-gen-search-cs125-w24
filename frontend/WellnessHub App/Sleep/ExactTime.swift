@@ -21,7 +21,7 @@ struct ExactTime: View {
                 })
                 .padding()
             }
-            .background(Color.black.opacity(0.08))
+            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
             .cornerRadius(13)
             
             VStack{
@@ -33,7 +33,7 @@ struct ExactTime: View {
                 .padding()
                 
             }
-            .background(Color.black.opacity(0.08))
+            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
             .cornerRadius(13)
         })
 
