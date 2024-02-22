@@ -15,7 +15,7 @@ struct ContentView: View {
     //view properties
     @State private var showSignUp: Bool = false
     @State private var showHome: Bool = false
-    @State private var isLoggedIn = authManager.isAuthenticated
+//    @State private var isLoggedIn = authManager.isAuthenticated
     @State private var selectedTab = 1
 
 
@@ -46,7 +46,7 @@ struct ContentView: View {
         }
         else {
             NavigationStack {
-                LogIn(showSignUp: $showSignUp, showHome: $showHome, isLoggedIn: $isLoggedIn)
+                LogIn(showSignUp: $showSignUp, showHome: $showHome,selectedTab: $selectedTab)
                     .navigationDestination(isPresented: $showSignUp) {
                         SignUp(showSignUp: $showSignUp)
                     }

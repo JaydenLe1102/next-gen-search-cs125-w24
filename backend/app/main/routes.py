@@ -49,7 +49,7 @@ def logout():
         user_id_token = request.json['idToken']
         #clear the cached user
         auth.current_user = None 
-        auth.sign_out(user_id_token)
+        #auth.sign_out(user_id_token)
         return jsonify({"message": "Logout successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400

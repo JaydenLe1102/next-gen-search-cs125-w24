@@ -36,6 +36,7 @@
 		28B608502B7428AF00829229 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6084F2B7428AF00829229 /* CustomTextField.swift */; };
 		92297B8D2B86A2A500C8E4E1 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B8C2B86A2A500C8E4E1 /* AuthenticationManager.swift */; };
 		92297B8F2B86A7A800C8E4E1 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B8E2B86A7A800C8E4E1 /* MainTab.swift */; };
+		92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		28B6084F2B7428AF00829229 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		92297B8C2B86A2A500C8E4E1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		92297B8E2B86A7A800C8E4E1 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
+		92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_SignUp.service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 				28B6084F2B7428AF00829229 /* CustomTextField.swift */,
 				289AFE3E2B74489B0027FB84 /* ColoredButton.swift */,
 				289AFE402B7577A00027FB84 /* SignUp.swift */,
+				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
 			);
 			path = LogIn_SignUp;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */,
 				289AFE3F2B74489B0027FB84 /* ColoredButton.swift in Sources */,
 				28B6084B2B73386D00829229 /* LogIn.swift in Sources */,
+				92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */,
 				289AFE602B83ECFE0027FB84 /* Sleep.swift in Sources */,
 				289AFE532B8139670027FB84 /* TopBar.swift in Sources */,
 				28B6084E2B733B4C00829229 /* Extensions.swift in Sources */,
