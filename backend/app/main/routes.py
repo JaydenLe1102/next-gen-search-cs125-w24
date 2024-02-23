@@ -142,3 +142,5 @@ def get_recipes():
     except Exception as e:
         # Return an error message if an exception occurred
         return jsonify({"error": str(e)}), 400
+    
+    
