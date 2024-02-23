@@ -17,7 +17,7 @@ struct ColoredButton: View {
             .foregroundStyle(.white)
             .padding(.vertical,12)
             .padding(.horizontal,55)
-            .background(.linearGradient(colors: [.cyan, .blue, .cyan], startPoint: .top, endPoint: .bottom), in: .capsule)
+            .background(.teal, in: .capsule)
         })
     }
 }

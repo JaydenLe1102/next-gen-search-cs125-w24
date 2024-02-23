@@ -8,26 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     //view properties
     @State private var showSignUp: Bool = false
     @State private var showHome: Bool = false
+    @State private var isLoggedIn = false
+    @State private var selectedTab = 1
+
 
 
     var body: some View {
-        NavigationStack {
-            LogIn(showSignUp: $showSignUp, showHome: $showHome)
-                .navigationDestination(isPresented: $showSignUp) {
-                    SignUp(showSignUp: $showSignUp)
+        if isLoggedIn {
+            TabView(selection: $selectedTab) {
+                Home().tag(1)
+                
+                Diet().tag(2)
+                
+                Exercises().tag(3)
 
-                }
-            
+                Sleep().tag(4)
+                
+                Profile().tag(5)
+            }
+            .overlay(alignment: .bottom, content: {
+                CustomTabView(selectedTab: $selectedTab)
+                    .background(.white)
+                    .overlay(
+                                Rectangle()
+                                    .frame(height: 0.35)
+                                    .foregroundColor(.gray)
+                                    .offset(y: -39)
+                                    .edgesIgnoringSafeArea(.top)
+                            )
+            })
             
         }
-        .background(Color(.systemBackground))
-
+        else {
+            NavigationStack {
+                LogIn(showSignUp: $showSignUp, showHome: $showHome, isLoggedIn: $isLoggedIn)
+                    .navigationDestination(isPresented: $showSignUp) {
+                        SignUp(showSignUp: $showSignUp)
+                    }
+            }
+            .background(Color(.systemBackground))
+        }
     }
-    
-
 }
 
 #Preview {

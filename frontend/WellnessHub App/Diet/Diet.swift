@@ -13,33 +13,34 @@ struct Diet: View {
 
 
     var body: some View {
-        TopBar()
-        Picker(selection: $selectedOption, label: Text("")) {
-                        Text("Restaurants").tag(0)
-                        Text("Recipes").tag(1)
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(.horizontal)
-                    
+        VStack{
+            TopBar()
+            Picker(selection: $selectedOption, label: Text("")) {
+                            Text("Restaurants").tag(0)
+                            Text("Recipes").tag(1)
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding(.horizontal)
+            
+                        
 
-                    if selectedOption == 0 {
-                                NavigationStack {
-                                    Restaurants()
-                                        .padding(.vertical)
-                                }
-                                .background(Color(.systemBackground))
-                                .searchable(text: $searchText)
-                    } else {
-                                NavigationStack {
-                                    Recipes()
-                                        .padding(.vertical)
-                                }
-                                .background(Color(.systemBackground))
-                                .searchable(text: $searchText)
-                    }
+                        if selectedOption == 0 {
+                                    NavigationStack {
+                                        Restaurants()
+                                            .padding(.vertical)
+                                    }
+                                    .searchable(text: $searchText)
+                        } else {
+                                    NavigationStack {
+                                        Recipes()
+                                            .padding(.vertical)
+                                    }
+                                    .searchable(text: $searchText)
+                        }
+        }
     }
 }
 
 #Preview {
-    Diet()
+    ContentView()
 }
