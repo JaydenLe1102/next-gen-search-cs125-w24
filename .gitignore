@@ -6,9 +6,7 @@ serviceAccountKey.json
 authenticate.py
 creds.py
 
-
-frontend/WellnessHub App.xcodeproj/xcuserdata/
-frontend/WellnessHub App.xcodeproj/project.xcworkspace/xcuserdata/
+# Xcode
+project.xcworkspace
 xcuserdata
-*xcuserdatad
-*xcuserstate
+xcuserdata/
