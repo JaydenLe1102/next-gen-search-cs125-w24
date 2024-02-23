@@ -11,6 +11,8 @@ import Foundation
 class LoginSignupService: ObservableObject {
     static let shared = LoginSignupService()
     
+    private let authManager = AuthenticationManager.shared
+    
     private let baseURL = "http://127.0.0.1:5000"
     
     func login(email: String, password: String, completion: @escaping (Result<(idToken: String, userID: String), Error>) -> Void) {
@@ -20,14 +22,32 @@ class LoginSignupService: ObservableObject {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let parameters: [String: Any] = [
+        let parameters: [String: String] = [
             "email": email,
             "password": password
         ]
         
-        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters)
+        request.httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: [])
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        print("email: " + email)
+        print("password: " + password)
+        print("login url:")
+        print(loginURL)
+        
+        let session = URLSession.shared
+//        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+//            print(response!)
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
+//                print(json)
+//            } catch {
+//                print("error")
+//            }
+//        })
+//
+//        task.resume()
+        
+        let task = session.dataTask(with: request) { [self] data, response, error in
             guard let data = data, error == nil else {
                 completion(.failure(error ?? NSError(domain: "UnknownError", code: -1, userInfo: nil)))
                 return
@@ -42,6 +62,7 @@ class LoginSignupService: ObservableObject {
                         completion(.failure(NSError(domain: "ParsingError", code: -1, userInfo: nil)))
                         return
                     }
+                    
                     completion(.success((idToken: idToken, userID: userID)))
                 } catch {
                     completion(.failure(error))
@@ -49,7 +70,9 @@ class LoginSignupService: ObservableObject {
             } else {
                 completion(.failure(NSError(domain: "LoginError", code: -1, userInfo: nil)))
             }
-        }.resume()
+        }
+        
+        task.resume()
     }
 
     

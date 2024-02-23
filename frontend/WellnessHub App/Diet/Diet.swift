@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Diet: View {
     @State private var searchText: String = ""
-    @State private var selectedOption: Int = 0
+    @State private var selectedOption: Int = 1
 
 
     var body: some View {

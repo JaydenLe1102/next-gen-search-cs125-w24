@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class AuthenticationManager: ObservableObject {
     static let shared = AuthenticationManager()
     
@@ -19,10 +20,14 @@ class AuthenticationManager: ObservableObject {
         return userDefaults.string(forKey: authTokenKey)
     }
     
-    func login(withToken token: String) {
+//    @Published
+    func login(withToken token: String, userId: String) {
+        
         isAuthenticated = true
+
         // Store the authentication token securely
         userDefaults.set(token, forKey: authTokenKey)
+        userDefaults.set(userId, forKey: userId)
     }
     
     func logout() {

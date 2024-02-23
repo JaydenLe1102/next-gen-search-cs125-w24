@@ -5,3 +5,10 @@ venv
 serviceAccountKey.json
 authenticate.py
 creds.py
+
+
+frontend/WellnessHub App.xcodeproj/xcuserdata/
+frontend/WellnessHub App.xcodeproj/project.xcworkspace/xcuserdata/
+xcuserdata
+*xcuserdatad
+*xcuserstate

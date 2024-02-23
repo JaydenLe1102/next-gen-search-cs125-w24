@@ -51,7 +51,10 @@ struct LogIn: View {
                             switch result {
                             case .success(let tokens):
                                 print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
-                                authManager.login(withToken: tokens.idToken)
+                                authManager.login(withToken: tokens.idToken, userId: tokens.userID)
+//
+//                                print("Login successful with checking token")
+//                                print(authManager.authToken)
                             case .failure(let error):
                                 print("Login failed: \(error)")
                             }
@@ -62,7 +65,7 @@ struct LogIn: View {
                     
                     
                     //disabling until the email and pw are entered
-                    //                .disableWithOpacity(emailID.isEmpty || password.isEmpty)
+                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)
                     
                 }
                 .padding(.top,20)
