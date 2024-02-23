@@ -1,4 +1,5 @@
 from app.main import bp
+import requests
 from flask import Flask, request, jsonify
 # import firebase_admin
 # from firebase_admin import firestore
@@ -11,6 +12,7 @@ config = {
 }
 firebaseDatabaseConfig = {
 }
+
 
 #Using pyrebase to authenticate
 firebase = pyrebase.initialize_app(config)
@@ -103,3 +105,42 @@ def store_user_info():
         return jsonify({"message": "User information stored successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+    
+
+@bp.route('/get_recipes', methods=['GET'])
+def get_recipes():
+    try:
+        # Get the query parameters from the request
+        query = request.args.get('query', default='', type=str)
+        min_calories = request.args.get('minCalories', default=200, type=int)
+        max_calories = request.args.get('maxCalories', default=500, type=int)
+        number = request.args.get('number', type=int)
+        
+        # API KEY 
+        api_key = '597f65db5ee4465eb2691af5fa79484a'
+        # Define the endpoint URL
+        endpoint = 'https://api.spoonacular.com/recipes/complexSearch'
+        # Define the query parameters
+        params = {
+            'query': query,
+            'minCalories': min_calories,
+            'maxCalories': max_calories,
+            'number': number,
+            'apiKey': api_key
+        }
+        
+        # Make the GET request to the API
+        response = requests.get(endpoint, params=params)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Return the JSON response from the API
+            return jsonify(response.json()), 200
+        else:
+            # Return an error message if the request was not successful
+            return jsonify({"error": f"Failed to retrieve recipes. Status code: {response.status_code}"}), response.status_code
+    except Exception as e:
+        # Return an error message if an exception occurred
+        return jsonify({"error": str(e)}), 400
+    
+    
