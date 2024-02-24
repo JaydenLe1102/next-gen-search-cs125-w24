@@ -12,11 +12,13 @@ import SwiftUI
 struct LogIn: View {
     @Binding var showSignUp: Bool
     @Binding var showHome: Bool
-    @Binding var isLoggedIn: Bool
+    @Binding var selectedTab: Int
 
     //view properties
     @State private var emailID: String = ""
     @State private var password: String = ""
+    @StateObject private var authManager = AuthenticationManager.shared
+    @StateObject private var loginSignupService = LoginSignupService.shared
 
     var body: some View {
             VStack(alignment: .leading, spacing:15, content: {
@@ -38,7 +40,6 @@ struct LogIn: View {
                     Button("Forgot Password?") {
                         
                     }
-                    
                     .font(.callout)
                     .fontWeight(.heavy)
                     .tint(.gray)
@@ -46,16 +47,25 @@ struct LogIn: View {
                     
                     ColoredButton(title: "Log In") {
                         showHome = true
-                        isLoggedIn = true
+                        loginSignupService.login(email: emailID, password: password) { result in
+                            switch result {
+                            case .success(let tokens):
+                                print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
+                                authManager.login(withToken: tokens.idToken, userId: tokens.userID)
+//
+//                                print("Login successful with checking token")
+//                                print(authManager.authToken)
+                            case .failure(let error):
+                                print("Login failed: \(error)")
+                            }
+                        }
+                        selectedTab = 1
+                        
                     }
                     
-                    
-                    .navigationDestination(isPresented: $showHome) {
-                        Home()
-                    }
                     
                     //disabling until the email and pw are entered
-                    //                .disableWithOpacity(emailID.isEmpty || password.isEmpty)
+                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)
                     
                 }
                 .padding(.top,20)

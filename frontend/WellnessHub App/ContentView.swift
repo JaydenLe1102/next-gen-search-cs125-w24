@@ -7,18 +7,20 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    
+    @StateObject private var authManager = AuthenticationManager.shared
     
     //view properties
     @State private var showSignUp: Bool = false
     @State private var showHome: Bool = false
-    @State private var isLoggedIn = false
+//    @State private var isLoggedIn = authManager.isAuthenticated
     @State private var selectedTab = 1
 
 
-
     var body: some View {
-        if isLoggedIn {
+        if authManager.isAuthenticated {
             TabView(selection: $selectedTab) {
                 Home().tag(1)
                 
@@ -41,11 +43,10 @@ struct ContentView: View {
                                     .edgesIgnoringSafeArea(.top)
                             )
             })
-            
         }
         else {
             NavigationStack {
-                LogIn(showSignUp: $showSignUp, showHome: $showHome, isLoggedIn: $isLoggedIn)
+                LogIn(showSignUp: $showSignUp, showHome: $showHome,selectedTab: $selectedTab)
                     .navigationDestination(isPresented: $showSignUp) {
                         SignUp(showSignUp: $showSignUp)
                     }
