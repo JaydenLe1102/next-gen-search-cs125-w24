@@ -38,6 +38,7 @@
 		92297B8F2B86A7A800C8E4E1 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B8E2B86A7A800C8E4E1 /* MainTab.swift */; };
 		92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */; };
 		92297B942B89127200C8E4E1 /* HealthkitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B932B89127200C8E4E1 /* HealthkitManager.swift */; };
+		92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B952B8965CE00C8E4E1 /* DietService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		92297B8E2B86A7A800C8E4E1 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_SignUp.service.swift; sourceTree = "<group>"; };
 		92297B932B89127200C8E4E1 /* HealthkitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitManager.swift; sourceTree = "<group>"; };
+		92297B952B8965CE00C8E4E1 /* DietService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				289AFE542B81761F0027FB84 /* Recipes */,
 				289AFE452B7D4A3E0027FB84 /* Restaurants */,
 				289AFE4C2B7DAEFA0027FB84 /* Diet.swift */,
+				92297B952B8965CE00C8E4E1 /* DietService.swift */,
 			);
 			path = Diet;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				28B6083F2B732A0800829229 /* Home.swift in Sources */,
 				28B608422B732D3600829229 /* DropDownComponent.swift in Sources */,
 				28B6082B2B7181B900829229 /* ContentView.swift in Sources */,
+				92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */,
 				289AFE412B7577A00027FB84 /* SignUp.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
 			);

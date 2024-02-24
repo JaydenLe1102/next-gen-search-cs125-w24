@@ -7,6 +7,7 @@ import pyrebase
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
 from app.config.creds import config, firebaseDatabaseConfig
+from app.main.data import sample_recipe
 
 
 
@@ -107,6 +108,9 @@ def store_user_info():
 @bp.route('/get_recipes', methods=['GET'])
 def get_recipes():
     try:
+        
+        #return sample_recipe,200
+        
         # Get the query parameters from the request
         query = request.args.get('query', default='', type=str)
         min_calories = request.args.get('minCalories', default=200, type=int)
@@ -126,13 +130,32 @@ def get_recipes():
             'apiKey': api_key
         }
         
+        print("calling the spoon api")
+        
         # Make the GET request to the API
         response = requests.get(endpoint, params=params)
         
         # Check if the request was successful
         if response.status_code == 200:
+            
+            #loop through the response
+            recipes = []
+            for recipe in response.json()['results']:
+                recipe_id = recipe['id']
+                recipe_title = recipe['title']
+                recipe_image = recipe['image']
+                recipe_cal = recipe['nutrition']['nutrients'][0]['amount']
+                cal_unit = recipe['nutrition']['nutrients'][0]['unit']
+                
+                recipes.append({
+                    'id': recipe_id,
+                    'title': recipe_title,
+                    'imageUrl': recipe_image,
+                    'calories': str(recipe_cal) + " " + cal_unit
+                })
+            
             # Return the JSON response from the API
-            return jsonify(response.json()), 200
+            return recipes, 200
         else:
             # Return an error message if the request was not successful
             return jsonify({"error": f"Failed to retrieve recipes. Status code: {response.status_code}"}), response.status_code
