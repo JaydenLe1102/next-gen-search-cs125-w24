@@ -27,10 +27,19 @@ struct RecipeModal: View {
                     Text(name)
                         .foregroundStyle(.black)
                         .padding(.top)
-                    Image(systemName: imageURL)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding()
+                    
+                    
+                    AsyncImage(url: URL(string: imageURL)) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+                    } placeholder: {
+                        // Provide a placeholder view, such as an activity indicator or a default image
+                        Image(systemName: "photo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding()
+                    }
                     
                     HStack(spacing: 20, content: {
                         Text(time)

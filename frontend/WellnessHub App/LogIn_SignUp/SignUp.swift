@@ -15,7 +15,8 @@ struct SignUp: View {
     @State private var password: String = ""
     @State private var confirmedPassword: String = ""
 
-    
+    @StateObject private var loginSignupService = LoginSignupService.shared
+
 
     var body: some View {
         VStack(alignment: .leading, spacing:15, content: {
@@ -54,7 +55,15 @@ struct SignUp: View {
                 
                 //login button
                 ColoredButton(title: "Sign Up") {
-                    
+                    loginSignupService.signup(email: emailID, password: password){ result in 
+                        switch result {
+                        case .success():
+                            print("Sign Up successful")
+    
+                        case .failure(let error):
+                            print("Sign Up failed: \(error)")
+                        }
+                    }
                 }
                 //disabling until the email and pw are entered
                 .disableWithOpacity(fullName.isEmpty || emailID.isEmpty ||  password.isEmpty || confirmedPassword.isEmpty)
@@ -72,7 +81,7 @@ struct SignUp: View {
                     
                 }
                 .fontWeight(.bold)
-                .tint(.yellow)
+                .tint(.teal)
             }
             .font(.callout)
             .hSpacing()

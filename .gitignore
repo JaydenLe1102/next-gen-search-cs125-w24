@@ -4,3 +4,9 @@ venv
 .env
 serviceAccountKey.json
 authenticate.py
+creds.py
+
+# Xcode
+project.xcworkspace
+xcuserdata
+xcuserdata/
