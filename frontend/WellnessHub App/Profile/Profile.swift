@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Profile: View {
+    @StateObject private var authManager = AuthenticationManager.shared
     var body: some View {
         VStack(alignment: .leading,spacing: 50, content: {
             HStack(spacing: 95, content: {
@@ -54,24 +55,38 @@ struct Profile: View {
 
             })
             
-            Button(action: {
-                            }) {
-                                Text("Edit Profile")
-                                    .frame(maxWidth: .infinity)
-                                    .foregroundColor(.teal)
-                                    .padding()
+            VStack {
+                Button(action: {
+                                }) {
+                                    Text("Edit Profile")
+                                        .frame(maxWidth: .infinity)
+                                        .foregroundColor(.teal)
+                                        .padding()
+                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                                        
 
-                            }
+                                }
+                                
+                Button(action: {
+                    authManager.logout()
+                                }) {
+                                    Text("Logout")
+                                        .frame(maxWidth: .infinity)
+                                        .foregroundColor(.teal)
+                                        .padding()
+                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                                }
+                            
+            }
             Spacer()
+            
         })
         .padding(.horizontal, 20)
         .padding(.top, 30)
         
-        
-
     }
 }
 
 #Preview {
-    ContentView()
+    Profile()
 }
