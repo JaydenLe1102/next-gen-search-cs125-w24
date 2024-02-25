@@ -105,8 +105,32 @@ def store_user_info():
         return jsonify({"message": "User information stored successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
 
+#GET user information
+@bp.route('/userinfo', methods=['GET'])
+def get_user_info():
+    try:
+        # Extract user ID token from request headers
+        user_id_token = request.json['idToken']
+        
+        # Verify user ID token
+        user = auth.get_account_info(user_id_token)
+        user_uid = user['users'][0]['localId']
+
+        # Retrieve user information from Firestore
+        user_info_doc = db.collection("users").document(user_uid).get()
+        user_info = user_info_doc.to_dict()
+
+        if user_info:
+            return jsonify(user_info), 200
+        else:
+            return jsonify({"error": "User information not found"}), 404
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+    
+# GET the food recipe
 @bp.route('/get_recipes', methods=['GET'])
 def get_recipes():
     try:
