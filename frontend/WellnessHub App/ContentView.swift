@@ -20,7 +20,7 @@ struct ContentView: View {
 
 
     var body: some View {
-        if authManager.isAuthenticated {
+        if false {
             TabView(selection: $selectedTab) {
                 Home().tag(1)
                 

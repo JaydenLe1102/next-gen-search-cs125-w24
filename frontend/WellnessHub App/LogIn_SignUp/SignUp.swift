@@ -55,18 +55,18 @@ struct SignUp: View {
                 
                 //login button
                 ColoredButton(title: "Sign Up") {
-                    loginSignupService.signup(email: emailID, password: password){ result in 
-                        switch result {
-                        case .success():
-                            print("Sign Up successful")
-    
-                        case .failure(let error):
-                            print("Sign Up failed: \(error)")
-                        }
-                    }
+//                    loginSignupService.signup(email: emailID, password: password){ result in 
+//                        switch result {
+//                        case .success():
+//                            print("Sign Up successful")
+//    
+//                        case .failure(let error):
+//                            print("Sign Up failed: \(error)")
+//                        }
+//                    }
                 }
                 //disabling until the email and pw are entered
-                .disableWithOpacity(fullName.isEmpty || emailID.isEmpty ||  password.isEmpty || confirmedPassword.isEmpty)
+//                .disableWithOpacity(fullName.isEmpty || emailID.isEmpty ||  password.isEmpty || confirmedPassword.isEmpty)
 
             }
             .padding(.top,20)
