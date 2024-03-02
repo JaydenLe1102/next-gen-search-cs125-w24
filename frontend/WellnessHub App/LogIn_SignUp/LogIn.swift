@@ -47,25 +47,27 @@ struct LogIn: View {
                     
                     ColoredButton(title: "Log In") {
                         showHome = true
-                        loginSignupService.login(email: emailID, password: password) { result in
-                            switch result {
-                            case .success(let tokens):
-                                print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
-                                authManager.login(withToken: tokens.idToken, userId: tokens.userID)
-//
-//                                print("Login successful with checking token")
-//                                print(authManager.authToken)
-                            case .failure(let error):
-                                print("Login failed: \(error)")
-                            }
-                        }
+//                        loginSignupService.login(email: emailID, password: password) { result in
+//                            switch result {
+//                            case .success(let tokens):
+//                                print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
+//                                authManager.login(withToken: tokens.idToken, userId: tokens.userID)
+////
+////                                print("Login successful with checking token")
+////                                print(authManager.authToken)
+//                            case .failure(let error):
+//                                print("Login failed: \(error)")
+//                            }
+//                        }
+                        
+                        authManager.fakeLogin()
                         selectedTab = 1
                         
                     }
                     
                     
                     //disabling until the email and pw are entered
-                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)
+//                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)
                     
                 }
                 .padding(.top,20)

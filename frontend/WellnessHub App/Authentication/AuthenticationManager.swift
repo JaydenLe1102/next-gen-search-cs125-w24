@@ -35,6 +35,10 @@ class AuthenticationManager: ObservableObject {
         // Remove the stored authentication token
         userDefaults.removeObject(forKey: authTokenKey)
     }
+    
+    func fakeLogin(){
+        isAuthenticated = true
+    }
 }
 
 // Usage:
