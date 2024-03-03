@@ -9,80 +9,77 @@ import SwiftUI
 
 struct Profile: View {
     @StateObject private var authManager = AuthenticationManager.shared
+    
+    
     var body: some View {
-        VStack(alignment: .leading,spacing: 50, content: {
-            HStack(spacing: 95, content: {
-                VStack(content: {
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 90, height: 90)
-                        .font(.title2)
-                        .padding(10)
-                        .foregroundStyle(.teal)
-                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
-                        .cornerRadius(70.0)
+        VStack(content: {
+            VStack(alignment: .center, content: {
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 90, height: 90)
+                    .font(.title2)
+                    .foregroundStyle(.teal)
+                    .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                    .cornerRadius(70.0)
+
+                Text("Name")
+            })
+            .padding(40)
+
+            HStack(content: {
+                VStack(alignment: .leading,spacing: 30, content: {
+                    HStack( content: {
+                        Text("Age:")
+                        
+                        Text("years old")
+                            .foregroundColor(.secondary)
                     
-                    
-                    Text("Name")
-                })
-                .padding(.horizontal, 15)
-                
-                VStack(spacing: 40, content: {
-                    VStack(content: {
-                        Text("Weight")
-                        Text("178 lbs")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     })
                     
-                    VStack(content: {
-                        Text("Goal")
-                        Text("125 lbs")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    HStack(content: {
+                        Text("Gender:")
+                        
                     })
-                })
-                
-                
-            })
-            VStack(alignment: .leading,spacing: 20, content: {
-                Text("Age:")
-                Text("Gender:")
-                Text("Height:")
-                Text("Activity Level:")
-                Text("Dietary Preferences:")
-                Text("Health Goal:")
-                Text("Location:")
-
-            })
-            
-            VStack {
-                Button(action: {
-                                }) {
-                                    Text("Edit Profile")
-                                        .frame(maxWidth: .infinity)
-                                        .foregroundColor(.teal)
-                                        .padding()
-                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
-                                        
-
-                                }
-                                
-                Button(action: {
-                    authManager.logout()
-                                }) {
-                                    Text("Logout")
-                                        .frame(maxWidth: .infinity)
-                                        .foregroundColor(.teal)
-                                        .padding()
-                                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
-                                }
+                    
+                    HStack( content: {
+                        Text("Weight:")
+                        Text("lbs")
+                            .foregroundColor(.secondary)
+                    })
+                    
+                    HStack(content: {
+                        Text("Height: ")
+                    })
                             
-            }
-            Spacer()
+                    
+                    
+                    HStack(content: {
+                        Text("Goal:")
+                    })
+                    
+                    HStack(content: {
+                        Text("Activity Level:")
+                    })
+                })
+                .padding(.horizontal,20)
+                Spacer()
+            })
+
+
             
+
+            Button(action: {authManager.logout()}) {
+                Text("Save Profile")
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.teal)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+            }
+            .padding(20)
+
+            Spacer()
         })
-        .padding(.horizontal, 20)
-        .padding(.top, 30)
         
     }
 }

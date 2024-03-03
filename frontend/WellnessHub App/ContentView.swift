@@ -14,14 +14,24 @@ struct ContentView: View {
     
     //view properties
     @State private var showSignUp: Bool = false
-    @State private var showHome: Bool = false
+//    @State private var showHome: Bool = false
 //    @State private var isLoggedIn = authManager.isAuthenticated
     @State private var selectedTab = 1
+    
+    @State private var isLoggedIn = true
+
+    
+    
 
 
     var body: some View {
+        
+        
         if authManager.isAuthenticated {
+            
             TabView(selection: $selectedTab) {
+                UserInputs(weight: "", height: "", age: "", goal: "", gender:"", activityLevel: "", dietaryPreferences: "").tag(0)
+                
                 Home().tag(1)
                 
                 Diet().tag(2)
@@ -46,9 +56,9 @@ struct ContentView: View {
         }
         else {
             NavigationStack {
-                LogIn(showSignUp: $showSignUp, showHome: $showHome,selectedTab: $selectedTab)
+                LogIn(showSignUp: $showSignUp, selectedTab: $selectedTab)
                     .navigationDestination(isPresented: $showSignUp) {
-                        SignUp(showSignUp: $showSignUp)
+                        SignUp(showSignUp: $showSignUp, selectedTab: $selectedTab)
                     }
             }
             .background(Color(.systemBackground))

@@ -14,8 +14,15 @@ struct SignUp: View {
     @State private var emailID: String = ""
     @State private var password: String = ""
     @State private var confirmedPassword: String = ""
+    @Binding var selectedTab: Int
+    
+    @State private var isModalPresented = false
+
+
 
     @StateObject private var loginSignupService = LoginSignupService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
+
 
 
     var body: some View {
@@ -51,11 +58,26 @@ struct SignUp: View {
                 CustomTextField(icon: "lock", hint: "Confirm Password", isPassword: true, value: $confirmedPassword)
                     .padding(.top, 5)
                 
-            
+                NavigationLink(destination: UserInputs(
+                                        weight: "",
+                                        height: "",
+                                        age: "",
+                                        goal: "",
+                                        gender: "",
+                                        activityLevel: "",
+                                        dietaryPreferences: ""
+                                    ), isActive: $isModalPresented) {
+                                        EmptyView()
+                                    }
+                                    .hidden()
                 
                 //login button
-                ColoredButton(title: "Sign Up") {
-//                    loginSignupService.signup(email: emailID, password: password){ result in 
+                ColoredButton( title: "Sign Up", onClick: {
+                    isModalPresented = true
+                } )
+//                    authManager.fakeLogin()
+
+//                    loginSignupService.signup(email: emailID, password: password){ result in
 //                        switch result {
 //                        case .success():
 //                            print("Sign Up successful")
@@ -64,7 +86,9 @@ struct SignUp: View {
 //                            print("Sign Up failed: \(error)")
 //                        }
 //                    }
-                }
+                
+
+
                 //disabling until the email and pw are entered
 //                .disableWithOpacity(fullName.isEmpty || emailID.isEmpty ||  password.isEmpty || confirmedPassword.isEmpty)
 

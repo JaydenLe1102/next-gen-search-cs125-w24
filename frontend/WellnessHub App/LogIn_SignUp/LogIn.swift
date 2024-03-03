@@ -11,7 +11,6 @@ import SwiftUI
 
 struct LogIn: View {
     @Binding var showSignUp: Bool
-    @Binding var showHome: Bool
     @Binding var selectedTab: Int
 
     //view properties
@@ -46,7 +45,6 @@ struct LogIn: View {
                     .hSpacing()
                     
                     ColoredButton(title: "Log In") {
-                        showHome = true
 //                        loginSignupService.login(email: emailID, password: password) { result in
 //                            switch result {
 //                            case .success(let tokens):
