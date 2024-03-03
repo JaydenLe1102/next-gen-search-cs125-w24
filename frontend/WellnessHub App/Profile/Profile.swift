@@ -9,8 +9,7 @@ import SwiftUI
 
 struct Profile: View {
     @StateObject private var authManager = AuthenticationManager.shared
-    
-    
+    @EnvironmentObject var userData: UserData
     var body: some View {
         VStack(content: {
             VStack(alignment: .center, content: {
@@ -31,14 +30,15 @@ struct Profile: View {
                 VStack(alignment: .leading,spacing: 30, content: {
                     HStack( content: {
                         Text("Age:")
-                        
-                        Text("years old")
-                            .foregroundColor(.secondary)
+
+                        Text("\(userData.age) years old")
+                                .foregroundColor(.secondary)
                     
                     })
                     
                     HStack(content: {
                         Text("Gender:")
+                        
                         
                     })
                     

@@ -58,15 +58,7 @@ struct SignUp: View {
                 CustomTextField(icon: "lock", hint: "Confirm Password", isPassword: true, value: $confirmedPassword)
                     .padding(.top, 5)
                 
-                NavigationLink(destination: UserInputs(
-                                        weight: "",
-                                        height: "",
-                                        age: "",
-                                        goal: "",
-                                        gender: "",
-                                        activityLevel: "",
-                                        dietaryPreferences: ""
-                                    ), isActive: $isModalPresented) {
+                NavigationLink(destination: UserInputs(), isActive: $isModalPresented) {
                                         EmptyView()
                                     }
                                     .hidden()

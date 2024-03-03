@@ -26,11 +26,10 @@ struct ContentView: View {
 
     var body: some View {
         
-        
         if authManager.isAuthenticated {
             
             TabView(selection: $selectedTab) {
-                UserInputs(weight: "", height: "", age: "", goal: "", gender:"", activityLevel: "", dietaryPreferences: "").tag(0)
+                UserInputs().tag(0)
                 
                 Home().tag(1)
                 
