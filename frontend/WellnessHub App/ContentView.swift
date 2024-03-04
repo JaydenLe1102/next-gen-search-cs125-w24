@@ -19,9 +19,9 @@ struct ContentView: View {
     @State private var selectedTab = 1
     
     @State private var isLoggedIn = true
-
     
-    
+    @State private var isWeightModalPresented = false
+    @State private var currentWeight = ""
 
 
     var body: some View {
@@ -52,6 +52,11 @@ struct ContentView: View {
                                     .edgesIgnoringSafeArea(.top)
                             )
             })
+            .overlay(alignment: .center, content: {
+                CustomInputModal(isWeightModalPresented: $isWeightModalPresented, currentWeight: .constant("150"))
+                    .opacity(isWeightModalPresented ? 0 : 1)
+            })
+            
         }
         else {
             NavigationStack {

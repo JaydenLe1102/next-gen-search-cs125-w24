@@ -27,6 +27,7 @@
 		289AFE722B851D5B0027FB84 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE712B851D5B0027FB84 /* CustomTabView.swift */; };
 		289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE732B92C9350027FB84 /* UserInputs.swift */; };
 		289AFE762B94281E0027FB84 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE752B94281E0027FB84 /* UserData.swift */; };
+		289AFE782B95A2B40027FB84 /* CustomInputModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE772B95A2B40027FB84 /* CustomInputModal.swift */; };
 		28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B608282B7181B900829229 /* WellnessHub_AppApp.swift */; };
 		28B6082B2B7181B900829229 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B6082A2B7181B900829229 /* ContentView.swift */; };
 		28B6082D2B7181BB00829229 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28B6082C2B7181BB00829229 /* Assets.xcassets */; };
@@ -63,6 +64,7 @@
 		289AFE712B851D5B0027FB84 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		289AFE732B92C9350027FB84 /* UserInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputs.swift; sourceTree = "<group>"; };
 		289AFE752B94281E0027FB84 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		289AFE772B95A2B40027FB84 /* CustomInputModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputModal.swift; sourceTree = "<group>"; };
 		28B608252B7181B900829229 /* WellnessHub App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WellnessHub App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28B608282B7181B900829229 /* WellnessHub_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellnessHub_AppApp.swift; sourceTree = "<group>"; };
 		28B6082A2B7181B900829229 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				28B6082E2B7181BB00829229 /* Preview Content */,
 				289AFE712B851D5B0027FB84 /* CustomTabView.swift */,
 				92297B8E2B86A7A800C8E4E1 /* MainTab.swift */,
+				289AFE772B95A2B40027FB84 /* CustomInputModal.swift */,
 			);
 			path = "WellnessHub App";
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				289AFE722B851D5B0027FB84 /* CustomTabView.swift in Sources */,
 				289AFE562B81764A0027FB84 /* Recipes.swift in Sources */,
 				92297B8D2B86A2A500C8E4E1 /* AuthenticationManager.swift in Sources */,
+				289AFE782B95A2B40027FB84 /* CustomInputModal.swift in Sources */,
 				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
 				289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */,
 				289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */,

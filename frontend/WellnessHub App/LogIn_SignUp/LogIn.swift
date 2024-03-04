@@ -18,6 +18,8 @@ struct LogIn: View {
     @State private var password: String = ""
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var loginSignupService = LoginSignupService.shared
+    
+
 
     var body: some View {
             VStack(alignment: .leading, spacing:15, content: {
@@ -30,7 +32,6 @@ struct LogIn: View {
                     .hSpacing()
                 
                 VStack(spacing: 25) {
-                    //Custom  Text Field
                     CustomTextField(icon: "at", hint: "Email ID", value: $emailID)
                     
                     CustomTextField(icon: "lock", hint: "Password", isPassword: true, value: $password)

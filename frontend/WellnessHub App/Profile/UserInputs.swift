@@ -60,18 +60,6 @@ class UserData: ObservableObject {
 
 struct UserInputs: View {
     
-    
-//    @State var weight: String
-//    @State var height: String
-//    @State var age: String
-//    @State var goal: String
-//    @State var gender: String
-//    @State var activityLevel: String
-//    @State var dietaryPreferences: String
-//    @State private var selectedGenderIndex = 0
-//    @State private var selectedGoalIndex = 0
-//    @State private var selectedActivityLvlIndex = 0
-    
     @EnvironmentObject var userData: UserData
     @StateObject private var authManager = AuthenticationManager.shared
 
@@ -90,7 +78,7 @@ struct UserInputs: View {
         userData.gender = genders[userData.selectedGenderIndex]
         userData.activityLevel = activityLevels[userData.selectedActivityLvlIndex]
         
-        userData.updateUserData(weight: userData.weight, height: userData.height, age: userData.age, goal: userData.goal, gender: userData.gender, activityLevel: userData.activityLevel, dietaryPreferences: "dietatry update", selectedGenderIndex: userData.selectedGenderIndex, selectedGoalIndex: userData.selectedGoalIndex, selectedActivityLvlIndex: userData.selectedActivityLvlIndex)
+//        userData.updateUserData(weight: userData.weight, height: userData.height, age: userData.age, goal: userData.goal, gender: userData.gender, activityLevel: userData.activityLevel, dietaryPreferences: "dietatry update", selectedGenderIndex: userData.selectedGenderIndex, selectedGoalIndex: userData.selectedGoalIndex, selectedActivityLvlIndex: userData.selectedActivityLvlIndex)
 
         // Print to check if data is updated
         print("Printing hello world")
