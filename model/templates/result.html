@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+</head>
+<body>
+    <h1>Result Page</h1>
+
+    <h2>Top 5 Breakfast Food Choice</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>CookTime</th>
+            <th>Calories</th>
+            <th>RecipeInstructions</th>
+        </tr>
+        {% for item in breakfast_choices %}
+            <tr>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.CookTime }}</td>
+                <td>{{ item.Calories }}</td>
+                <td>{{ item.RecipeInstructions }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Top 5 Lunch Food Choice</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>CookTime</th>
+            <th>Calories</th>
+            <th>RecipeInstructions</th>
+        </tr>
+        {% for item in lunch_choices %}
+            <tr>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.CookTime }}</td>
+                <td>{{ item.Calories }}</td>
+                <td>{{ item.RecipeInstructions }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Top 5 Dinner Food Choice</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>CookTime</th>
+            <th>Calories</th>
+            <th>RecipeInstructions</th>
+        </tr>
+        {% for item in dinner_choices %}
+            <tr>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.CookTime }}</td>
+                <td>{{ item.Calories }}</td>
+                <td>{{ item.RecipeInstructions }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
