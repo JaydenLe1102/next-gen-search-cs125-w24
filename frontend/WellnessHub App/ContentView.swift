@@ -14,14 +14,23 @@ struct ContentView: View {
     
     //view properties
     @State private var showSignUp: Bool = false
-    @State private var showHome: Bool = false
+//    @State private var showHome: Bool = false
 //    @State private var isLoggedIn = authManager.isAuthenticated
     @State private var selectedTab = 1
+    
+    @State private var isLoggedIn = true
+    
+    @State private var isWeightModalPresented = false
+    @State private var currentWeight = ""
 
 
     var body: some View {
+        
         if authManager.isAuthenticated {
+            
             TabView(selection: $selectedTab) {
+                UserInputs().tag(0)
+                
                 Home().tag(1)
                 
                 Diet().tag(2)
@@ -43,12 +52,17 @@ struct ContentView: View {
                                     .edgesIgnoringSafeArea(.top)
                             )
             })
+            .overlay(alignment: .center, content: {
+                CustomInputModal(isWeightModalPresented: $isWeightModalPresented, currentWeight: .constant("150"))
+                    .opacity(isWeightModalPresented ? 0 : 1)
+            })
+            
         }
         else {
             NavigationStack {
-                LogIn(showSignUp: $showSignUp, showHome: $showHome,selectedTab: $selectedTab)
+                LogIn(showSignUp: $showSignUp, selectedTab: $selectedTab)
                     .navigationDestination(isPresented: $showSignUp) {
-                        SignUp(showSignUp: $showSignUp)
+                        SignUp(showSignUp: $showSignUp, selectedTab: $selectedTab)
                     }
             }
             .background(Color(.systemBackground))
