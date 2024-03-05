@@ -11,35 +11,6 @@ struct Profile: View {
     @StateObject private var authManager = AuthenticationManager.shared
     @EnvironmentObject var userData: UserData
     @State private var isModalPresented = false
-
-    
-    let genders = ["Male", "Female", "Other"]
-    let goals = ["Lose weight", "Gain weight", "Remain weight"]
-    let activityLevels = ["Beginner", "Intermediate", "Professional"]
-    
-    func saveProfile() {
-        // Save user inputs into UserData object
-        // You can add more logic/validation as needed
-        userData.weight = userData.weight.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.height = userData.height.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.age = userData.age.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.goal = goals[userData.selectedGoalIndex]
-        userData.gender = genders[userData.selectedGenderIndex]
-        userData.activityLevel = activityLevels[userData.selectedActivityLvlIndex]
-        
-//        userData.updateUserData(weight: userData.weight, height: userData.height, age: userData.age, goal: userData.goal, gender: userData.gender, activityLevel: userData.activityLevel, dietaryPreferences: "dietatry update", selectedGenderIndex: userData.selectedGenderIndex, selectedGoalIndex: userData.selectedGoalIndex, selectedActivityLvlIndex: userData.selectedActivityLvlIndex)
-
-        // Print to check if data is updated
-        print("Printing hello world")
-        print("Saved Profile:")
-        print("Age: \(userData.age)")
-        print("Gender: \(userData.gender)")
-        print("Weight: \(userData.weight) lbs")
-        print("Height: \(userData.height) ft")
-        print("Goal: \(userData.goal)")
-        print("Activity Level: \(userData.activityLevel)")
-    }
-
     
     var body: some View {
         VStack(content: {
@@ -134,7 +105,7 @@ struct Profile: View {
                 .padding(20)
             }
             else {
-                Button(action: {saveProfile()}) {
+                Button(action: {userData.saveProfile()}) {
                     Text("Save Profile")
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.teal)

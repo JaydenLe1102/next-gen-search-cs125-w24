@@ -41,6 +41,7 @@
 		92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */; };
 		92297B942B89127200C8E4E1 /* HealthkitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B932B89127200C8E4E1 /* HealthkitManager.swift */; };
 		92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B952B8965CE00C8E4E1 /* DietService.swift */; };
+		92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F010812B96D9BA00D4C7F9 /* ProfileService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_SignUp.service.swift; sourceTree = "<group>"; };
 		92297B932B89127200C8E4E1 /* HealthkitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitManager.swift; sourceTree = "<group>"; };
 		92297B952B8965CE00C8E4E1 /* DietService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietService.swift; sourceTree = "<group>"; };
+		92F010812B96D9BA00D4C7F9 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +100,6 @@
 				289AFE542B81761F0027FB84 /* Recipes */,
 				289AFE452B7D4A3E0027FB84 /* Restaurants */,
 				289AFE4C2B7DAEFA0027FB84 /* Diet.swift */,
-				92297B952B8965CE00C8E4E1 /* DietService.swift */,
 			);
 			path = Diet;
 			sourceTree = "<group>";
@@ -172,6 +173,7 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				92F010802B96D97500D4C7F9 /* APIs */,
 				92297B922B89125800C8E4E1 /* Healthkit */,
 				92297B8B2B86A28300C8E4E1 /* Authentication */,
 				289AFE672B8423340027FB84 /* Exercises */,
@@ -215,7 +217,6 @@
 				28B6084F2B7428AF00829229 /* CustomTextField.swift */,
 				289AFE3E2B74489B0027FB84 /* ColoredButton.swift */,
 				289AFE402B7577A00027FB84 /* SignUp.swift */,
-				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
 			);
 			path = LogIn_SignUp;
 			sourceTree = "<group>";
@@ -243,6 +244,16 @@
 				92297B932B89127200C8E4E1 /* HealthkitManager.swift */,
 			);
 			path = Healthkit;
+			sourceTree = "<group>";
+		};
+		92F010802B96D97500D4C7F9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				92297B952B8965CE00C8E4E1 /* DietService.swift */,
+				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
+				92F010812B96D9BA00D4C7F9 /* ProfileService.swift */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,6 +358,7 @@
 				92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */,
 				289AFE412B7577A00027FB84 /* SignUp.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
+				92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
