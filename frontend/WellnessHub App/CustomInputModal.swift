@@ -30,11 +30,19 @@ struct CustomInputModal: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
-            Button("Save") {
+            
+            Button(action: {
                 updateWeight()
                 isWeightModalPresented = true
+            }) {
+                Text("Save")
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.teal)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
             }
             .padding()
+
         }
                
         )
@@ -47,5 +55,6 @@ struct CustomInputModal: View {
 }
 
 #Preview {
-    CustomInputModal(isWeightModalPresented: .constant(true), currentWeight: .constant("150"))
+    ContentView()
+        .environmentObject(UserData())
 }

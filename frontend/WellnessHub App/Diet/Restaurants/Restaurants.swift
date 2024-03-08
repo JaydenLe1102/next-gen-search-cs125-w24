@@ -30,7 +30,8 @@ struct Restaurants: View {
     }
 }
 #Preview {
-    Diet()
+    ContentView()
+        .environmentObject(UserData())
 }
 
 extension View {

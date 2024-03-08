@@ -23,6 +23,7 @@ class UserData: ObservableObject {
     @Published var selectedGoalIndex: Int = 0 // Update type to Int
     @Published var selectedActivityLvlIndex: Int = 0 // Update type to Int
 
+
     // Function to update user data
     func updateUserData(weight: String, height: String, age: String, goal: String,
                         gender: String, activityLevel: String, dietaryPreferences: String,
@@ -63,7 +64,8 @@ struct UserInputs: View {
     @EnvironmentObject var userData: UserData
     @StateObject private var authManager = AuthenticationManager.shared
 
-    
+    @State private var isModalPresented = false
+
     let genders = ["Male", "Female", "Other"]
     let goals = ["Lose weight", "Gain weight", "Remain weight"]
     let activityLevels = ["Beginner", "Intermediate", "Professional"]
@@ -77,122 +79,125 @@ struct UserInputs: View {
         userData.goal = goals[userData.selectedGoalIndex]
         userData.gender = genders[userData.selectedGenderIndex]
         userData.activityLevel = activityLevels[userData.selectedActivityLvlIndex]
-        
-//        userData.updateUserData(weight: userData.weight, height: userData.height, age: userData.age, goal: userData.goal, gender: userData.gender, activityLevel: userData.activityLevel, dietaryPreferences: "dietatry update", selectedGenderIndex: userData.selectedGenderIndex, selectedGoalIndex: userData.selectedGoalIndex, selectedActivityLvlIndex: userData.selectedActivityLvlIndex)
-
-        // Print to check if data is updated
-        print("Printing hello world")
-        print("Saved Profile:")
-        print("Age: \(userData.age)")
-        print("Gender: \(userData.gender)")
-        print("Weight: \(userData.weight) lbs")
-        print("Height: \(userData.height) ft")
-        print("Goal: \(userData.goal)")
-        print("Activity Level: \(userData.activityLevel)")
     }
 
 
     var body: some View {
-        VStack(content: {
-            VStack(alignment: .center, content: {
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 90, height: 90)
-                    .font(.title2)
-                    .foregroundStyle(.teal)
-                    .background(Color(red: 214/255, green: 239/255, blue: 244/255))
-                    .cornerRadius(70.0)
+        NavigationView(content: {
+            ScrollView(content: {
+                VStack(alignment: .center, content: {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 90, height: 90)
+                        .font(.title2)
+                        .foregroundStyle(.teal)
+                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                        .cornerRadius(70.0)
 
-                Text("Name")
-            })
-            .padding(40)
+                    Text("Name")
+                })
+                .padding(40)
 
-            VStack(alignment: .leading,spacing: 30, content: {
-                HStack( content: {
-                    Text("Age:")
-                    TextField("Age", text: $userData.age)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(width: 210)
-                        .padding(.leading)
-                    Text("years old")
-                        .foregroundColor(.secondary)
-                
-                })
-                
-                HStack(content: {
-                    Text("Gender:")
-                    Picker("Gender", selection: $userData.selectedGenderIndex) {
-                        ForEach(0..<3) { index in
-                            Text(genders[index])
-                        }
-                    }
-                })
-                
-                HStack( content: {
-                    Text("Weight:")
-                    TextField("Weight", text: $userData.weight)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(width: 250)
-                    Text("lbs")
-                        .foregroundColor(.secondary)
-                })
-                
-                HStack(content: {
-                    Text("Height: ")
-                    TextField("Height", text: $userData.height)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(width: 250)
-                    Text("ft")
-                        .foregroundColor(.secondary)
-                })
-                        
-                
-                
-                HStack(content: {
-                    Text("Goal:")
-                    Section {
-                        Picker("Goals", selection: $userData.selectedGoalIndex) {
+                VStack(alignment: .leading,spacing: 30, content: {
+                    HStack( content: {
+                        Text("Age:")
+                        TextField("Age", text: $userData.age)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.leading)
+                        Text("years old")
+                            .foregroundColor(.secondary)
+                    
+                    })
+                    
+                    
+                    HStack(content: {
+                        Text("Gender:")
+                        Picker("Gender", selection: $userData.selectedGenderIndex) {
                             ForEach(0..<3) { index in
-                                Text(goals[index])
+                                Text(genders[index])
                             }
                         }
-                    }
-                })
-                
-                HStack(content: {
-                    Text("Activity Level:")
+                    })
+                    
+                    HStack( content: {
+                        Text("Weight:")
+                        TextField("Weight", text: $userData.weight)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Text("lbs")
+                            .foregroundColor(.secondary)
+                    })
+                    .frame(maxWidth: UIScreen.main.bounds.width)
 
-                    Section {
-                        Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
-                            ForEach(0..<3) { index in
-                                Text(activityLevels[index])
+                    
+                    HStack(content: {
+                        Text("Height: ")
+                        TextField("Height", text: $userData.height)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        Text("ft")
+                            .foregroundColor(.secondary)
+                    })
+                    .frame(maxWidth: UIScreen.main.bounds.width)
+
+                            
+                    
+                    
+                    HStack(content: {
+                        Text("Goal:")
+                        Section {
+                            Picker("Goals", selection: $userData.selectedGoalIndex) {
+                                ForEach(0..<3) { index in
+                                    Text(goals[index])
+                                }
                             }
                         }
-                    }
+                    })
+                    
+                    HStack(content: {
+                        Text("Activity Level:")
+
+                        Section {
+                            Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
+                                ForEach(0..<3) { index in
+                                    Text(activityLevels[index])
+                                }
+                            }
+                        }
+                    })
                 })
+                .padding()
+                
+                NavigationLink(destination: Profile(), isActive: $isModalPresented) {
+                    EmptyView()
+                }
+                .hidden()
+                Button(action: {
+                    if authManager.isAuthenticated == true {
+                        isModalPresented = true
+                    }
+                    else {
+                        authManager.fakeLogin()
+                        saveProfile()
+                    }
+                    
+                }) {
+                    Text("Save Profile")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.teal)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                }
+                .padding(20)
+
+                Spacer()
             })
             .padding()
-
-            
-
-            Button(action: {
-                authManager.fakeLogin()
-                saveProfile()
-            }) {
-                Text("Save Profile")
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.teal)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
-            }
-            .padding(20)
-
-            Spacer()
         })
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
     UserInputs()
+        .environmentObject(UserData())
 }

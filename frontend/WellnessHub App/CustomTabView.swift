@@ -9,15 +9,13 @@ import SwiftUI
 
 struct CustomTabView: View {
     @Binding var selectedTab: Int
-    @Namespace private var animation
     
     let items: [(image: String, title: String)] = [
     ("house", "Home"),
     ("fork.knife", "Diet"),
     ("figure.run", "Exercise"),
     ("bed.double", "Sleep"),
-    ("person", "Profile"),
-    ]
+    ("person", "Profile")]
     
     var body: some View {
         ZStack{
@@ -40,8 +38,6 @@ struct CustomTabView: View {
             
             }
             .frame(height: 80)
-            
-            
         }
         .padding(.horizontal)
         
@@ -52,4 +48,5 @@ struct CustomTabView: View {
 #Preview {
 //    CustomTabView(selectedTab: .constant(1))
     ContentView()
+        .environmentObject(UserData())
 }
