@@ -11,7 +11,9 @@ import SwiftUI
 struct WellnessHub_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(UserData())
+            ContentView()
+                .environmentObject(UserData())
+                .environmentObject(DietService())
         }
     }
 }

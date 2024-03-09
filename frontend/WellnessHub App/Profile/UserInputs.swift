@@ -15,11 +15,6 @@ struct UserInputs: View {
     @EnvironmentObject var userData: UserData
     @StateObject private var authManager = AuthenticationManager.shared
 
-    
-    let genders = ["Male", "Female", "Other"]
-    let goals = ["Lose weight", "Gain weight", "Remain weight"]
-    let activityLevels = ["Beginner", "Intermediate", "Professional"]
-
     var body: some View {
         VStack(content: {
             VStack(alignment: .center, content: {
@@ -52,7 +47,7 @@ struct UserInputs: View {
                     Text("Gender:")
                     Picker("Gender", selection: $userData.selectedGenderIndex) {
                         ForEach(0..<3) { index in
-                            Text(genders[index])
+                            Text(UserData.genders[index])
                         }
                     }
                 })
@@ -82,7 +77,7 @@ struct UserInputs: View {
                     Section {
                         Picker("Goals", selection: $userData.selectedGoalIndex) {
                             ForEach(0..<3) { index in
-                                Text(goals[index])
+                                Text(UserData.goals[index])
                             }
                         }
                     }
@@ -94,7 +89,7 @@ struct UserInputs: View {
                     Section {
                         Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
                             ForEach(0..<3) { index in
-                                Text(activityLevels[index])
+                                Text(UserData.activityLevels[index])
                             }
                         }
                     }

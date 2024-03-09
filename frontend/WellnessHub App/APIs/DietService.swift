@@ -15,6 +15,58 @@ struct Recipe: Identifiable{
 }
 
 class DietService: ObservableObject {
+    
+    @Published var recipes: [Recipe] = []
+    
+    
+    func fetchRecipesAsyncAwait() async throws {
+      print("calling fetchrecipe")
+
+      // Replace with your actual API endpoint URL
+      var urlComponents = URLComponents(string: "http://127.0.0.1:5000/get_recipes")!
+
+      urlComponents.queryItems = [
+        URLQueryItem(name: "minCalories", value: "100"),
+        URLQueryItem(name: "maxCalories", value: "600")
+      ]
+
+      let url = urlComponents.url!
+
+      var request = URLRequest(url: url)
+      request.httpMethod = "GET"
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        // Check for successful response
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+          throw URLError(.badServerResponse)
+        }
+
+      let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]]
+
+      var recipes: [Recipe] = []
+
+      if let recipesArray = jsonResponse {
+        for recipeDictionary in recipesArray {
+          let imageUrl = recipeDictionary["imageUrl"] as? String
+          let calories = recipeDictionary["calories"] as? String
+          let title = recipeDictionary["title"] as? String
+          let id = recipeDictionary["id"] as? Int
+
+          recipes.append(Recipe(id: id!, image: imageUrl!, calories: calories!, title: title!))
+        }
+      } else {
+        print("Error: No recipes received")
+      }
+    
+        await DispatchQueue.main.async {
+            self.recipes = recipes
+        }
+
+    }
+
 
     func fetchRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void) {
         

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct Profile: View {
     @StateObject private var authManager = AuthenticationManager.shared
     @EnvironmentObject var userData: UserData
@@ -23,19 +24,19 @@ struct Profile: View {
                     .foregroundStyle(.teal)
                     .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                     .cornerRadius(70.0)
-
+                
                 Text("Name")
             })
             .padding(40)
-
+            
             HStack(content: {
                 VStack(alignment: .leading,spacing: 30, content: {
                     HStack( content: {
                         Text("Age:")
-
+                        
                         Text("\(userData.age) years old")
-                                .foregroundColor(.secondary)
-                    
+                            .foregroundColor(.secondary)
+                        
                     })
                     
                     HStack(content: {
@@ -57,7 +58,7 @@ struct Profile: View {
                         Text("\(userData.weight) ft")
                             .foregroundColor(.secondary)
                     })
-                            
+                    
                     
                     
                     HStack(content: {
@@ -75,15 +76,15 @@ struct Profile: View {
                 .padding(.horizontal,20)
                 Spacer()
             })
-
             
-
+            
+            
             if authManager.isAuthenticated == true {
                 
                 NavigationLink(destination: UserInputs(), isActive: $isModalPresented) {
-                                        EmptyView()
-                                    }
-                                    .hidden()
+                    EmptyView()
+                }
+                .hidden()
                 
                 Button(action: {
                     isModalPresented = true
@@ -114,12 +115,24 @@ struct Profile: View {
                 }
                 .padding(20)
             }
-
             
-
+            
+            
             Spacer()
         })
         
+        .onAppear{
+            Task {
+                
+                do {
+                    try await userData.fetch_and_update(idToken: authManager.authToken )
+                } catch {
+                    // Handle network errors
+                    print("Error fetching data:", error)
+                }
+            }
+
+        }
     }
 }
 

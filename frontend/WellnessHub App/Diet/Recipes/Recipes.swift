@@ -11,27 +11,14 @@ import SwiftUI
 
 struct Recipes: View {
     
-    @StateObject var dietService = DietService() // Create and inject NetworkService
-    @State private var recipes: [Recipe] = []
+    @EnvironmentObject var dietService: DietService
     @State private var error: Error? = nil
     
-    func fetchRecipes() {
-        dietService.fetchRecipes { result in
-            switch result {
-            case .success(let recipes):
-                self.recipes = recipes
-                self.error = nil
-            case .failure(let error):
-                self.recipes = []
-                self.error = error
-            }
-        }
-    }
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
             VStack(alignment: .leading, spacing: 8){
-                ForEach(recipes) { recipe in
+                ForEach(dietService.recipes) { recipe in
                     HStack {
                         RecipeModal(
                             name: recipe.title, // Access first recipe in the group
@@ -57,7 +44,15 @@ struct Recipes: View {
             
         })
         .onAppear {
-            fetchRecipes()
+            Task{
+                
+                do {
+                    try await dietService.fetchRecipesAsyncAwait()
+                } catch {
+                    // Handle network errors
+                    print("Error fetching data:", error)
+                }
+            }
         }
     }
 }
