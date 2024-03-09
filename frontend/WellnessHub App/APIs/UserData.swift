@@ -15,6 +15,8 @@ class UserData: ObservableObject {
     static let activityLevels = ["Beginner", "Intermediate", "Professional"]
 
     // User data properties
+    @Published var email: String = ""
+    @Published var fullName: String = ""
     @Published var weight: String = ""
     @Published var height: String = ""
     @Published var age: String = ""

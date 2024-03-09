@@ -41,7 +41,7 @@
 		92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */; };
 		92297B942B89127200C8E4E1 /* HealthkitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B932B89127200C8E4E1 /* HealthkitManager.swift */; };
 		92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B952B8965CE00C8E4E1 /* DietService.swift */; };
-		92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F010812B96D9BA00D4C7F9 /* ProfileService.swift */; };
+		9294E4CD2B9CFE9E00C97E4E /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294E4CC2B9CFE9E00C97E4E /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +80,7 @@
 		92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_SignUp.service.swift; sourceTree = "<group>"; };
 		92297B932B89127200C8E4E1 /* HealthkitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitManager.swift; sourceTree = "<group>"; };
 		92297B952B8965CE00C8E4E1 /* DietService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietService.swift; sourceTree = "<group>"; };
-		92F010812B96D9BA00D4C7F9 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		9294E4CC2B9CFE9E00C97E4E /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,9 +249,9 @@
 		92F010802B96D97500D4C7F9 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				9294E4CC2B9CFE9E00C97E4E /* UserData.swift */,
 				92297B952B8965CE00C8E4E1 /* DietService.swift */,
 				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
-				92F010812B96D9BA00D4C7F9 /* ProfileService.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -356,9 +356,9 @@
 				28B6083F2B732A0800829229 /* Home.swift in Sources */,
 				28B6082B2B7181B900829229 /* ContentView.swift in Sources */,
 				92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */,
+				9294E4CD2B9CFE9E00C97E4E /* UserData.swift in Sources */,
 				289AFE412B7577A00027FB84 /* SignUp.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
-				92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
