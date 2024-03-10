@@ -19,7 +19,7 @@ struct TotalTime: View {
                 HStack{
                     VStack(alignment:.leading, content: {
                         Text("Total time in bed")
-                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            .font(.system(size: 30))
                         Text(normal ? "Result is normal" : "Result is not normal")
                             .font(.title2)
                             .foregroundColor(normal ? .green : .red)
@@ -41,5 +41,6 @@ struct TotalTime: View {
 }
 
 #Preview {
-    TotalTime(normal: true, duration: "9 hours")
+//    TotalTime(normal: true, duration: "9 hours")
+    Sleep()
 }
