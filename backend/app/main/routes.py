@@ -73,8 +73,7 @@ def store_user_info():
         
         # Extract user information
         email = user['users'][0]['email']
-        first_name = request.json['first_name']
-        last_name = request.json['last_name']
+        full_name = request.json['full_name']
         age = request.json['age']
         gender = request.json['gender']
         height= request.json['height']
@@ -86,8 +85,7 @@ def store_user_info():
         # Store user information in Firestore
         user_info = {
             "email": email,
-            "first_name": first_name,
-            "last_name": last_name,
+            "full_name": full_name,
             "age": age,
             "gender": gender,
             "height": height,
@@ -104,6 +102,34 @@ def store_user_info():
         return jsonify({"message": "User information stored successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+    
+    
+#Create, update user information
+@bp.route('/userinfo', methods=['PATCH'])
+def update_user_info():
+    try:
+        # Get user ID token from request
+        user_id_token = request.json['idToken']
+        print(user_id_token)
+        # Verify user ID token
+        user = auth.get_account_info(user_id_token)
+        print(user)
+        user_uid = user['users'][0]['localId']
+        
+        # Extract user information
+        email = user['users'][0]['email']
+        
+        update_info = request.json
+        
+        
+        del update_info["idToken"]
+        print(f'update_info: {update_info}')
+        db.collection("users").document(user_uid).update(update_info)
+        # db.child("users").child(user_uid).set(user_info)
+
+        return jsonify({"message": "User information update successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 #GET user information
 @bp.route('/userinfo', methods=['GET'])
@@ -112,25 +138,24 @@ def get_user_info():
         
         user_id_token = request.args.get('idToken')
         
-        print("user_id_token")
-        print(user_id_token)
+        #print("user_id_token")
+        #print(user_id_token)
         
-        return sample_user_info, 200
-        ## Extract user ID token from request headers
-        #user_id_token = request.json['idToken']
+        #return sample_user_info, 200
+        # Extract user ID token from request headers
         
-        ## Verify user ID token
-        #user = auth.get_account_info(user_id_token)
-        #user_uid = user['users'][0]['localId']
+        # Verify user ID token
+        user = auth.get_account_info(user_id_token)
+        user_uid = user['users'][0]['localId']
 
-        ## Retrieve user information from Firestore
-        #user_info_doc = db.collection("users").document(user_uid).get()
-        #user_info = user_info_doc.to_dict()
+        # Retrieve user information from Firestore
+        user_info_doc = db.collection("users").document(user_uid).get()
+        user_info = user_info_doc.to_dict()
 
-        #if user_info:
-        #    return jsonify(user_info), 200
-        #else:
-        #    return jsonify({"error": "User information not found"}), 404
+        if user_info:
+            return jsonify(user_info), 200
+        else:
+            return jsonify({"error": "User information not found"}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
