@@ -10,6 +10,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var dietService: DietService
+    
     @StateObject private var authManager = AuthenticationManager.shared
     
     //view properties
@@ -58,6 +61,18 @@ struct ContentView: View {
                 CustomInputModal(isWeightModalPresented: $isWeightModalPresented, currentWeight: .constant("150"))
                     .opacity(isWeightModalPresented ? 0 : 1)
             })
+            .onAppear {
+                Task{
+
+                    do {
+                        try await userData.fetch_and_update(idToken: authManager.authToken )
+                        try await dietService.fetchRecipesAsyncAwait()
+                    } catch {
+                        // Handle network errors
+                        print("Error fetching data:", error)
+                    }
+                }
+            }
             
         }
         else {

@@ -136,18 +136,18 @@ struct Profile: View {
         })
         .navigationBarBackButtonHidden(true)
         
-        .onAppear{
-            Task {
+        //.onAppear{
+        //    Task {
                 
-                do {
-                    try await userData.fetch_and_update(idToken: authManager.authToken )
-                } catch {
-                    // Handle network errors
-                    print("Error fetching data:", error)
-                }
-            }
+        //        do {
+        //            try await userData.fetch_and_update(idToken: authManager.authToken )
+        //        } catch {
+        //            // Handle network errors
+        //            print("Error fetching data:", error)
+        //        }
+        //    }
 
-        }
+        //}
     }
     
 }

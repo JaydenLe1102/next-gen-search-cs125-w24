@@ -14,8 +14,8 @@ struct LogIn: View {
     @Binding var selectedTab: Int
 
     //view properties
-    @State private var emailID: String = ""
-    @State private var password: String = ""
+    @State private var emailID: String = "test@email.com"
+    @State private var password: String = "123456"
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var loginSignupService = LoginSignupService.shared
     
