@@ -22,9 +22,22 @@ struct RecipeDetails: View {
         ScrollView(.vertical, showsIndicators: false, content: {
             
             VStack(alignment: .leading, spacing:15, content:{
-                Image(systemName: imageURL)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+//                Image(systemName: imageURL)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+                
+                AsyncImage(url: URL(string: imageURL)) { image in
+                    image.resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .cornerRadius(10)
+                } placeholder: {
+                    // Provide a placeholder view, such as an activity indicator or a default image
+                    Image(systemName: "photo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .cornerRadius(10)
+
+                }
                 
                 Text(name)
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -50,5 +63,5 @@ struct RecipeDetails: View {
 }
 
 #Preview {
-    RecipeDetails(name: "Recipe 1", time: "4 hours", calories: "300 cal",description:"This is a description", imageURL: "photo")
+    Recipes()
 }

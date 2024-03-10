@@ -40,5 +40,5 @@ struct Sleep: View {
 }
 
 #Preview {
-    ContentView()
+    Sleep()
 }

@@ -29,17 +29,19 @@ struct ContentView: View {
         if authManager.isAuthenticated {
             
             TabView(selection: $selectedTab) {
-                UserInputs().tag(0)
                 
                 Home().tag(1)
                 
-                Diet().tag(2)
+                Diet(caloriesNum: 20).tag(2)
                 
                 Exercises().tag(3)
 
                 Sleep().tag(4)
+                    .navigationBarHidden(true)
                 
                 Profile().tag(5)
+                    .navigationBarHidden(true)
+                
             }
             .overlay(alignment: .bottom, content: {
                 CustomTabView(selectedTab: $selectedTab)
@@ -72,4 +74,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(UserData())
 }

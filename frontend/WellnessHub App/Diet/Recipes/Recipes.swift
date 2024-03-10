@@ -30,32 +30,21 @@ struct Recipes: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false, content: {
-            VStack(alignment: .leading, spacing: 8){
-                ForEach(recipes) { recipe in
-                    HStack {
-                        RecipeModal(
-                            name: recipe.title, // Access first recipe in the group
-                            time: "4h",
-                            calories: recipe.calories,
-                            description: "This is a description",
-                            imageURL: recipe.image
-                        )
-                    }
-                }
-
-
-//                HStack{
-//                    
-//                    RecipeModal(name: "Recipe 1", time: "4 hours", calories: "300 cal",description:"This is a description", imageURL: "photo")
-//                    
-//                    RecipeModal(name: "Recipe 1", time: "4 hours", calories: "300 cal",description:"This is a description", imageURL: "photo")
-//                    
-//                }
-        
-            }
-            .padding(.horizontal,20)
-            
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: UIScreen.main.bounds.width / 3), spacing: 16)], spacing: 16) {
+                            ForEach(recipes) { recipe in
+                                RecipeModal(
+                                    name: recipe.title,
+                                    time: "4h",
+                                    calories: recipe.calories,
+                                    description: "This is a description",
+                                    imageURL: recipe.image
+                                )
+                                .frame(minWidth: 0, maxWidth: .infinity)
+                            }
+                        }
+                        .padding(.horizontal, 16)
         })
+            
         .onAppear {
             fetchRecipes()
         }
@@ -64,4 +53,5 @@ struct Recipes: View {
 
 #Preview {
     ContentView()
+        .environmentObject(UserData())
 }
