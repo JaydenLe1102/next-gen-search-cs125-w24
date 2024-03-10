@@ -21,8 +21,6 @@ class UserData: ObservableObject {
     //UserInfo
     @Published var email: String = ""
     @Published var fullname: String = ""
-    @Published var calories_burn_yesterday: Double = 0
-    @Published var sleep_time_yesterday: Double = 0
     @Published var last_update_weight:String = ""
     
 
@@ -69,7 +67,7 @@ class UserData: ObservableObject {
             "health_goal": self.goal,
             "height": self.height,
             "weight": self.weight,
-            "sleep_time_yesterday": self.sleep_time_yesterday,
+            "sleep_time_yesterday": self.healthKitManager.sleep_time_yesterday,
             "last_update_weight": self.last_update_weight
         ]
         
