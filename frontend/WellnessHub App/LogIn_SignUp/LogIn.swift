@@ -22,7 +22,7 @@ struct LogIn: View {
 
 
     var body: some View {
-            VStack(alignment: .leading, spacing:15, content: {
+            VStack(alignment: .leading, spacing:50, content: {
                 
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
                 
@@ -45,7 +45,7 @@ struct LogIn: View {
                     .tint(.gray)
                     .hSpacing()
                     
-                    ColoredButton(title: "Log In") {
+//                    ColoredButton(title: "Log In") {
 //                        loginSignupService.login(email: emailID, password: password) { result in
 //                            switch result {
 //                            case .success(let tokens):
@@ -59,17 +59,27 @@ struct LogIn: View {
 //                            }
 //                        }
                         
-                        authManager.fakeLogin()
-                        selectedTab = 1
+//                        authManager.fakeLogin()
+//                        selectedTab = 1
+                        
                         
                     }
-                    
-                    
+                
+                Button(action: {
+                    authManager.fakeLogin()
+                    selectedTab = 1
+                }) {
+                    Text("Log in")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.teal)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                }
+  
                     //disabling until the email and pw are entered
 //                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)
                     
-                }
-                .padding(.top,20)
+//                }
                 
                 
                 
@@ -97,4 +107,5 @@ struct LogIn: View {
 
 #Preview {
     ContentView()
+        .environmentObject(UserData())
 }

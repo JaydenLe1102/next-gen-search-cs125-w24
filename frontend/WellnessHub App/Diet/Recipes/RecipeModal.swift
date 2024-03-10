@@ -23,38 +23,44 @@ struct RecipeModal: View {
             Button(action: {
                 isModalPresented.toggle()
             }){
-                VStack(spacing: 0) {
+                VStack(spacing: 15) {
                     Text(name)
                         .foregroundStyle(.black)
-                        .padding(.top)
-                    
                     
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image.resizable()
                             .aspectRatio(contentMode: .fit)
-                            .padding()
+                            .cornerRadius(10)
                     } placeholder: {
                         // Provide a placeholder view, such as an activity indicator or a default image
                         Image(systemName: "photo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .padding()
+                            .cornerRadius(10)
+
                     }
                     
-                    HStack(spacing: 20, content: {
+                    HStack(spacing: 5,content: {
+                        Image(systemName: "clock")
                         Text(time)
                             .foregroundStyle(.black)
-                        
+                    })
+                    
+                    HStack(spacing: 5,content: {
+                        Image(systemName: "fork.knife")
                         Text(calories)
                             .foregroundStyle(.black)
                     })
-                    .padding(.bottom)
+           
                 }
+                .padding(10)
+                .frame(height: UIScreen.main.bounds.height / 3)
                 .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
+                
+                
      
             }
-
             .sheet(isPresented: $isModalPresented) {
                 VStack{
                     RecipeDetails(name: name, time: time, calories: calories,description:"This is a description", imageURL: imageURL)
