@@ -9,7 +9,7 @@
 <body>
     <h1>Result Page</h1>
 
-    <h2>Top 5 Breakfast Food Choice</h2>
+    <h2>Top Food Choice</h2>
     <table border="1">
         <tr>
             <th>Name</th>
@@ -17,50 +17,14 @@
             <th>Calories</th>
             <th>RecipeInstructions</th>
         </tr>
-        {% for item in breakfast_choices %}
-            <tr>
-                <td>{{ item.Name }}</td>
-                <td>{{ item.CookTime }}</td>
-                <td>{{ item.Calories }}</td>
-                <td>{{ item.RecipeInstructions }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <h2>Top 5 Lunch Food Choice</h2>
-    <table border="1">
+        {% for item in all_choices %}
         <tr>
-            <th>Name</th>
-            <th>CookTime</th>
-            <th>Calories</th>
-            <th>RecipeInstructions</th>
+            <td>{{ item.Name }}</td>
+            <td>{{ item.CookTime }}</td>
+            <td>{{ item.Calories }}</td>
+            <td>{{ item.RecipeInstructions }}</td>
         </tr>
-        {% for item in lunch_choices %}
-            <tr>
-                <td>{{ item.Name }}</td>
-                <td>{{ item.CookTime }}</td>
-                <td>{{ item.Calories }}</td>
-                <td>{{ item.RecipeInstructions }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <h2>Top 5 Dinner Food Choice</h2>
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>CookTime</th>
-            <th>Calories</th>
-            <th>RecipeInstructions</th>
-        </tr>
-        {% for item in dinner_choices %}
-            <tr>
-                <td>{{ item.Name }}</td>
-                <td>{{ item.CookTime }}</td>
-                <td>{{ item.Calories }}</td>
-                <td>{{ item.RecipeInstructions }}</td>
-            </tr>
-        {% endfor %}
+    {% endfor %}
     </table>
 
 </body>

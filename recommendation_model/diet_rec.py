@@ -11,6 +11,4 @@ def predict(knn_model, target_calorie):
     # np.random.shuffle(rand_indices)
     rand_indices = np.random.permutation(knn_model.kneighbors([[target_calorie]])[1][0])
     return rand_indices
-    
-    return rand_indices
 
