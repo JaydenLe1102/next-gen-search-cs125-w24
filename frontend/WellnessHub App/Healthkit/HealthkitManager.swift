@@ -116,91 +116,8 @@ class HealthkitManager: ObservableObject {
         
     }
     
+    
     func fetchSleepTimeYesterday(completion: @escaping (Double?, Error?) -> Void) {
-
-        let predicate = HKQuery.predicateForSamples(withStart: .startOfYesterday, end: Date())
-
-        let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-
-
-      let query = HKSampleQuery(sampleType: sleepType, predicate: nil, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { query, results, error in
-          if let error = error {
-              print("Error: \(error.localizedDescription)")
-              return
-          }
-
-          guard let results = results as? [HKCategorySample] else {
-              print("No data to display")
-              return
-          }
-
-          print("Start Date: \(Date.startOfYesterday), End Date: \(Date())")
-          print("Fetched \(results.count) sleep analysis samples.")
-
-          var totalSleepTime: TimeInterval = 0
-
-          for result in results {
-              if let type = HKCategoryValueSleepAnalysis(rawValue: result.value) {
-                  if HKCategoryValueSleepAnalysis.allAsleepValues.contains(type) {
-                      let sleepDuration = result.endDate.timeIntervalSince(result.startDate)
-                      print("""
-                      Sample start: (result.startDate), \
-                      end: (result.endDate), \
-                      value: (result.value), \
-                      duration: (sleepDuration) seconds
-                      """)
-                      totalSleepTime += sleepDuration
-                  }
-              }
-          }
-
-          completion(totalSleepTime, nil)
-      }
-
-      // 5. Execute Query
-      healthStore.execute(query)
-    }
-    
-    func sleepTime() {
-        // startDate and endDate are NSDate objects
-        // first, we define the object type we want
-        if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
-            // You may want to use a predicate to filter the data... startDate and endDate are NSDate objects corresponding to the time range that you want to retrieve
-            //let predicate = HKQuery.predicateForSamplesWithStartDate(startDate,endDate: endDate ,options: .None)
-            // Get the recent data first
-            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: true)
-            let predicate = HKQuery.predicateForSamples(withStart: .startOf7PreviousDay, end: Date())
-            // the block completion to execute
-            let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: [sortDescriptor]) { (query, tmpResult, error) -> Void in
-                if error != nil {
-                    // Handle the error in your app gracefully
-                    print("error retrieve sleep")
-                    return
-                }
-                if let result = tmpResult {
-                    for item in result {
-                        if let sample = item as? HKCategorySample {
-                            let startDate = sample.startDate
-                            let endDate = sample.endDate
-                            print()
-                            let sleepTimeForOneDay = sample.endDate.timeIntervalSince(sample.startDate)
-                            
-                            print("""
-                              Sample start: \(startDate),
-                              end: \(endDate),
-                              duration: \(sleepTimeForOneDay) seconds
-                            """)
-                        }
-                    }
-                }
-            }
-            
-            healthStore.execute(query)
-        }
-    }
-    
-    func sleepTimeYesterday() {
         // Get a reference to the sleep analysis category
         if let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis) {
             // Create a predicate to fetch samples only for yesterday
@@ -211,7 +128,7 @@ class HealthkitManager: ObservableObject {
             
             print("b4 call")
             // Create the query
-            let query = HKSampleQuery(sampleType: sleepType, predicate: nil, limit: 100000, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
+            let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: 100000, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
                 if let error = error {
                     print("Error fetching sleep data: \(error.localizedDescription)")
                     return
@@ -221,7 +138,7 @@ class HealthkitManager: ObservableObject {
                     print("No sleep data found")
                     return
                 }
-                
+                var totalSleepTime: TimeInterval = 0
                 // Iterate through the results only for yesterday
                 for sample in results {
                     
@@ -235,7 +152,12 @@ class HealthkitManager: ObservableObject {
                           duration: \(sleepTimeForOneDay) seconds
                         """)
                     
+                    totalSleepTime += sleepTimeForOneDay
+                    
                 }
+                
+                print("total sleep time")
+                print(totalSleepTime)
             }
             
             // Execute the query

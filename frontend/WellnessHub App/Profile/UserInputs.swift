@@ -108,6 +108,7 @@ struct UserInputs: View {
                 Button(action: {
                     if authManager.isAuthenticated == true {
                         isModalPresented = true
+                        userData.saveProfile()
                     }
                     else {
                         authManager.fakeLogin()

@@ -92,6 +92,7 @@ struct Profile: View {
                         Button(action: {
                             isModalPresented = true
                             print("hihi")
+                            
                         }) {
                             Text("Edit profile")
                                 .frame(maxWidth: .infinity)
@@ -135,19 +136,6 @@ struct Profile: View {
                 })  
         })
         .navigationBarBackButtonHidden(true)
-        
-        //.onAppear{
-        //    Task {
-                
-        //        do {
-        //            try await userData.fetch_and_update(idToken: authManager.authToken )
-        //        } catch {
-        //            // Handle network errors
-        //            print("Error fetching data:", error)
-        //        }
-        //    }
-
-        //}
     }
     
 }

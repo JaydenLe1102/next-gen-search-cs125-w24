@@ -38,7 +38,30 @@ struct ContentView: View {
             "calories_burn_yesterday": calories
         ]
         
+        healthManager.calories_burn_yesterday = calories
         
+        userData.updateUserInfo(param: param){result in
+            switch result {
+            case .success:
+                print("User information updated successfully!")
+            case .failure(let error):
+                print("Error updating user info: \(error.localizedDescription)")
+            }
+            
+        }
+
+    }
+    
+    func fake_fetch_sleeptime_and_update(){
+        
+        let sleeptime:Double = 20600.0
+
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "sleep_time_yesterday": sleeptime
+        ]
+        
+        healthManager.sleep_time_yesterday = sleeptime
         userData.updateUserInfo(param: param){result in
             switch result {
             case .success:
@@ -83,15 +106,34 @@ struct ContentView: View {
     }
     
     func fetch_sleep_time_and_update(){
-//        healthManager.fetchSleepTimeYesterday{ sleepTime, error in
-//            
-//            
-//            print("checking sleep time")
-//            print(sleepTime)
-//            
-//        }
-        
-        healthManager.sleepTimeYesterday()
+        healthManager.fetchSleepTimeYesterday{ sleepTime, error in
+            
+            if let sleepTime = sleepTime {
+                
+                let param: [String:Any] = [
+                    "idToken": authManager.authToken,
+                    "sleep_time_yesterday": sleepTime
+                ]
+                
+                
+                userData.updateUserInfo(param: param){result in
+                    switch result {
+                    case .success:
+                        print("User information updated successfully!")
+                    case .failure(let error):
+                        print("Error updating user info: \(error.localizedDescription)")
+                    }
+                    
+                }
+                
+                print("sleep_time_yesterday: \(sleepTime)")
+              // Use the calories as needed
+            } else if let error = error {
+              print("Error fetching calories: \(error)")
+              // Handle the error
+            }
+            
+        }
     }
 
 
@@ -127,20 +169,39 @@ struct ContentView: View {
             })
             .overlay(alignment: .center, content: {
                 CustomInputModal(isWeightModalPresented: $isWeightModalPresented, currentWeight: .constant("150"))
-                    .opacity(isWeightModalPresented ? 0 : 1)
+                    .opacity(isWeightModalPresented ? 1 : 0)
             })
             .onAppear {
                 Task{
 
                     do {
-//                        try await userData.fetch_and_update(idToken: authManager.authToken )
-//                        try await dietService.fetchRecipesAsyncAwait()
+                        try await userData.fetch_and_update(idToken: authManager.authToken )
+                        try await dietService.fetchRecipesAsyncAwait()
+                        
+                        
+                        let date = userData.get_last_update_weight_date()
+                        let today = Date()
+                        print("hello")
+                        print(date)
+                        print(today)
+                        let diffMinutes  = today.timeIntervalSince(date!) / 60.0
+                        print(diffMinutes)
+                        if (date == nil ||  diffMinutes > 10080){ // 7 days  = 10080 mins
+                            isWeightModalPresented = true
+                        }
                         
                         if (healthManager.calories_burn_yesterday == 0){
                             fetch_calories_burn_and_update()
+                            fake_fetch_calories_burn_and_update()
                         }
                         
-                        fetch_sleep_time_and_update()
+//                        fetch_sleep_time_and_update()
+                        if (healthManager.sleep_time_yesterday == 0){
+                            fetch_sleep_time_and_update()
+                            fake_fetch_sleeptime_and_update()
+                        }
+                        
+                        
                         
                     } catch {
                         // Handle network errors
@@ -160,7 +221,10 @@ struct ContentView: View {
                         Task{
 
                             do {
-                                fetch_calories_burn_and_update()
+//                                fetch_calories_burn_and_update()
+//                                fetch_sleep_time_and_update()
+                                fake_fetch_calories_burn_and_update()
+                                fake_fetch_sleeptime_and_update()
                             } catch {
                                 print("Error fetching healthkit:", error)
                             }

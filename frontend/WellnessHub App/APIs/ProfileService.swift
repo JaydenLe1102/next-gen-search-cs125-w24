@@ -16,13 +16,14 @@ class UserData: ObservableObject {
     
     private var authManager = AuthenticationManager.shared
     var healthKitManager: HealthkitManager
+    var formatter: DateFormatter
     
     //UserInfo
     @Published var email: String = ""
     @Published var fullname: String = ""
     @Published var calories_burn_yesterday: Double = 0
     @Published var sleep_time_yesterday: Double = 0
-    @Published var last_update_weight:Date = Date()
+    @Published var last_update_weight:String = ""
     
 
     // User data properties
@@ -41,6 +42,15 @@ class UserData: ObservableObject {
     
     init(healthKitManager: HealthkitManager){
         self.healthKitManager = healthKitManager
+        self.formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+
+    }
+    
+    func get_last_update_weight_date() -> Date?{
+        print("lst update weight")
+        print(self.last_update_weight)
+        return formatter.date(from: self.last_update_weight) ?? nil
     }
     
     func getUpdateInfoForApi() -> [String:Any]{
@@ -115,6 +125,7 @@ class UserData: ObservableObject {
         self.gender = UserData.genders[self.selectedGenderIndex]
         self.activityLevel = UserData.activityLevels[self.selectedActivityLvlIndex]
         self.dietaryPreferences = self.dietaryPreferences.trimmingCharacters(in: .whitespacesAndNewlines)
+//        self.last_update_weight = formatter.string(from: Date())
 
         // Persist data to storage (optional, see comments below)
         // ... (add persistence implementation here)
@@ -132,6 +143,22 @@ class UserData: ObservableObject {
         
         print("done update user data")
         objectWillChange.send()
+        
+        let param = self.getUpdateInfoForApi()
+        
+        print("update info param")
+        print(param)
+        
+        self.updateUserInfo(param: param){result in
+            switch result {
+            case .success:
+                print("User information updated successfully!")
+            case .failure(let error):
+                print("Error updating user info: \(error.localizedDescription)")
+            }
+            
+        }
+       
     }
     
     func fetch_and_update(idToken: String?) async throws{
@@ -175,6 +202,8 @@ class UserData: ObservableObject {
                         break
                     }
                 }
+                self.email = dataExtracted["email"] as! String
+                self.last_update_weight = dataExtracted["last_update_weight"] as! String
                 self.saveProfile()
             }
         }
@@ -184,7 +213,7 @@ class UserData: ObservableObject {
         
     }
     
-    private  func fetchProfileInfo(idToken: String?) async throws -> [String:Any] {
+    private func fetchProfileInfo(idToken: String?) async throws -> [String:Any] {
         print("calling fetch profile info")
 
         guard let idToken = idToken else {

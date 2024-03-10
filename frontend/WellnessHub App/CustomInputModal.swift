@@ -17,6 +17,9 @@ struct CustomInputModal: View {
     func updateWeight() {
 
         userData.weight = userData.weight.trimmingCharacters(in: .whitespacesAndNewlines)
+        userData.last_update_weight = userData.formatter.string(from: Date())
+        
+        userData.saveProfile()
     }
     
 
@@ -33,7 +36,7 @@ struct CustomInputModal: View {
             
             Button(action: {
                 updateWeight()
-                isWeightModalPresented = true
+                isWeightModalPresented = false
             }) {
                 Text("Save")
                     .frame(maxWidth: .infinity)
