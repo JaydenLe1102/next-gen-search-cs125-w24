@@ -46,7 +46,7 @@ struct Recipes: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}

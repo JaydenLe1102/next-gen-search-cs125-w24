@@ -13,6 +13,17 @@ class UserData: ObservableObject {
     static let genders = ["Male", "Female", "Other"]
     static let  goals = ["Lose weight", "Gain weight", "Remain weight"]
     static let activityLevels = ["Beginner", "Intermediate", "Professional"]
+    
+    private var authManager = AuthenticationManager.shared
+    var healthKitManager: HealthkitManager
+    
+    //UserInfo
+    @Published var email: String = ""
+    @Published var fullname: String = ""
+    @Published var calories_burn_yesterday: Double = 0
+    @Published var sleep_time_yesterday: Double = 0
+    @Published var last_update_weight:Date = Date()
+    
 
     // User data properties
     @Published var weight: String = ""
@@ -27,6 +38,71 @@ class UserData: ObservableObject {
     @Published var selectedGenderIndex: Int = 0 // Update type to Int
     @Published var selectedGoalIndex: Int = 0 // Update type to Int
     @Published var selectedActivityLvlIndex: Int = 0 // Update type to Int
+    
+    init(healthKitManager: HealthkitManager){
+        self.healthKitManager = healthKitManager
+    }
+    
+    func getUpdateInfoForApi() -> [String:Any]{
+        
+        print("getUpdateInfoForApi: ")
+        print(self.healthKitManager.calories_burn_yesterday)
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "activity_level": self.activityLevel,
+            "age": Int(self.age) ?? "",
+            "calories_burn_yesterday": self.healthKitManager.calories_burn_yesterday,
+            "dietary_preference":  self.healthKitManager.sleep_time_yesterday,
+            "email": self.email,
+            "full_name": self.fullname,
+            "gender": self.gender,
+            "health_goal": self.goal,
+            "height": self.height,
+            "weight": self.weight,
+            "sleep_time_yesterday": self.sleep_time_yesterday,
+            "last_update_weight": self.last_update_weight
+        ]
+        
+        return param
+    }
+    
+    func updateUserInfo(param: [String:Any], completion: @escaping (Result<Void, Error>) -> Void) {
+      let urlString = "http://127.0.0.1:5000/userinfo"
+      guard let url = URL(string: urlString) else {
+        completion(.failure(NSError(domain: "InvalidURL", code: -1, userInfo: nil)))
+        return
+      }
+      
+      var request = URLRequest(url: url)
+      request.httpMethod = "PATCH"
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      
+      let jsonData = try? JSONSerialization.data(withJSONObject: param)
+      
+      guard let data = jsonData else {
+        completion(.failure(NSError(domain: "JSONEncodingError", code: -2, userInfo: nil)))
+        return
+      }
+      
+      request.httpBody = data
+      
+      let session = URLSession.shared
+      let task = session.dataTask(with: request) { data, response, error in
+        guard let _ = data, error == nil else {
+          completion(.failure(error ?? NSError(domain: "UnknownError", code: -1, userInfo: nil)))
+          return
+        }
+        
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+          completion(.success(()))
+        } else {
+          completion(.failure(NSError(domain: "APIError", code: -3, userInfo: nil)))
+        }
+      }
+      
+      task.resume()
+    }
+
 
     // Function to update user data
     func saveProfile() {

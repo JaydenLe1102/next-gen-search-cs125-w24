@@ -7,10 +7,14 @@
 
 import SwiftUI
 
+
 struct Home: View {
+    @EnvironmentObject var healthManager: HealthkitManager
+
     @State private var selectedOption = "Week"
     
     var body: some View {
+        Text("\(healthManager.calories_burn_yesterday)")
                 VStack {
                     Text("Hello, Home!")
         

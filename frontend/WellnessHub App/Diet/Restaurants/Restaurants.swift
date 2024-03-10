@@ -29,10 +29,10 @@ struct Restaurants: View {
             })
     }
 }
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}
 
 extension View {
     func getRect() ->CGRect{

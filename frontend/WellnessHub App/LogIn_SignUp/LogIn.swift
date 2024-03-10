@@ -105,7 +105,7 @@ struct LogIn: View {
     
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}

@@ -12,6 +12,8 @@ struct ContentView: View {
     
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var dietService: DietService
+    @EnvironmentObject var healthManager: HealthkitManager
+    
     
     @StateObject private var authManager = AuthenticationManager.shared
     
@@ -25,6 +27,72 @@ struct ContentView: View {
     
     @State private var isWeightModalPresented = false
     @State private var currentWeight = ""
+    
+    
+    func fake_fetch_calories_burn_and_update(){
+        
+        let calories = 609.9019999999992
+
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "calories_burn_yesterday": calories
+        ]
+        
+        
+        userData.updateUserInfo(param: param){result in
+            switch result {
+            case .success:
+                print("User information updated successfully!")
+            case .failure(let error):
+                print("Error updating user info: \(error.localizedDescription)")
+            }
+            
+        }
+
+    }
+    
+    
+    func fetch_calories_burn_and_update(){
+
+            healthManager.fetchCaloriesBurnYesterday{ calories, error in
+                if let calories = calories {
+                    
+                    let param: [String:Any] = [
+                        "idToken": authManager.authToken,
+                        "calories_burn_yesterday": calories
+                    ]
+                    
+                    
+                    userData.updateUserInfo(param: param){result in
+                        switch result {
+                        case .success:
+                            print("User information updated successfully!")
+                        case .failure(let error):
+                            print("Error updating user info: \(error.localizedDescription)")
+                        }
+                        
+                    }
+                    
+                    print("Calories Burn for yesterday: \(calories)")
+                  // Use the calories as needed
+                } else if let error = error {
+                  print("Error fetching calories: \(error)")
+                  // Handle the error
+                }
+              }
+    }
+    
+    func fetch_sleep_time_and_update(){
+//        healthManager.fetchSleepTimeYesterday{ sleepTime, error in
+//            
+//            
+//            print("checking sleep time")
+//            print(sleepTime)
+//            
+//        }
+        
+        healthManager.sleepTimeYesterday()
+    }
 
 
     var body: some View {
@@ -65,8 +133,15 @@ struct ContentView: View {
                 Task{
 
                     do {
-                        try await userData.fetch_and_update(idToken: authManager.authToken )
-                        try await dietService.fetchRecipesAsyncAwait()
+//                        try await userData.fetch_and_update(idToken: authManager.authToken )
+//                        try await dietService.fetchRecipesAsyncAwait()
+                        
+                        if (healthManager.calories_burn_yesterday == 0){
+                            fetch_calories_burn_and_update()
+                        }
+                        
+                        fetch_sleep_time_and_update()
+                        
                     } catch {
                         // Handle network errors
                         print("Error fetching data:", error)
@@ -81,13 +156,24 @@ struct ContentView: View {
                     .navigationDestination(isPresented: $showSignUp) {
                         SignUp(showSignUp: $showSignUp, selectedTab: $selectedTab)
                     }
+                    .onAppear {
+                        Task{
+
+                            do {
+                                fetch_calories_burn_and_update()
+                            } catch {
+                                print("Error fetching healthkit:", error)
+                            }
+                        }
+                    }
+
             }
             .background(Color(.systemBackground))
         }
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}

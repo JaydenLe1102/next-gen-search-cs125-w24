@@ -45,8 +45,8 @@ struct CustomTabView: View {
     }
 }
 
-#Preview {
-//    CustomTabView(selectedTab: .constant(1))
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+////    CustomTabView(selectedTab: .constant(1))
+//    ContentView()
+//        .environmentObject(UserData())
+//}

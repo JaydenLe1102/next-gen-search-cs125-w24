@@ -54,7 +54,7 @@ struct CustomInputModal: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: healthKitManager))
+//}
