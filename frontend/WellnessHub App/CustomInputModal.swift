@@ -17,6 +17,9 @@ struct CustomInputModal: View {
     func updateWeight() {
 
         userData.weight = userData.weight.trimmingCharacters(in: .whitespacesAndNewlines)
+        userData.last_update_weight = userData.formatter.string(from: Date())
+        
+        userData.saveProfile()
     }
     
 
@@ -30,11 +33,19 @@ struct CustomInputModal: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
-            Button("Save") {
+            
+            Button(action: {
                 updateWeight()
-                isWeightModalPresented = true
+                isWeightModalPresented = false
+            }) {
+                Text("Save")
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(.teal)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
             }
             .padding()
+
         }
                
         )
@@ -46,6 +57,7 @@ struct CustomInputModal: View {
     }
 }
 
-#Preview {
-    CustomInputModal(isWeightModalPresented: .constant(true), currentWeight: .constant("150"))
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: healthKitManager))
+//}

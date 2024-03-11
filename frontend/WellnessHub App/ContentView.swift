@@ -10,6 +10,11 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var dietService: DietService
+    @EnvironmentObject var healthManager: HealthkitManager
+    
+    
     @StateObject private var authManager = AuthenticationManager.shared
     
     //view properties
@@ -22,6 +27,114 @@ struct ContentView: View {
     
     @State private var isWeightModalPresented = false
     @State private var currentWeight = ""
+    
+    
+    func fake_fetch_calories_burn_and_update(){
+        
+        let calories = 609.9019999999992
+
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "calories_burn_yesterday": calories
+        ]
+        
+        healthManager.calories_burn_yesterday = calories
+        
+        userData.updateUserInfo(param: param){result in
+            switch result {
+            case .success:
+                print("User information updated successfully!")
+            case .failure(let error):
+                print("Error updating user info: \(error.localizedDescription)")
+            }
+            
+        }
+
+    }
+    
+    func fake_fetch_sleeptime_and_update(){
+        
+        let sleeptime:Double = 20600.0
+
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "sleep_time_yesterday": sleeptime
+        ]
+        
+        healthManager.sleep_time_yesterday = sleeptime
+        userData.updateUserInfo(param: param){result in
+            switch result {
+            case .success:
+                print("User information updated successfully!")
+            case .failure(let error):
+                print("Error updating user info: \(error.localizedDescription)")
+            }
+            
+        }
+
+    }
+    
+    
+    func fetch_calories_burn_and_update(){
+
+            healthManager.fetchCaloriesBurnYesterday{ calories, error in
+                if let calories = calories {
+                    
+                    let param: [String:Any] = [
+                        "idToken": authManager.authToken,
+                        "calories_burn_yesterday": calories
+                    ]
+                    
+                    
+                    userData.updateUserInfo(param: param){result in
+                        switch result {
+                        case .success:
+                            print("User information updated successfully!")
+                        case .failure(let error):
+                            print("Error updating user info: \(error.localizedDescription)")
+                        }
+                        
+                    }
+                    
+                    print("Calories Burn for yesterday: \(calories)")
+                  // Use the calories as needed
+                } else if let error = error {
+                  print("Error fetching calories: \(error)")
+                  // Handle the error
+                }
+              }
+    }
+    
+    func fetch_sleep_time_and_update(){
+        healthManager.fetchSleepTimeYesterday{ sleepTime, error in
+            
+            if let sleepTime = sleepTime {
+                
+                let param: [String:Any] = [
+                    "idToken": authManager.authToken,
+                    "sleep_time_yesterday": sleepTime
+                ]
+                
+                
+                userData.updateUserInfo(param: param){result in
+                    switch result {
+                    case .success:
+                        print("User information updated successfully!")
+                    case .failure(let error):
+                        print("Error updating user info: \(error.localizedDescription)")
+                    }
+                    
+                }
+                
+                print("sleep_time_yesterday: \(sleepTime)")
+              // Use the calories as needed
+            } else if let error = error {
+              print("Error fetching calories: \(error)")
+              // Handle the error
+            }
+            
+        }
+    }
 
 
     var body: some View {
@@ -29,17 +142,19 @@ struct ContentView: View {
         if authManager.isAuthenticated {
             
             TabView(selection: $selectedTab) {
-                UserInputs().tag(0)
                 
                 Home().tag(1)
                 
-                Diet().tag(2)
+                Diet(caloriesNum: 20).tag(2)
                 
                 Exercises().tag(3)
 
                 Sleep().tag(4)
+                    .navigationBarHidden(true)
                 
                 Profile().tag(5)
+                    .navigationBarHidden(true)
+                
             }
             .overlay(alignment: .bottom, content: {
                 CustomTabView(selectedTab: $selectedTab)
@@ -54,8 +169,46 @@ struct ContentView: View {
             })
             .overlay(alignment: .center, content: {
                 CustomInputModal(isWeightModalPresented: $isWeightModalPresented, currentWeight: .constant("150"))
-                    .opacity(isWeightModalPresented ? 0 : 1)
+                    .opacity(isWeightModalPresented ? 1 : 0)
             })
+            .onAppear {
+                Task{
+
+                    do {
+                        try await userData.fetch_and_update(idToken: authManager.authToken )
+                        try await dietService.fetchRecipesAsyncAwait()
+                        
+                        
+                        let date = userData.get_last_update_weight_date()
+                        let today = Date()
+                        print("hello")
+                        print(date)
+                        print(today)
+                        let diffMinutes  = today.timeIntervalSince(date!) / 60.0
+                        print(diffMinutes)
+                        if (date == nil ||  diffMinutes > 10080){ // 7 days  = 10080 mins
+                            isWeightModalPresented = true
+                        }
+                        
+                        if (healthManager.calories_burn_yesterday == 0){
+                            fetch_calories_burn_and_update()
+                            fake_fetch_calories_burn_and_update()
+                        }
+                        
+//                        fetch_sleep_time_and_update()
+                        if (healthManager.sleep_time_yesterday == 0){
+                            fetch_sleep_time_and_update()
+                            fake_fetch_sleeptime_and_update()
+                        }
+                        
+                        
+                        
+                    } catch {
+                        // Handle network errors
+                        print("Error fetching data:", error)
+                    }
+                }
+            }
             
         }
         else {
@@ -64,12 +217,27 @@ struct ContentView: View {
                     .navigationDestination(isPresented: $showSignUp) {
                         SignUp(showSignUp: $showSignUp, selectedTab: $selectedTab)
                     }
+                    .onAppear {
+                        Task{
+
+                            do {
+//                                fetch_calories_burn_and_update()
+//                                fetch_sleep_time_and_update()
+                                fake_fetch_calories_burn_and_update()
+                                fake_fetch_sleeptime_and_update()
+                            } catch {
+                                print("Error fetching healthkit:", error)
+                            }
+                        }
+                    }
+
             }
             .background(Color(.systemBackground))
         }
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}

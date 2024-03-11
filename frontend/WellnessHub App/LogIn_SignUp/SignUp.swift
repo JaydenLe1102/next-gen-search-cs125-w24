@@ -26,22 +26,14 @@ struct SignUp: View {
 
 
     var body: some View {
-        VStack(alignment: .leading, spacing:15, content: {
-            
-            //back button
-            
+        VStack(alignment: .leading, spacing:50, content: {
+                        
             Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
             
             Text("Sign Up")
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .hSpacing()
-            
-//            Text("Please sign in to continue")
-//                .font(.callout)
-//                .fontWeight(.semibold)
-//                .foregroundStyle(.gray)
-//                .padding(.top, -5)
             
             VStack(spacing: 25) {
                 
@@ -61,14 +53,16 @@ struct SignUp: View {
                 NavigationLink(destination: UserInputs(), isActive: $isModalPresented) {
                                         EmptyView()
                                     }
-                                    .hidden()
-                
-                //login button
-                ColoredButton( title: "Sign Up", onClick: {
+                                    .hidden()                
+                Button(action: {
                     isModalPresented = true
-                } )
-//                    authManager.fakeLogin()
-
+                }) {
+                    Text("Sign up")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.teal)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                }
 //                    loginSignupService.signup(email: emailID, password: password){ result in
 //                        switch result {
 //                        case .success():
@@ -85,7 +79,6 @@ struct SignUp: View {
 //                .disableWithOpacity(fullName.isEmpty || emailID.isEmpty ||  password.isEmpty || confirmedPassword.isEmpty)
 
             }
-            .padding(.top,20)
             
 
             
@@ -109,6 +102,7 @@ struct SignUp: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}

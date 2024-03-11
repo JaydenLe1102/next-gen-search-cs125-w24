@@ -8,39 +8,21 @@
 import SwiftUI
 
 struct Diet: View {
-    @State private var searchText: String = ""
-    @State private var selectedOption: Int = 1
+
+    @State var caloriesNum: Double
+
 
 
     var body: some View {
         VStack{
             TopBar()
-            Picker(selection: $selectedOption, label: Text("")) {
-                            Text("Restaurants").tag(0)
-                            Text("Recipes").tag(1)
-                        }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding(.horizontal)
-            
-                        
-
-                        if selectedOption == 0 {
-                                    NavigationStack {
-                                        Restaurants()
-                                            .padding(.vertical)
-                                    }
-                                    .searchable(text: $searchText)
-                        } else {
-                                    NavigationStack {
-                                        Recipes()
-                                            .padding(.vertical)
-                                    }
-                                    .searchable(text: $searchText)
-                        }
+            Recipes()
         }
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    
+//    ContentView()
+//        .environmentObject(UserData())
+//}

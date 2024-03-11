@@ -8,12 +8,7 @@
 import SwiftUI
 
 struct Exercises: View {
-
-//    var recommendation: String
-
-
     var body: some View {
-        
             VStack{
                 TopBar()
                 ScrollView(.vertical, showsIndicators: false,content: {
@@ -22,7 +17,6 @@ struct Exercises: View {
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     Exercise(distance: 1000, calories: 50, steps: 100)
                     
-
                     Text("Recommendations")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding(.top,20)
@@ -42,7 +36,8 @@ struct Exercises: View {
         }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}
 
