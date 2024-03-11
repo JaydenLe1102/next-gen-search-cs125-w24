@@ -10,7 +10,7 @@ import openai
 import pyrebase
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
-# from app.config.creds import config, firebaseDatabaseConfig
+from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 
 # Replace the config and firebaseDatabaseConfig with one in docs
