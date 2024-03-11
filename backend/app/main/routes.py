@@ -1,6 +1,10 @@
 from app.main import bp
 import requests
 from flask import Flask, request, jsonify
+import json
+#Import openAI
+import openai 
+# from apikey import APIKEY
 # import firebase_admin
 # from firebase_admin import firestore
 import pyrebase
@@ -9,8 +13,13 @@ from firebase_admin import credentials, firestore, initialize_app
 from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 
+# Replace the config and firebaseDatabaseConfig with one in docs
+config = {
+}
+firebaseDatabaseConfig = {
+}
 
-
+openai.api_key = ""
 
 #Using pyrebase to authenticate
 firebase = pyrebase.initialize_app(config)
@@ -187,4 +196,33 @@ def get_recipes():
         # Return an error message if an exception occurred
         return jsonify({"error": str(e)}), 400
     
-    
+@bp.route('/get_exercise', methods=['GET'])
+def exercise():
+    # Get parameters from the request
+    gender = request.args.get('gender')
+    age = request.args.get('age')
+    weight = request.args.get('weight')
+    height = request.args.get('height')
+    preference = request.args.get('preference')  # For example, weight loss, muscle gain, etc.
+
+    # Generate prompt based on parameters
+    prompt = f"Give me 6 recommendation of exercises with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height}cm tall, who wants to {preference} in JSON Format."
+
+    # Generate exercise recommendations using OpenAI's GPT-3.5 model
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    # Extract exercise recommendations from the API response
+    exercise_data_str = response.choices[0].message.content
+    # Parse exercise data as JSON
+    try:
+        exercise_data = json.loads(exercise_data_str)
+    except json.JSONDecodeError as e:
+        return jsonify({"error": str(e)}), 500
+
+    # Return exercise recommendations as JSON response
+    return jsonify({"exercises": exercise_data})
