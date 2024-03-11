@@ -60,7 +60,7 @@ class UserData: ObservableObject {
             "activity_level": self.activityLevel,
             "age": Int(self.age) ?? "",
             "calories_burn_yesterday": self.healthKitManager.calories_burn_yesterday,
-            "dietary_preference":  self.healthKitManager.sleep_time_yesterday,
+            "dietary_preference":  self.dietaryPreferences,
             "email": self.email,
             "full_name": self.fullname,
             "gender": self.gender,

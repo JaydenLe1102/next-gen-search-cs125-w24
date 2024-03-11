@@ -9,7 +9,8 @@ from firebase_admin import credentials, firestore, initialize_app
 from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 from app.main.data import sample_user_info
-
+from app.sleep_recommendation.sleep_recommendation import sleep_rec, sleep_time, goodness_of_sleep
+from app.main.utils import convertSecondsToFloatingHours
 
 
 
@@ -20,6 +21,17 @@ auth = firebase.auth()
 cred = credentials.Certificate(firebaseDatabaseConfig)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
+
+
+#utils
+def getUserInfo(user_id_token):  
+	user = auth.get_account_info(user_id_token)
+	user_uid = user['users'][0]['localId']
+
+	# Retrieve user information from Firestore
+	user_info_doc = db.collection("users").document(user_uid).get()
+	return user_info_doc.to_dict()
+
 
 @bp.route('/', methods=['GET'])
 def index():
@@ -138,19 +150,8 @@ def get_user_info():
         
         user_id_token = request.args.get('idToken')
         
-        #print("user_id_token")
-        #print(user_id_token)
-        
         #return sample_user_info, 200
-        # Extract user ID token from request headers
-        
-        # Verify user ID token
-        user = auth.get_account_info(user_id_token)
-        user_uid = user['users'][0]['localId']
-
-        # Retrieve user information from Firestore
-        user_info_doc = db.collection("users").document(user_uid).get()
-        user_info = user_info_doc.to_dict()
+        user_info = getUserInfo(user_id_token)
 
         if user_info:
             return jsonify(user_info), 200
@@ -220,4 +221,40 @@ def get_recipes():
         # Return an error message if an exception occurred
         return jsonify({"error": str(e)}), 400
     
+    
+@bp.route('/get_sleep', methods=['GET'])
+def get_sleep():
+    try:
+        user_id_token = request.args.get('idToken')
+        user_info = getUserInfo(user_id_token)
+        user_age = user_info['age']
+        sleep_recommendation = sleep_rec(int(user_age))
+        
+        if (sleep_recommendation):
+            return jsonify(sleep_recommendation), 200
+        else:
+            return jsonify({"error": "Only support age from 14 to 65"}), 400
+        
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+    
+@bp.route('/get_sleep_point', methods=['GET'])
+def get_sleep_point():
+    try:
+        user_id_token = request.args.get('idToken')
+        
+        #return sample_user_info, 200
+        user_info = getUserInfo(user_id_token)
+        
+        sleep_track = convertSecondsToFloatingHours(user_info['sleep_time_yesterday'])
+
+        sleep_recommendation = sleep_rec(int(user_info['age']))
+        
+        sleep_point = goodness_of_sleep(sleep_track, sleep_recommendation)
+        
+        return sleep_point, 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
     

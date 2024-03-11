@@ -49,11 +49,7 @@ class HealthkitManager: ObservableObject {
             }
         }
     }
-    
-    func testRun(){
-        print("hello world")
-    }
-    
+
     func fetchBodyMass() {
         guard let bodyMassType = HKObjectType.quantityType(forIdentifier: .bodyMass) else {
             print("Body mass data is not available.")
@@ -131,7 +127,7 @@ class HealthkitManager: ObservableObject {
             let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: 100000, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
                 if let error = error {
                     print("Error fetching sleep data: \(error.localizedDescription)")
-                    return
+                    completion(nil, error)
                 }
                 
                 guard let results = results as? [HKCategorySample] else {
@@ -158,6 +154,7 @@ class HealthkitManager: ObservableObject {
                 
                 print("total sleep time")
                 print(totalSleepTime)
+                completion(totalSleepTime, nil)
             }
             
             // Execute the query
