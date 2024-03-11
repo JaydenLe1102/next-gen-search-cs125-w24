@@ -3,3 +3,4 @@ flask_cors
 python-dotenv
 pyrebase4
 firebase_admin 
+openai

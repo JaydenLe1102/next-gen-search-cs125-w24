@@ -61,3 +61,20 @@ sample_recipe = [
     }
 ]	
  
+ 
+sample_user_info = {
+    "activity_level": "Beginner",
+    "age": 21,
+    "calories_burn_yesterday": 609.9019999999992,
+    "dietary_preference": 20600,
+    "email": "test@email.com",
+    "first_name": "John",
+    "full_name": "",
+    "gender": "Male",
+    "health_goal": "Lose weight",
+    "height": "5.8",
+    "last_name": "Doe",
+    "last_update_weight": "2024-03-10",
+    "sleep_time_yesterday": 20600,
+    "weight": "165"
+}
