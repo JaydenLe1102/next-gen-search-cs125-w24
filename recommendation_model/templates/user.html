@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Choice Form</title>
+</head>
+<body>
+    <h1>User Choicee Form</h1>
+    <p>{{ bmi_show }}</p>
+    <form action="/user_choice" method="post">
+        <label for="user_choice">Choose Action:</label>
+        <select name="user_choice">
+            <option value="0">Increase Weight</option>
+            <option value="1">Decrease Weight</option>
+            <option value="2">Maintain Weight</option>
+        </select><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
