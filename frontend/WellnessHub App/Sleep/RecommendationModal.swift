@@ -25,7 +25,10 @@ struct RecommendationModal: View {
                         
                     Text(recommendation)
                         .padding([.bottom, .horizontal])
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
+                 .frame(width: 135, height: 135 )
                  .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
                 .frame(width: 140)
