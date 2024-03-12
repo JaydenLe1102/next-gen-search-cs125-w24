@@ -17,13 +17,16 @@ struct WellnessHub_AppApp: App {
     @StateObject private var healthKitManager = HealthkitManager()
     @StateObject private var dietService = DietService()
     @StateObject private var sleepService = SleepService()
+    @StateObject private var userData = UserData()
+    
+    
 //    @StateObject private var dietService = DietService()
 //    @StateObject private var userData = UserData(healthKitManager: healthKitManager)
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(UserData(healthKitManager: healthKitManager, dietService: dietService, sleepService: sleepService))
+                .environmentObject(userData)
                 .environmentObject(dietService)
                 .environmentObject(healthKitManager)
                 .environmentObject(sleepService)

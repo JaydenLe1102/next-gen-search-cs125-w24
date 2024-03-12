@@ -492,31 +492,41 @@ def get_diet_score():
         user_id_token = request.args.get('idToken')
         calories_consumed = request.args.get('calories_consumed')
         
+        user_info = getUserInfo(user_id_token)
+        
         user = auth.get_account_info(user_id_token)
         user_uid = user['users'][0]['localId']
         
+        print("calories_consumed ", calories_consumed)
+        print("user_info['calories_consumed'] ", user_info['calories_consumed'])
+        print("helloworld")
+        print(user_info['calories_consumed'] != None )
+        print(float(user_info['calories_consumed']) != 0)
+        
+        if (float(calories_consumed) == 0.0 and user_info['calories_consumed'] != None and user_info['calories_consumed'] != 0):
+            print("got here hello hehe")
+            calories_consumed = user_info['calories_consumed']
+        else:
+            calories_consumed = float(calories_consumed)
+            
         update_info = {
             "calories_consumed": calories_consumed
         }
         
         db.collection("users").document(user_uid).update(update_info)
         
-        
-        user_info = getUserInfo(user_id_token)
-        
-        
         score = diet_score(float(calories_consumed), float(user_info['caloriesIntakeRec']))
         
         print("returning diet score")
         print("score", score)
         
-        return jsonify({"diet_score": score}), 200
+        return jsonify({"diet_score": score, "caloriesIntakeRec":float(user_info['caloriesIntakeRec']), "calories_consumed": calories_consumed}), 200
     
     except Exception as e:
         return jsonify({"error": str(e)}), 400
     
     
-@bp.route('/get_week_score', methods=['GET'])
+@bp.route('/get_day_score', methods=['GET'])
 def get_week_score():
     print("getting diet score")
     try:
@@ -529,19 +539,24 @@ def get_week_score():
         
         user_info = getUserInfo(user_id_token)
         calories_consumed = user_info['calories_consumed']
+        if user_info['calories_consumed'] == None:
+            calories_consumed = 0
+            
+        if user_info['sleep_time_yesterday'] == None:
+            sleep_time = 0
+        else:
+            sleep_time = user_info['sleep_time_yesterday']
         
         
         diet = diet_score(float(calories_consumed), float(user_info['caloriesIntakeRec']))
         
-        sleep_track = convertSecondsToFloatingHours(float(user_info['sleep_time_yesterday']))
+        sleep_track = convertSecondsToFloatingHours(float(sleep_time))
 
         sleep_recommendation = sleep_rec(int(user_info['age']))
         
         sleep = goodness_of_sleep(sleep_track, sleep_recommendation)
         
-        
-        
-        return jsonify({"week_score": diet + sleep}), 200
+        return jsonify({"day_score": float(diet + sleep)}), 200
     
     except Exception as e:
         return jsonify({"error": str(e)}), 400

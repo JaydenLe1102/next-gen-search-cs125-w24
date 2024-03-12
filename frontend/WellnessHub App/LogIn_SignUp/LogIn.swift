@@ -10,6 +10,13 @@
 import SwiftUI
 
 struct LogIn: View {
+    
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var dietService: DietService
+    @EnvironmentObject var healthManager: HealthkitManager
+    @EnvironmentObject var sleepService: SleepService
+    
+    
     @Binding var showSignUp: Bool
     @Binding var selectedTab: Int
 
@@ -71,16 +78,39 @@ struct LogIn: View {
                                                 switch result {
                                                 case .success(let tokens):
                                                     print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
-                                                    authManager.login(withToken: tokens.idToken, userId: tokens.userID)
-                    
-                                                    print("Login successful with checking token")
-                                                    print(authManager.authToken)
+                
+                                                    
+                                                    Task{
+                                                        do{
+                                                            try await userData.fetch_and_update(idToken: tokens.idToken)
+                                                            try await dietService.getDietScore(idToken: tokens.idToken)
+                                                            try await sleepService.fetch_sleep_rec_point(idToken: tokens.idToken)
+                                                            
+                                                            try await dietService.fetchRecipesAsyncAwait(idToken: tokens.idToken)
+                                                            
+                                                            try await userData.getScoreForDay(idToken: tokens.idToken)
+                                                            
+                                                        }
+                                                        catch{
+                                                            
+                                                        }
+                                                        
+                                                        authManager.login(withToken: tokens.idToken, userId: tokens.userID)
+                        
+                                                        print("Login successful with checking token")
+                                                        print(authManager.authToken)
+                                                        
+                                                        selectedTab = 1
+                               
+                                                    }
+                                                   
+                                                    
                                                 case .failure(let error):
                                                     print("Login failed: \(error)")
                                                 }
                                             }
                                             
-                                            selectedTab = 1
+
                 }) {
                     Text("Log in")
                         .frame(maxWidth: .infinity)
@@ -88,6 +118,7 @@ struct LogIn: View {
                         .padding()
                         .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
                 }
+                
   
                     //disabling until the email and pw are entered
 //                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)

@@ -132,9 +132,11 @@ def maintain_weight(current_calories):
 
 
 def diet_score(intake_calories, standard_calorie):
+    print("intake cal", intake_calories)
+    print("standard cal", standard_calorie)
     lower = standard_calorie * 0.8
     upper = standard_calorie * 1.2
     total_score = 10
     if intake_calories < lower or intake_calories > upper:
-        total_score -= 2
+        total_score -= (abs(intake_calories - standard_calorie) / max(standard_calorie, intake_calories)) * 10
     return total_score

@@ -10,9 +10,6 @@ import SwiftUI
 struct Diet: View {
 
     @EnvironmentObject var dietService: DietService
-    @EnvironmentObject var userData: UserData
-
-
 
     var body: some View {
         VStack{

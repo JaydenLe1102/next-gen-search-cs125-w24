@@ -182,56 +182,56 @@ struct ContentView: View {
 
             }
             .disabled(isLoading)
-            .onAppear {
-                Task{
-                    isLoading = true
-                    do {
-                        try await dietService.getDietScore(idToken: authManager.authToken)
-                        
-                        try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
-                        try await userData.fetch_and_update(idToken: authManager.authToken )
-                        try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
-                        
-                        try await userData.getScoreForWeek()
-                        
-                        let date = userData.get_last_update_weight_date()
-                        let today = Date()
-                       
-                        if (date == nil){ // 7 days  = 10080 mins
-                            isWeightModalPresented = true
-                        }
-                        else {
-                            print("hello")
-                            print(date)
-                            print(today)
-                            let diffMinutes  = today.timeIntervalSince(date!) / 60.0
-                            if (diffMinutes > 10080){
-                                isWeightModalPresented = true
+            .onAppear{
+                
+                        Task{
+                            do{
+//                                try await userData.fetch_and_update(idToken: authManager.authToken)
+//                                try await dietService.getDietScore(idToken: authManager.authToken)
+//                                try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+//                                
+//                                try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
+//                                
+//                                try await userData.getScoreForDay(idToken: authManager.authToken)
+                                
+//                                try await userData.getScoreForWeek()
+                                
+                                let date = userData.get_last_update_weight_date()
+                                
+                                
+                                let today = Date()
+                               
+                                if (date == nil){ // 7 days  = 10080 mins
+                                    isWeightModalPresented = true
+                                }
+                                else {
+                                    let diffMinutes  = today.timeIntervalSince(date!) / 60.0
+                                    if (diffMinutes > 10080){
+                                        isWeightModalPresented = true
+                                    }
+                                }
+                                
+                                if (healthManager.calories_burn_yesterday == 0){
+//                                    fetch_calories_burn_and_update()
+                                    fake_fetch_calories_burn_and_update()
+                                }
+                                
+        //                        fetch_sleep_time_and_update()
+                                if (healthManager.sleep_time_yesterday == 0){
+//                                    fetch_sleep_time_and_update()
+                                    fake_fetch_sleeptime_and_update()
+                                }
                             }
-                        }
-                        
-                        if (healthManager.calories_burn_yesterday == 0){
-                            fetch_calories_burn_and_update()
-                            fake_fetch_calories_burn_and_update()
-                        }
-                        
-//                        fetch_sleep_time_and_update()
-                        if (healthManager.sleep_time_yesterday == 0){
-                            fetch_sleep_time_and_update()
-                            fake_fetch_sleeptime_and_update()
-                        }
-                        
-                        
-                        
-                    } catch {
-                        // Handle network errors
-                        print("Error fetching data:", error)
+                            catch{
+                                
+                            }
+   
                     }
-                    isLoading = false
+                    
                 }
             }
+        
             
-        }
         else {
             NavigationStack {
                 LogIn(showSignUp: $showSignUp, selectedTab: $selectedTab)

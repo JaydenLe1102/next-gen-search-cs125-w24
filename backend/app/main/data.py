@@ -75,3 +75,24 @@ sample_user_info = {
     "weight": 75,
     "target_weight": 80,
 }
+
+
+{
+    "activity_level": "Beginner",
+    "age": 30,
+    "caloriesIntakeRec": 924.31368,
+    "calories_burn_yesterday": 609.9019999999992,
+    "calories_consumed": 30.7,
+    "dietary_preference": "N/A",
+    "email": "test@email.com",
+    "first_name": "John",
+    "full_name": "N/A",
+    "gender": "Male",
+    "health_goal": "Lose weight",
+    "height": 180,
+    "last_name": "Doe",
+    "last_update_weight": "03/10/2024",
+    "sleep_time_yesterday": 20600,
+    "target_weight": "160",
+    "weight": "165"
+}

@@ -48,18 +48,6 @@ struct Sleep: View {
                 Spacer()
             })
         }
-        .onAppear{
-//            Task{
-//                do{
-//                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
-//                }
-//                catch{
-//                    // Handle network errors
-//                    print("Error fetching data:", error)
-//                }
-//                
-//            }
-        }
     }
 }
 

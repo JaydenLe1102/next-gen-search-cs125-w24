@@ -139,11 +139,69 @@ class DietService: ObservableObject {
         let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Double]
         
         let score = jsonResponse?["diet_score"]
+        let calIntakeRec = jsonResponse?["caloriesIntakeRec"]
+        let calConsumed = jsonResponse?["calories_consumed"]
         
         
         await DispatchQueue.main.async {
             self.dietScore = score!
+            self.caloriesIntakeRec = calIntakeRec!
+            self.caloriesConsume = calConsumed!
             self.dietProgressPercentage = self.dietScore / self.maxPointPerWeek
         }
     }
+    
+    func getDietScore2(idToken: String?, completion: @escaping (Result<Double, Error>) -> Void) {
+      guard let idToken = idToken else {
+        completion(.failure(NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])))
+        return
+      }
+
+      // Replace with your actual API endpoint URL
+      var urlComponents = URLComponents(string: baseURL + "/get_diet_score")!
+      urlComponents.queryItems = [
+        URLQueryItem(name: "idToken", value: idToken),
+        URLQueryItem(name: "calories_consumed", value: String(self.caloriesConsume))
+      ]
+
+      let url = urlComponents.url!
+
+      var request = URLRequest(url: url)
+      request.httpMethod = "GET"
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+      // Perform the network request
+      URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+          completion(.failure(error))
+          return
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+          completion(.failure(URLError(.badServerResponse)))
+          return
+        }
+
+        // Decode the JSON response
+        do {
+            let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Double]
+          guard let score = jsonResponse?["diet_score"] else {
+            completion(.failure(NSError(domain: "MyErrorDomain", code: 2, userInfo: ["message": "Missing 'diet_score' key in response"])))
+            return
+          }
+          DispatchQueue.main.async {
+            self.dietScore = score
+            self.dietProgressPercentage = score / self.maxPointPerWeek
+              
+              
+            completion(.success(score))
+          }
+          
+        } catch {
+          completion(.failure(error))
+        }
+      }.resume()
+    }
+
 }
