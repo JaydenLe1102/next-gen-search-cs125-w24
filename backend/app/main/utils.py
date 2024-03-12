@@ -28,5 +28,5 @@ def getGenderNumber(gender):
     return 1
   
   
-def convertLbsToKiloCalories(weightInLbs):
+def convertLbsToKilogram(weightInLbs):
   return 0.453592 * weightInLbs

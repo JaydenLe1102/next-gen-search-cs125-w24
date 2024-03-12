@@ -181,13 +181,18 @@ struct ContentView: View {
                         
                         let date = userData.get_last_update_weight_date()
                         let today = Date()
-                        print("hello")
-                        print(date)
-                        print(today)
-                        let diffMinutes  = today.timeIntervalSince(date!) / 60.0
-                        print(diffMinutes)
-                        if (date == nil ||  diffMinutes > 10080){ // 7 days  = 10080 mins
+                       
+                        if (date == nil){ // 7 days  = 10080 mins
                             isWeightModalPresented = true
+                        }
+                        else {
+                            print("hello")
+                            print(date)
+                            print(today)
+                            let diffMinutes  = today.timeIntervalSince(date!) / 60.0
+                            if (diffMinutes > 10080){
+                                isWeightModalPresented = true
+                            }
                         }
                         
                         if (healthManager.calories_burn_yesterday == 0){

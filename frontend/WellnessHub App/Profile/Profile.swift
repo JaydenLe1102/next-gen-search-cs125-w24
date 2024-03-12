@@ -67,6 +67,12 @@ struct Profile: View {
                                     .foregroundColor(.secondary)
                             })
                             
+                            HStack( content: {
+                                Text("Target Weight:")
+                                Text("\(userData.target_weight) lbs")
+                                    .foregroundColor(.secondary)
+                            })
+                            
                             HStack(content: {
                                 Text("Activity Level:")
                                 Text("\(userData.activityLevel)")
@@ -140,7 +146,9 @@ struct Profile: View {
     
 }
 
-//#Preview {
-//    ContentView()
-//        .environmentObject(UserData())
-//}
+#Preview {
+    Profile()
+        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+        .environmentObject(DietService())
+        .environmentObject(HealthkitManager())
+}

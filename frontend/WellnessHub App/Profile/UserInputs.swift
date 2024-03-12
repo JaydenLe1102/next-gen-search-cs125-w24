@@ -74,7 +74,17 @@ struct UserInputs: View {
                     .frame(maxWidth: UIScreen.main.bounds.width)
 
                             
-                    
+                    HStack(content: {
+                        Text("Activity Level:")
+
+                        Section {
+                            Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
+                                ForEach(0..<3) { index in
+                                    Text(UserData.activityLevels[index])
+                                }
+                            }
+                        }
+                    })
                     
                     HStack(content: {
                         Text("Goal:")
@@ -88,26 +98,17 @@ struct UserInputs: View {
                     })
                     
                     HStack( content: {
-                        Text("Age:")
-                        TextField("Age", text: $userData.age)
+                        Text("Target weight:")
+                        TextField("Target weight", text: $userData.target_weight)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.leading)
-                        Text("years old")
+                            .disabled(userData.selectedGoalIndex == 2)
+                        Text("lbs")
                             .foregroundColor(.secondary)
-                    
                     })
                     
-                    HStack(content: {
-                        Text("Activity Level:")
+                    
 
-                        Section {
-                            Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
-                                ForEach(0..<3) { index in
-                                    Text(UserData.activityLevels[index])
-                                }
-                            }
-                        }
-                    })
                 })
                 .padding()
                 

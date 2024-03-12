@@ -72,5 +72,6 @@ sample_user_info = {
     "health_goal": "Gain weight",
     "height": 180,
     "last_name": "Doe",
-    "weight": 75
+    "weight": 75,
+    "target_weight": 80,
 }

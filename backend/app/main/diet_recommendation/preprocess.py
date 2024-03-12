@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 def calc_bmr(weight, height, age, gender):
     #calculate bmr will allow us to further know if the 
@@ -53,7 +54,10 @@ def bmi_result(bmi):
         return "Based on the BMI calculation: You are overweight -- Recommend Decrease Weight to Maintain the Healthy Condition"
 
 def data_preprocess():
-    data  = pd.read_csv('./dataset/recipes.csv')
+    basePath = os.path.dirname(__file__) 
+    print(basePath)
+    csvPath = os.path.join(basePath, 'dataset/recipes.csv')
+    data  = pd.read_csv(csvPath)
     data = data.dropna(subset=['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images'])
     cook_time_list  = [i[2:] for i  in data["CookTime"]]
     #meal_label = categorize_meal(cook_time_list)
@@ -61,7 +65,29 @@ def data_preprocess():
     data = data[data['Calories'] != 0]
     #specify the important feature only --> include recipe, nutritions, food name 
     
+    data['RecipeInstructions'] = data['RecipeInstructions'].apply(clean_instructions)
+    data['Images'] = data['Images'].apply(get_images)
+    
     return data
+
+def clean_instructions(instructions):
+    string = instructions.replace('\",', '')
+    string = string.replace('\"', '')
+    string = string.replace('c(', '')
+    string = string.replace(')', '')
+    return string
+
+def get_images(text):
+    text = text.replace('\"', '')
+    text = text.replace('c(', '')
+    text = text.replace(')', '')
+    
+    listText = text.split(', ')
+    
+    if len(listText) == 1 and listText[0] == "character(0":
+        return None
+    
+    return listText[0]
 
 
 def increase_weight(current_calories, desire_weight_gain):

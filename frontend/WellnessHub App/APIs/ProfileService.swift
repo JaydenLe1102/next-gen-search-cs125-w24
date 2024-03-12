@@ -19,19 +19,20 @@ class UserData: ObservableObject {
     var formatter: DateFormatter
     
     //UserInfo
-    @Published var email: String = ""
-    @Published var fullname: String = ""
-    @Published var last_update_weight:String = ""
+    @Published var email: String = "N/A"
+    @Published var fullname: String = "N/A"
+    @Published var last_update_weight:String = "N/A"
     
 
     // User data properties
-    @Published var weight: String = ""
-    @Published var height: String = ""
-    @Published var age: String = ""
-    @Published var goal: String = ""
-    @Published var gender: String = ""
+    @Published var weight: String = "N/A"
+    @Published var height: String = "N/A"
+    @Published var age: String = "N/A"
+    @Published var goal: String = "N/A"
+    @Published var gender: String = "N/A"
     @Published var activityLevel: String = ""
-    @Published var dietaryPreferences: String = ""
+    @Published var dietaryPreferences: String = "N/A"
+    @Published var target_weight: String = "N/A"
 
     // Selected index properties (if applicable)
     @Published var selectedGenderIndex: Int = 0 // Update type to Int
@@ -68,7 +69,8 @@ class UserData: ObservableObject {
             "height": self.height,
             "weight": self.weight,
             "sleep_time_yesterday": self.healthKitManager.sleep_time_yesterday,
-            "last_update_weight": self.last_update_weight
+            "last_update_weight": self.last_update_weight,
+            "target_weight": self.target_weight
         ]
         
         return param
@@ -123,6 +125,7 @@ class UserData: ObservableObject {
         self.gender = UserData.genders[self.selectedGenderIndex]
         self.activityLevel = UserData.activityLevels[self.selectedActivityLvlIndex]
         self.dietaryPreferences = self.dietaryPreferences.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.target_weight = self.target_weight.trimmingCharacters(in: .whitespacesAndNewlines)
 //        self.last_update_weight = formatter.string(from: Date())
 
         // Persist data to storage (optional, see comments below)
@@ -171,6 +174,7 @@ class UserData: ObservableObject {
                 self.weight = (dataExtracted["weight"] as AnyObject).description
                 self.dietaryPreferences = dataExtracted["dietary_preference"] as? String ?? ""
                 self.age = (dataExtracted["age"] as AnyObject).description
+                self.target_weight = (dataExtracted["target_weight"] as AnyObject).description
                 
                 let gender1 = dataExtracted["gender"] as? String ?? ""
                 for (index, gender) in UserData.genders.enumerated() {

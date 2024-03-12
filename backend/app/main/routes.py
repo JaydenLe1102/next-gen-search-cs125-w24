@@ -8,13 +8,18 @@ import openai
 # import firebase_admin
 # from firebase_admin import firestore
 import pyrebase
+import os
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
 from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 from app.main.data import sample_user_info
 from app.sleep_recommendation.sleep_recommendation import sleep_rec, sleep_time, goodness_of_sleep
-from app.main.utils import convertSecondsToFloatingHours, getExerciseDurationNumber, getGenderNumber
+from app.main.utils import convertSecondsToFloatingHours, getExerciseDurationNumber, getGenderNumber, convertLbsToKilogram
+from app.main.diet_recommendation.preprocess import calc_bmr, cacl_calories, bmi_cal, bmi_result, increase_weight, decrease_weight, data_preprocess, maintain_weight
+from app.main.diet_recommendation.diet_rec import predict
+import pandas as pd
+import pickle 
 
 # Replace the config and firebaseDatabaseConfig with one in docs
 #config = {
@@ -24,9 +29,22 @@ from app.main.utils import convertSecondsToFloatingHours, getExerciseDurationNum
 
 openai.api_key = "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"
 # load and read from pickle file 
-model_low = pickle.load(open("model_low.pkl", "rb"))
-model_med = pickle.load(open("model_med.pkl", "rb"))
-model_high = pickle.load(open("model_high.pkl", "rb"))
+basePath = os.path.dirname(__file__) 
+
+model_low_path = os.path.join(basePath, "diet_recommendation/model_low.pkl")
+model_med_path = os.path.join(basePath, "diet_recommendation/model_med.pkl")
+model_high_path = os.path.join(basePath, "diet_recommendation/model_high.pkl")
+data_path = os.path.join(basePath, "diet_recommendation/data.pkl")
+
+model_low = pickle.load(open(model_low_path, "rb"))
+model_med = pickle.load(open(model_med_path, "rb"))
+model_high = pickle.load(open(model_high_path, "rb"))
+data = pickle.load(open(data_path, "rb"))
+#data = data_preprocess()
+#os.makedirs(os.path.dirname(data_path), exist_ok=True)
+#pickle.dump(data, open(data_path, "wb"))
+
+print("Done load model and preprocess data")
 
 #Using pyrebase to authenticate
 firebase = pyrebase.initialize_app(config)
@@ -321,9 +339,12 @@ def get_bmi_rec():
      
         user_info = getUserInfo(user_id_token)
         
-        user_weight = user_info['weight']
-        user_height = user_info['height']
-        user_age = user_info['age']
+        print(user_info)
+        print("hello world")
+        
+        user_weight = convertLbsToKilogram(float(user_info['weight']))
+        user_height = float(user_info['height'])
+        user_age = int(user_info['age'])
         user_gender = getGenderNumber(user_info['gender'])
         user_exercise_duration = getExerciseDurationNumber(user_info['activity_level'])
         
@@ -350,33 +371,70 @@ def get_diet():
     try:
         user_id_token = request.args.get('idToken')
         user_info = getUserInfo(user_id_token)
-        user_calories = user_info['calories']
+        user_caloriesIntakeRec = user_info['caloriesIntakeRec']
+        
         user_health_goal = user_info['health_goal']
-        user_dietary_preference = user_info['dietary_preference']
+        
+        all_choices = None
         
         if user_health_goal == "Lose Weight":
-            target_cal = decrease_weight(user_calories)
+            desired_weight_loss = user_info['weight'] - user_info['target_weight']
+            # Retrieve calories from session
+            calories = user_caloriesIntakeRec
+            
+            low_target_cal, med_target_cal, high_target_cal = decrease_weight(calories, desired_weight_loss)
+            rand_breakfast = predict(model_low, low_target_cal)
+            rand_lunch = predict(model_med, med_target_cal)
+            rand_dinner = predict(model_high, high_target_cal)
+
+            nearest_neighbors_breakfast = data.iloc[rand_breakfast[:8]]
+            nearest_neighbors_lunch = data.iloc[rand_lunch[:8]]
+            nearest_neighbors_dinner = data.iloc[rand_dinner[:8]]
+
+            #turn to DataFrame
+            top_breakfast = nearest_neighbors_breakfast[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            top_lunch = nearest_neighbors_lunch[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            top_dinner = nearest_neighbors_dinner[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            all_choices = pd.concat([top_breakfast, top_lunch, top_dinner], ignore_index=True)
+
         elif user_health_goal == "Gain Weight":
-            target_cal = increase_weight(user_calories)
+            
+            desired_weight_gain = user_info['target_weight'] - user_info['weight']
+            desired_weight_gain = convertLbsToKilogram(desired_weight_gain)
+            calories = user_caloriesIntakeRec
+                  
+            low_target_cal, med_target_cal, high_target_cal = increase_weight(calories, desired_weight_gain)
+            rand_breakfast = predict(model_low, low_target_cal)
+            rand_lunch = predict(model_med, med_target_cal)
+            rand_dinner = predict(model_high, high_target_cal)
+            
+            nearest_neighbors_breakfast = data.iloc[rand_breakfast[:8]]
+            nearest_neighbors_lunch = data.iloc[rand_lunch[:8]]
+            nearest_neighbors_dinner = data.iloc[rand_dinner[:8]]
+        
+            #turn to DataFrame
+            top_breakfast = nearest_neighbors_breakfast[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            top_lunch = nearest_neighbors_lunch[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            top_dinner = nearest_neighbors_dinner[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            all_choices = pd.concat([top_breakfast, top_lunch, top_dinner], ignore_index=True)
         else:
-            target_cal = maintain_weight(user_calories)
+            low_target_cal, med_target_cal, high_target_cal = maintain_weight(user_caloriesIntakeRec)
+            rand_breakfast = predict(model_low, low_target_cal)
+            rand_lunch = predict(model_med, med_target_cal)
+            rand_dinner = predict(model_high, high_target_cal)
+            
+            nearest_neighbors_breakfast = data.iloc[rand_breakfast[:8]]
+            nearest_neighbors_lunch = data.iloc[rand_lunch[:8]]
+            nearest_neighbors_dinner = data.iloc[rand_dinner[:]]
         
-        rand_breakfast = predict(model_low, target_cal)
-        rand_lunch = predict(model_med, target_cal)
-        rand_dinner = predict(model_high, target_cal)
-        
-        # Retrieve user information from Firestore
-        user_info_doc = db.collection("users").document(user_uid).get()
-        user_info = user_info_doc.to_dict()
-        
-        # Get the user's dietary preference
-        dietary_preference = user_info['dietary_preference']
-        
-        # Get the user's health goal
-        health_goal = user_info['health_goal']
-        
-        # Get the user's calories
-        calories = user_info['calories']
-        
-        # Get the user's age
-        age = user_info['age']
+            #turn to DataFrame
+            top_breakfast = nearest_neighbors_breakfast[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            top_lunch = nearest_neighbors_lunch[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            top_dinner = nearest_neighbors_dinner[['Name', 'CookTime', 'Calories', 'RecipeInstructions', 'Images']]
+            all_choices = pd.concat([top_breakfast, top_lunch, top_dinner], ignore_index=True)
+
+        all_choices = all_choices.to_dict(orient='records')
+
+        return jsonify(all_choices), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
