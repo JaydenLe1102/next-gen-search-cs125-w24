@@ -1,6 +1,10 @@
 from app.main import bp
 import requests
 from flask import Flask, request, jsonify
+import json
+#Import openAI
+import openai 
+# from apikey import APIKEY
 # import firebase_admin
 # from firebase_admin import firestore
 import pyrebase
@@ -10,9 +14,19 @@ from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 from app.main.data import sample_user_info
 from app.sleep_recommendation.sleep_recommendation import sleep_rec, sleep_time, goodness_of_sleep
-from app.main.utils import convertSecondsToFloatingHours
+from app.main.utils import convertSecondsToFloatingHours, getExerciseDurationNumber, getGenderNumber
 
+# Replace the config and firebaseDatabaseConfig with one in docs
+#config = {
+#}
+#firebaseDatabaseConfig = {
+#}
 
+openai.api_key = "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"
+# load and read from pickle file 
+model_low = pickle.load(open("model_low.pkl", "rb"))
+model_med = pickle.load(open("model_med.pkl", "rb"))
+model_high = pickle.load(open("model_high.pkl", "rb"))
 
 #Using pyrebase to authenticate
 firebase = pyrebase.initialize_app(config)
@@ -31,6 +45,8 @@ def getUserInfo(user_id_token):
 	# Retrieve user information from Firestore
 	user_info_doc = db.collection("users").document(user_uid).get()
 	return user_info_doc.to_dict()
+
+
 
 
 @bp.route('/', methods=['GET'])
@@ -258,3 +274,109 @@ def get_sleep_point():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
     
+@bp.route('/get_exercise', methods=['GET'])
+def exercise():
+    # Get parameters from the request
+    gender = request.args.get('gender')
+    age = request.args.get('age')
+    weight = request.args.get('weight')
+    height = request.args.get('height')
+    preference = request.args.get('preference')  # For example, weight loss, muscle gain, etc.
+
+    # Generate prompt based on parameters
+    prompt = f"Give me 6 recommendation of exercises with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height}cm tall, who wants to {preference} in JSON Format."
+
+    # Generate exercise recommendations using OpenAI's GPT-3.5 model
+    response = openai.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
+    )
+
+    # Extract exercise recommendations from the API response
+    exercise_data_str = response.choices[0].message.content
+    # Parse exercise data as JSON
+    try:
+        exercise_data = json.loads(exercise_data_str)
+    except json.JSONDecodeError as e:
+        return jsonify({"error": str(e)}), 500
+
+    # Return exercise recommendations as JSON response
+    return jsonify({"exercises": exercise_data})
+
+
+
+
+@bp.route('/get_bmi_rec', methods=['GET'])
+def get_bmi_rec():
+    
+    options = ["Lose weight", "Remain weight", "Gain weight"]
+    
+    try:
+        user_id_token = request.args.get('idToken')
+        
+        user = auth.get_account_info(user_id_token)
+        user_uid = user['users'][0]['localId']
+     
+        user_info = getUserInfo(user_id_token)
+        
+        user_weight = user_info['weight']
+        user_height = user_info['height']
+        user_age = user_info['age']
+        user_gender = getGenderNumber(user_info['gender'])
+        user_exercise_duration = getExerciseDurationNumber(user_info['activity_level'])
+        
+        bmi = bmi_cal(user_weight, user_height) #showing bmi as an additional information for user health
+        bmr = calc_bmr(user_weight,user_height,user_age, user_gender) #bmr will allow to calculate the calories intake
+        calories = cacl_calories(bmr, user_exercise_duration)
+        
+        
+        update_info = {
+            "caloriesIntakeRec": calories,
+        }
+        db.collection("users").document(user_uid).update(update_info)
+        
+        return jsonify({"caloriesIntakeRec":calories, "Recommended Option": options[bmi]}), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+
+
+@bp.route('/get_diet', methods=['GET'])
+def get_diet():
+    try:
+        user_id_token = request.args.get('idToken')
+        user_info = getUserInfo(user_id_token)
+        user_calories = user_info['calories']
+        user_health_goal = user_info['health_goal']
+        user_dietary_preference = user_info['dietary_preference']
+        
+        if user_health_goal == "Lose Weight":
+            target_cal = decrease_weight(user_calories)
+        elif user_health_goal == "Gain Weight":
+            target_cal = increase_weight(user_calories)
+        else:
+            target_cal = maintain_weight(user_calories)
+        
+        rand_breakfast = predict(model_low, target_cal)
+        rand_lunch = predict(model_med, target_cal)
+        rand_dinner = predict(model_high, target_cal)
+        
+        # Retrieve user information from Firestore
+        user_info_doc = db.collection("users").document(user_uid).get()
+        user_info = user_info_doc.to_dict()
+        
+        # Get the user's dietary preference
+        dietary_preference = user_info['dietary_preference']
+        
+        # Get the user's health goal
+        health_goal = user_info['health_goal']
+        
+        # Get the user's calories
+        calories = user_info['calories']
+        
+        # Get the user's age
+        age = user_info['age']

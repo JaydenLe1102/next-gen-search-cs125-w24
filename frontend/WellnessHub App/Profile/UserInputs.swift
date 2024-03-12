@@ -87,6 +87,16 @@ struct UserInputs: View {
                         }
                     })
                     
+                    HStack( content: {
+                        Text("Age:")
+                        TextField("Age", text: $userData.age)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.leading)
+                        Text("years old")
+                            .foregroundColor(.secondary)
+                    
+                    })
+                    
                     HStack(content: {
                         Text("Activity Level:")
 
@@ -132,7 +142,9 @@ struct UserInputs: View {
     }
 }
 
-//#Preview {
-//    UserInputs()
-//        .environmentObject(UserData())
-//}
+#Preview {
+    UserInputs()
+        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+        .environmentObject(DietService())
+        .environmentObject(HealthkitManager())
+}
