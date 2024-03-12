@@ -30,6 +30,7 @@ class UserData: ObservableObject {
     @Published var last_update_weight:String = "N/A"
     
     
+    
     // User data properties
     @Published var weight: String = "N/A"
     @Published var height: String = "N/A"

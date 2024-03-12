@@ -7,9 +7,9 @@
 import SwiftUI
 
 struct CircularProgressView: View {
-    let progress: Double
+//    @State var progress: Double
 
-    @State private var currentProgress: Double = 0
+    @State var currentProgress: Double
     @State private var showText = false
 
     var body: some View {
@@ -30,9 +30,9 @@ struct CircularProgressView: View {
                 )
                 .rotationEffect(.degrees(-90))
                 .onAppear {
-                    withAnimation(.linear(duration: 1.0)) { // Adjust duration as needed
-                        currentProgress = progress
-                    }
+//                    withAnimation(.linear(duration: 1.0)) { // Adjust duration as needed
+//                        currentProgress = progress
+//                    }
                     showText = true
                 }
 
@@ -51,6 +51,6 @@ struct CircularProgressView: View {
         
 }
 
-#Preview {
-  CircularProgressView(progress: 0.75)
-}
+//#Preview {
+//  CircularProgressView(progress: 0.75)
+//}

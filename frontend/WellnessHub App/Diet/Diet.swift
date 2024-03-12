@@ -10,6 +10,8 @@ import SwiftUI
 struct Diet: View {
 
     @EnvironmentObject var dietService: DietService
+    @StateObject private var authManager = AuthenticationManager.shared
+
 
     var body: some View {
         VStack{
@@ -22,7 +24,30 @@ struct Diet: View {
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 
                 HStack(spacing: 50, content: {
-                    CircularProgressView(progress: dietService.dietProgressPercentage).frame(width: 150, height: 150)
+                    ZStack { // 1
+                        Circle()
+                            .stroke(
+                                Color.pink.opacity(0.5),
+                                lineWidth: 30
+                            )
+                        Circle() // 2
+                            .trim(from: 0, to: dietService.dietProgressPercentage)
+                            .stroke(
+                                Color.pink,
+                                style: StrokeStyle(
+                                    lineWidth: 30,
+                                    lineCap: .round
+                                )
+                            )
+                            .rotationEffect(.degrees(-90))
+
+
+
+                            Text("\(Int(dietService.dietProgressPercentage * 100))%") // Display progress percentage
+                                .foregroundColor(.pink)
+                                .font(.system(size: 20, weight: .semibold))
+                    }
+                .frame(width: 150, height: 150)
                         .padding()
                     
                     
@@ -69,6 +94,15 @@ struct Diet: View {
             
             
             
+        }
+        .onAppear{
+            Task{
+                do{
+                    try await dietService.getDietScore(idToken: authManager.authToken)
+                    
+                }
+                catch{}
+            }
         }
     }
 }

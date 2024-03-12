@@ -19,7 +19,29 @@ struct Sleep: View {
                     Text("Sleep Analysis")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     HStack(spacing: 50, content: {
-                        CircularProgressView(progress: sleepService.sleepProgressPercentage).frame(width: 150, height: 150)
+                        ZStack { // 1
+                            Circle()
+                                .stroke(
+                                    Color.pink.opacity(0.5),
+                                    lineWidth: 30
+                                )
+                            Circle() // 2
+                                .trim(from: 0, to: sleepService.sleepProgressPercentage)
+                                .stroke(
+                                    Color.pink,
+                                    style: StrokeStyle(
+                                        lineWidth: 30,
+                                        lineCap: .round
+                                    )
+                                )
+                                .rotationEffect(.degrees(-90))
+
+
+
+                                Text("\(Int(sleepService.sleepProgressPercentage * 100))%") // Display progress percentage
+                                    .foregroundColor(.pink)
+                                    .font(.system(size: 20, weight: .semibold))
+                        }.frame(width: 150, height: 150)
                             .padding()
                         
                         VStack{
@@ -48,6 +70,16 @@ struct Sleep: View {
                 Spacer()
             })
         }
+        .onAppear{
+            Task{
+                do{
+                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+                    
+                }
+                catch{}
+            }
+        }
+        
     }
 }
 

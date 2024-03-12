@@ -150,7 +150,7 @@ struct ContentView: View {
                 
                 TabView(selection: $selectedTab) {
                     
-                    Home().tag(1)
+                    Home(userData: userData).tag(1)
                     
                     Diet().tag(2)
                     

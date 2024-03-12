@@ -23,7 +23,7 @@ struct Exercises: View {
                 VStack(alignment: .leading,content: {
 
                     HStack(spacing: 50, content: {
-                        CircularProgressView(progress: 0.75).frame(width: 150, height: 150)
+                        CircularProgressView(currentProgress: 0.75).frame(width: 150, height: 150)
                             .padding()
                         
                         VStack{
