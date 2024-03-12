@@ -22,6 +22,7 @@ config = {
 firebaseDatabaseConfig = {
 }
 
+
 openai.api_key = ""
 
 #Using pyrebase to authenticate
@@ -268,33 +269,69 @@ def get_sleep_point():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
     
+
 @bp.route('/get_exercise', methods=['GET'])
 def exercise():
-    # Get parameters from the request
-    gender = request.args.get('gender')
-    age = request.args.get('age')
-    weight = request.args.get('weight')
-    height = request.args.get('height')
-    preference = request.args.get('preference')  # For example, weight loss, muscle gain, etc.
-
-    # Generate prompt based on parameters
-    prompt = f"Give me 6 recommendation of exercises with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height}cm tall, who wants to {preference} in JSON Format."
-
-    # Generate exercise recommendations using OpenAI's GPT-3.5 model
-    response = openai.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "user", "content": prompt}
-        ]
-    )
-
-    # Extract exercise recommendations from the API response
-    exercise_data_str = response.choices[0].message.content
-    # Parse exercise data as JSON
     try:
-        exercise_data = json.loads(exercise_data_str)
-    except json.JSONDecodeError as e:
-        return jsonify({"error": str(e)}), 500
+        user_id_token = request.args.get('idToken')
+        #return sample_user_info, 200
+        user_info = getUserInfo(user_id_token)
 
-    # Return exercise recommendations as JSON response
-    return jsonify({"exercises": exercise_data})
+        # Get parameters from the request
+        gender = user_info['gender']
+        age = user_info['age']
+        weight = user_info['weight']
+        height = user_info['height']
+        preference = user_info['health_goal']  
+        activityLevel = user_info['activity_level']
+
+        if activityLevel == "Beginner":
+            workoutTime = "30 minutes"
+        elif activityLevel == "Intermediate":
+            workoutTime = "1 hour"
+        elif activityLevel == "Professional":
+            workoutTime = "2 hours"
+        else:
+            workoutTime = "10 minutes"
+            
+
+        # Generate prompt based on parameters
+        prompt = f"Creating a work out plan for 7 days, with 6 recommendation of exercises in a day that adds up to total of {workoutTime} with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height} tall, who wants to {preference} in JSON Format."
+
+        # Generate exercise recommendations using OpenAI's GPT-3.5 model
+        response = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        # Extract exercise recommendations from the API response
+        exercise_data_str = response.choices[0].message.content
+        # Parse exercise data as JSON
+        try:
+            exercise_data = json.loads(exercise_data_str)
+        except json.JSONDecodeError as e:
+            return jsonify({"error": str(e)}), 500
+
+        # # Generate images for each exercise title
+        # for exercise in exercise_data['exercises']:
+        #     # Generate image prompt
+        #     image_prompt = f"Generate cartoon of {exercise['title']} exercise"
+
+        #     # Generate image using DALL-E model
+        #     image_response = openai.images.generate(
+        #         model="dall-e-2",
+        #         prompt=image_prompt,
+        #         size="1024x1024",
+        #         quality="standard",
+        #         n=1,
+        #     )
+
+        #     # Get image URL from the response and add it to the exercise data
+        #     image_url = image_response.data[0].url
+        #     exercise['image_url'] = image_url
+        # Return exercise recommendations with image URLs as JSON response
+        return jsonify({"exercises": exercise_data})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
