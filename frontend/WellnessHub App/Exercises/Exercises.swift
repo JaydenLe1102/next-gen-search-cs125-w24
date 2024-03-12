@@ -7,6 +7,19 @@
 
 import SwiftUI
 
+
+//delete after done getting exercise data vvv
+
+struct ExerciseActivity: Codable, Identifiable {
+    let id = UUID()
+    let calories_burned: Int
+    let instructions: String
+    let length: String
+    let title: String
+}
+//delete after done getting exercise data ^^^
+
+
 struct Exercises: View {
     @EnvironmentObject var userData: UserData
     @EnvironmentObject var dietService: DietService
@@ -15,6 +28,63 @@ struct Exercises: View {
     
     
     @StateObject private var authManager = AuthenticationManager.shared
+    
+    let icons = ["figure.cooldown", "figure.flexibility", "figure.strengthtraining.functional", "figure.basketball", "figure.strengthtraining.functional","figure.climbing"]
+
+    
+    let exerciseData: [String: [ExerciseActivity]] = [
+        "day_1": [
+            ExerciseActivity(calories_burned: 75, instructions: "5-minute jog followed by 1-minute sprint intervals for a total of 5 minutes.", length: "5 minutes", title: "Cardio Interval Training"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform bodyweight squats continuously for 5 minutes.", length: "5 minutes", title: "Bodyweight Squats"),
+            ExerciseActivity(calories_burned: 40, instructions: "Hold the plank position for 5 minutes.", length: "5 minutes", title: "Plank"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform as many push-ups as possible in 5 minutes.", length: "5 minutes", title: "Push-Ups"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform mountain climbers continuously for 5 minutes.", length: "5 minutes", title: "Mountain Climbers")
+        ],
+        "day_2": [
+            ExerciseActivity(calories_burned: 75, instructions: "5-minute jog followed by 1-minute sprint intervals for a total of 5 minutes.", length: "5 minutes", title: "Cardio Interval Training"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform bodyweight squats continuously for 5 minutes.", length: "5 minutes", title: "Bodyweight Squats"),
+            ExerciseActivity(calories_burned: 40, instructions: "Hold the plank position for 5 minutes.", length: "5 minutes", title: "Plank"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform as many push-ups as possible in 5 minutes.", length: "5 minutes", title: "Push-Ups"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform mountain climbers continuously for 5 minutes.", length: "5 minutes", title: "Mountain Climbers")
+        ],
+        "day_3": [
+            ExerciseActivity(calories_burned: 75, instructions: "5-minute jog followed by 1-minute sprint intervals for a total of 5 minutes.", length: "5 minutes", title: "Cardio Interval Training"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform bodyweight squats continuously for 5 minutes.", length: "5 minutes", title: "Bodyweight Squats"),
+            ExerciseActivity(calories_burned: 40, instructions: "Hold the plank position for 5 minutes.", length: "5 minutes", title: "Plank"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform as many push-ups as possible in 5 minutes.", length: "5 minutes", title: "Push-Ups"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform mountain climbers continuously for 5 minutes.", length: "5 minutes", title: "Mountain Climbers")
+        ],
+        "day_4": [
+            ExerciseActivity(calories_burned: 75, instructions: "5-minute jog followed by 1-minute sprint intervals for a total of 5 minutes.", length: "5 minutes", title: "Cardio Interval Training"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform bodyweight squats continuously for 5 minutes.", length: "5 minutes", title: "Bodyweight Squats"),
+            ExerciseActivity(calories_burned: 40, instructions: "Hold the plank position for 5 minutes.", length: "5 minutes", title: "Plank"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform as many push-ups as possible in 5 minutes.", length: "5 minutes", title: "Push-Ups"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform mountain climbers continuously for 5 minutes.", length: "5 minutes", title: "Mountain Climbers")
+        ],"day_5": [
+            ExerciseActivity(calories_burned: 75, instructions: "5-minute jog followed by 1-minute sprint intervals for a total of 5 minutes.", length: "5 minutes", title: "Cardio Interval Training"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform bodyweight squats continuously for 5 minutes.", length: "5 minutes", title: "Bodyweight Squats"),
+            ExerciseActivity(calories_burned: 40, instructions: "Hold the plank position for 5 minutes.", length: "5 minutes", title: "Plank"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform as many push-ups as possible in 5 minutes.", length: "5 minutes", title: "Push-Ups"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform mountain climbers continuously for 5 minutes.", length: "5 minutes", title: "Mountain Climbers")
+        ],"day_6": [
+            ExerciseActivity(calories_burned: 75, instructions: "5-minute jog followed by 1-minute sprint intervals for a total of 5 minutes.", length: "5 minutes", title: "Cardio Interval Training"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform bodyweight squats continuously for 5 minutes.", length: "5 minutes", title: "Bodyweight Squats"),
+            ExerciseActivity(calories_burned: 40, instructions: "Hold the plank position for 5 minutes.", length: "5 minutes", title: "Plank"),
+            ExerciseActivity(calories_burned: 50, instructions: "Perform as many push-ups as possible in 5 minutes.", length: "5 minutes", title: "Push-Ups"),
+            ExerciseActivity(calories_burned: 60, instructions: "Perform mountain climbers continuously for 5 minutes.", length: "5 minutes", title: "Mountain Climbers")
+        ],"day_7": [
+            ExerciseActivity(calories_burned: 75, instructions: "Rest", length: "0 minutes", title: "Rest"),
+        ],
+    ]
+
+    
+    
     var body: some View {
         
             VStack{
@@ -42,14 +112,36 @@ struct Exercises: View {
                     Text("Recommendations")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding(.top,20)
-                    ScrollView(.horizontal, showsIndicators: false,content: {
-                        HStack(content: {
-                            RecommendationModal(recommendation: "recommendation", imageURL: "photo")
-                            RecommendationModal(recommendation: "recommendation", imageURL: "photo")
-                            RecommendationModal(recommendation: "recommendation", imageURL: "photo")
-                            RecommendationModal(recommendation: "recommendation", imageURL: "photo")
-                        })
+                    ScrollView(.horizontal, showsIndicators: false, content: {
+                        ForEach(exerciseData.sorted(by: { $0.key < $1.key }), id: \.key) { day, activities in
+                            let dayNumber = String(day.dropFirst(4))
+                            let iconIndex = Int(dayNumber)! - 1
+                            VStack(alignment: .leading) {
+                                Text("Day \(dayNumber)")
+                                    .font(.title)
+                                    .padding(.bottom, 10)
+                                HStack {
+                                    if Int(dayNumber) == 7 {
+                                        ForEach(activities) { activity in
+                                            RecommendationModal(recommendation: activity.title, imageURL: "sparkles")
+                                        }
+                                        Spacer()
+                                    }
+                                    else {
+                                        ForEach(0..<activities.count) { index in
+                                                            let imageURL = icons[index]
+                                                            RecommendationModal(recommendation: activities[index].title, imageURL: imageURL)
+                                                        }
+                                        
+                                    }
+                                    
+                                }
+                                .padding(.bottom, 10)
+                            }
+                            .padding(.top, 10)
+                        }
                     })
+
                 })
                 .padding(.horizontal,20)
                 Spacer()
@@ -60,9 +152,6 @@ struct Exercises: View {
 }
 
 //#Preview {
-//    ContentView()
-//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-//        .environmentObject(DietService())
-//        .environmentObject(HealthkitManager())
+//    Exercises()
 //}
 
