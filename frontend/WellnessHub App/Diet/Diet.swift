@@ -9,20 +9,61 @@ import SwiftUI
 
 struct Diet: View {
 
-    @State var caloriesNum: Double
+    @State var caloriesConsume: Double
 
 
 
     var body: some View {
         VStack{
             TopBar()
-            Recipes()
+            
+            
+            ScrollView(.vertical, showsIndicators: false,content: {
+            VStack(alignment: .leading,content: {
+                Text("Food Analysis")
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                
+                HStack(spacing: 50, content: {
+                    CircularProgressView(progress: 0.75).frame(width: 150, height: 150)
+                        .padding()
+                    
+                    VStack{
+                        VStack(alignment: .leading, content:  {
+                            Text("Calories consume")
+                            Text(String(caloriesConsume))
+                                .font(.system(size: 30))
+                        })
+                        .padding()
+                    }
+                    .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                    .cornerRadius(13)
+                })
+                
+                
+
+                
+                Text("Recommendations")
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .padding(.top,20)
+                
+                
+                Recipes()
+
+            })
+            .padding(.horizontal,20)
+            Spacer()
+            })
+            
+            
+            
         }
     }
 }
 
-//#Preview {
-//    
-//    ContentView()
-//        .environmentObject(UserData())
-//}
+#Preview {
+    ContentView()
+        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+        .environmentObject(DietService())
+        .environmentObject(HealthkitManager())
+}
+

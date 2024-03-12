@@ -44,16 +44,20 @@ struct RecipeDetails: View {
                     .foregroundStyle(.black)
       
                 HStack(spacing: 100, content:{
-                    Text(calories)
-                        .foregroundStyle(.black)
-                    
-                    Text(time)
-                        .foregroundStyle(.black)
+                    HStack(spacing: 25, content:{
+                        Image(systemName: "fork.knife")
+                        Text(calories)
+                            .foregroundStyle(.black)
                     })
+                    HStack(spacing: 25, content:{
+                        Image(systemName: "clock")
+                        Text(time)
+                            .foregroundStyle(.black)
+                    })
+                })
+    
                 
-                Text("Description: ")
-                
-                Text("Instruction: ")
+                Text("Instruction: " + description)
 
             })
             .padding(.horizontal, 10)
@@ -62,6 +66,6 @@ struct RecipeDetails: View {
     )}
 }
 
-#Preview {
-    Recipes()
-}
+//#Preview {
+//    Recipes()
+//}

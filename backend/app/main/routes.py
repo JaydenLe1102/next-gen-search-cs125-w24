@@ -40,9 +40,9 @@ model_low = pickle.load(open(model_low_path, "rb"))
 model_med = pickle.load(open(model_med_path, "rb"))
 model_high = pickle.load(open(model_high_path, "rb"))
 data = pickle.load(open(data_path, "rb"))
-#data = data_preprocess()
-#os.makedirs(os.path.dirname(data_path), exist_ok=True)
-#pickle.dump(data, open(data_path, "wb"))
+data = data_preprocess()
+os.makedirs(os.path.dirname(data_path), exist_ok=True)
+pickle.dump(data, open(data_path, "wb"))
 
 print("Done load model and preprocess data")
 

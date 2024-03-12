@@ -40,16 +40,18 @@ struct RecipeModal: View {
 
                     }
                     
-                    HStack(spacing: 5,content: {
-                        Image(systemName: "clock")
-                        Text(time)
-                            .foregroundStyle(.black)
-                    })
-                    
-                    HStack(spacing: 5,content: {
-                        Image(systemName: "fork.knife")
-                        Text(calories)
-                            .foregroundStyle(.black)
+                    HStack(spacing: 10,content: {
+                        HStack(spacing: 5,content: {
+                            Image(systemName: "clock")
+                            Text(time)
+                                .foregroundStyle(.black)
+                        })
+                        
+                        HStack(spacing: 5,content: {
+                            Image(systemName: "fork.knife")
+                            Text(calories)
+                                .foregroundStyle(.black)
+                        })
                     })
            
                 }
@@ -63,7 +65,7 @@ struct RecipeModal: View {
             }
             .sheet(isPresented: $isModalPresented) {
                 VStack{
-                    RecipeDetails(name: name, time: time, calories: calories,description:"This is a description", imageURL: imageURL)
+                    RecipeDetails(name: name, time: time, calories: calories,description: description, imageURL: imageURL)
                 }
                 .padding()
             }
@@ -71,6 +73,6 @@ struct RecipeModal: View {
     }
 }
 
-#Preview {
-    Recipes()
-}
+//#Preview {
+//    Recipes()
+//}

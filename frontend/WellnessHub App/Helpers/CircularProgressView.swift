@@ -42,7 +42,7 @@ struct CircularProgressView: View {
                     .font(.system(size: 20, weight: .semibold))
             }
         }
-        .frame(width: 200, height: 200)
+        
     }
 }
 

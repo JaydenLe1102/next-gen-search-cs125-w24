@@ -145,7 +145,7 @@ struct ContentView: View {
                 
                 Home().tag(1)
                 
-                Diet(caloriesNum: 20).tag(2)
+                Diet(caloriesConsume: 20).tag(2)
                 
                 Exercises().tag(3)
 
@@ -176,7 +176,7 @@ struct ContentView: View {
 
                     do {
                         try await userData.fetch_and_update(idToken: authManager.authToken )
-                        try await dietService.fetchRecipesAsyncAwait()
+                        try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
                         
                         
                         let date = userData.get_last_update_weight_date()

@@ -7,8 +7,12 @@
 
 import Foundation
 
+
+
 @MainActor
 class UserData: ObservableObject {
+    
+    private let baseURL = "http://127.0.0.1:5000"
     
     static let genders = ["Male", "Female", "Other"]
     static let  goals = ["Lose weight", "Gain weight", "Remain weight"]
@@ -77,7 +81,7 @@ class UserData: ObservableObject {
     }
     
     func updateUserInfo(param: [String:Any], completion: @escaping (Result<Void, Error>) -> Void) {
-      let urlString = "http://127.0.0.1:5000/userinfo"
+      let urlString = baseURL +  "/userinfo"
       guard let url = URL(string: urlString) else {
         completion(.failure(NSError(domain: "InvalidURL", code: -1, userInfo: nil)))
         return
@@ -222,7 +226,7 @@ class UserData: ObservableObject {
           throw  NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])
         }
         
-        var urlComponents = URLComponents(string: "http://127.0.0.1:5000/userinfo")!
+        var urlComponents = URLComponents(string: baseURL + "/userinfo")!
 
         urlComponents.queryItems = [
             URLQueryItem(name: "idToken", value: idToken),

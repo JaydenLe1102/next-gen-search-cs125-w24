@@ -36,8 +36,10 @@ struct Exercises: View {
         }
 }
 
-//#Preview {
-//    ContentView()
-//        .environmentObject(UserData())
-//}
+#Preview {
+    ContentView()
+        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+        .environmentObject(DietService())
+        .environmentObject(HealthkitManager())
+}
 

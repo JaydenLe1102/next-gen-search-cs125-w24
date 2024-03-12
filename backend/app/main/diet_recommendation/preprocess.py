@@ -85,7 +85,7 @@ def get_images(text):
     listText = text.split(', ')
     
     if len(listText) == 1 and listText[0] == "character(0":
-        return None
+        return "null"
     
     return listText[0]
 
