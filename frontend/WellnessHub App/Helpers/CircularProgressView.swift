@@ -42,8 +42,13 @@ struct CircularProgressView: View {
                     .font(.system(size: 20, weight: .semibold))
             }
         }
+        .onAppear{
+            currentProgress = 0
+            showText = false
+        }
         
     }
+        
 }
 
 #Preview {

@@ -40,9 +40,9 @@ model_low = pickle.load(open(model_low_path, "rb"))
 model_med = pickle.load(open(model_med_path, "rb"))
 model_high = pickle.load(open(model_high_path, "rb"))
 data = pickle.load(open(data_path, "rb"))
-data = data_preprocess()
-os.makedirs(os.path.dirname(data_path), exist_ok=True)
-pickle.dump(data, open(data_path, "wb"))
+#data = data_preprocess()
+#os.makedirs(os.path.dirname(data_path), exist_ok=True)
+#pickle.dump(data, open(data_path, "wb"))
 
 print("Done load model and preprocess data")
 
@@ -264,6 +264,9 @@ def get_sleep():
         user_age = user_info['age']
         sleep_recommendation = sleep_rec(int(user_age))
         
+        print("Getting sleep recommendation")
+        print(sleep_recommendation)
+        
         if (sleep_recommendation):
             return jsonify(sleep_recommendation), 200
         else:
@@ -281,12 +284,18 @@ def get_sleep_point():
         
         #return sample_user_info, 200
         user_info = getUserInfo(user_id_token)
-        
-        sleep_track = convertSecondsToFloatingHours(user_info['sleep_time_yesterday'])
+        print("getting sleep point ", user_info['sleep_time_yesterday'])
+        sleep_track = convertSecondsToFloatingHours(float(user_info['sleep_time_yesterday']))
 
         sleep_recommendation = sleep_rec(int(user_info['age']))
         
+        print("sleep_recommendation/point", sleep_recommendation, sleep_track)
+        
         sleep_point = goodness_of_sleep(sleep_track, sleep_recommendation)
+        
+        sleep_point = {
+            "sleep_point": sleep_point
+        }
         
         return sleep_point, 200
     except Exception as e:

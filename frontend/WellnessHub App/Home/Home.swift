@@ -10,46 +10,25 @@ import SwiftUI
 
 struct Home: View {
     @EnvironmentObject var healthManager: HealthkitManager
-
+    
     @State private var selectedOption = "Week"
     
     var body: some View {
-        Text("\(healthManager.calories_burn_yesterday)")
-                VStack {
-                    Text("Hello, Home!")
+        VStack(alignment: .center, spacing: 50 , content: {
+            Text("Your current lifestyle progress for this week")
+                .padding(30)
+                .font(.title)
+            CircularProgressView(progress: 0.75).frame(width: 250, height: 250)
+        })
         
-                    Picker("Select Time", selection: $selectedOption) {
-                        Text("Day").tag("Day")
-                        Text("Week").tag("Week")
-                        Text("Month").tag("Month")
-                    }
-                }
-                .toolbar(content: {
-                    Button {
-                        // Action for Day button
-                    } label: {
-                        Text("Day")
-                    }
-        
-                    Button {
-                        // Action for Week button
-                    } label: {
-                        Text("Week")
-                    }
-        
-                    Button {
-                        // Action for Month button
-                    } label: {
-                        Text("Month")
-                    }
-                })
-            }
- 
     }
-#Preview {
-    Home()
 }
-
+#Preview {
+    ContentView()
+        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+        .environmentObject(DietService())
+        .environmentObject(HealthkitManager())
+}
 //extension View {
 //    func getRect() ->CGRect{
 //        return UIScreen.main.bounds

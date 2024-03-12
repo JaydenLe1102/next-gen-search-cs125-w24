@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Sleep: View {
+    @EnvironmentObject var healthManager: HealthkitManager
+    @EnvironmentObject var sleepService: SleepService
     var body: some View {
         VStack{
             TopBar()
@@ -15,19 +17,28 @@ struct Sleep: View {
                 VStack(alignment: .leading, spacing: 20 , content: {
                     Text("Sleep Analysis")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    HStack(content: {
-                        TotalTime(normal: true, duration: "9 hours")
-                        ExactTime(sleepTime: "9:50 PM", wakeUpTime: "6:50 AM")
+                    HStack(spacing: 50, content: {
+                        CircularProgressView(progress: sleepService.sleepProgressPercentage).frame(width: 150, height: 150)
+                            .padding()
+                        
+                        VStack{
+                            VStack(alignment: .leading, content:  {
+                              Text("Sleep time yesterday")
+                                Spacer()
+                                Text("\(String(format: "%.1f", healthManager.sleep_time_yesterday)) seconds")
+                              .font(.title)
+                            })
+                            .padding()
+                        }
+                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                        .cornerRadius(13)
                     })
                     Text("Recommendations")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding(.top,20)
                     ScrollView(.horizontal, showsIndicators: false,content: {
                         HStack(content: {
-                            RecommendationModal(recommendation: "Sleep more plssss", imageURL: "photo")
-                            RecommendationModal(recommendation: "Sleep more pls", imageURL: "photo")
-                            RecommendationModal(recommendation: "Sleep more pls", imageURL: "photo")
-                            RecommendationModal(recommendation: "Sleep more pls", imageURL: "photo")
+                            RecommendationModal(recommendation: sleepService.sleepMessageRecommendation, imageURL: "photo")
                         })
                     })
                     
@@ -40,5 +51,8 @@ struct Sleep: View {
 }
 
 #Preview {
-    Sleep()
+    ContentView()
+        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+        .environmentObject(DietService())
+        .environmentObject(HealthkitManager())
 }

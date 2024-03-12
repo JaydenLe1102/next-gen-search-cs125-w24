@@ -13,7 +13,6 @@ class LoginSignupService: ObservableObject {
     
     private let authManager = AuthenticationManager.shared
     
-    private let baseURL = "http://127.0.0.1:5000"
     
     func login(email: String, password: String, completion: @escaping (Result<(idToken: String, userID: String), Error>) -> Void) {
         let loginURL = URL(string: "\(baseURL)/login")!

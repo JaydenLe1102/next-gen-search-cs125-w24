@@ -41,6 +41,7 @@
 		92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B952B8965CE00C8E4E1 /* DietService.swift */; };
 		92D08A742B9F68AB000B3EF3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D08A732B9F68AB000B3EF3 /* Utils.swift */; };
 		92D08A782B9F788E000B3EF3 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D08A772B9F788E000B3EF3 /* CircularProgressView.swift */; };
+		92E8CE2C2BA07DD80010DF07 /* SleepService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8CE2B2BA07DD80010DF07 /* SleepService.swift */; };
 		92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F010812B96D9BA00D4C7F9 /* ProfileService.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		92297B952B8965CE00C8E4E1 /* DietService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietService.swift; sourceTree = "<group>"; };
 		92D08A732B9F68AB000B3EF3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		92D08A772B9F788E000B3EF3 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		92E8CE2B2BA07DD80010DF07 /* SleepService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepService.swift; sourceTree = "<group>"; };
 		92F010812B96D9BA00D4C7F9 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,6 +256,7 @@
 				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
 				92F010812B96D9BA00D4C7F9 /* ProfileService.swift */,
 				92D08A732B9F68AB000B3EF3 /* Utils.swift */,
+				92E8CE2B2BA07DD80010DF07 /* SleepService.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				92297B8D2B86A2A500C8E4E1 /* AuthenticationManager.swift in Sources */,
 				289AFE782B95A2B40027FB84 /* CustomInputModal.swift in Sources */,
 				92D08A782B9F788E000B3EF3 /* CircularProgressView.swift in Sources */,
+				92E8CE2C2BA07DD80010DF07 /* SleepService.swift in Sources */,
 				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
 				289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */,
 				289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */,

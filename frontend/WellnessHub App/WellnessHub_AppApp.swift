@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+
+let baseURL = "http://127.0.0.1:5000"
+
+
 @main
 struct WellnessHub_AppApp: App {
 
@@ -20,6 +24,7 @@ struct WellnessHub_AppApp: App {
                 .environmentObject(UserData(healthKitManager: healthKitManager))
                 .environmentObject(DietService())
                 .environmentObject(healthKitManager)
+                .environmentObject(SleepService())
         }
     }
 }

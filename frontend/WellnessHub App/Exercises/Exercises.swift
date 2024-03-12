@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct Exercises: View {
+    @EnvironmentObject var healthManager: HealthkitManager
     var body: some View {
+        
             VStack{
                 TopBar()
                 ScrollView(.vertical, showsIndicators: false,content: {
                 VStack(alignment: .leading,content: {
-                    Text("Running + Walking")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    Exercise(distance: 1000, calories: 50, steps: 100)
+
+                    HStack(spacing: 50, content: {
+                        CircularProgressView(progress: 0.75).frame(width: 150, height: 150)
+                            .padding()
+                        
+                        VStack{
+                            VStack(alignment: .leading, content:  {
+                              Text("Calories burned")
+                                Spacer()
+                                Text("\(String(format: "%.1f", healthManager.calories_burn_yesterday)) cal")
+                              .font(.title)
+                            })
+                            .padding()
+                        }
+                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                        .cornerRadius(13)
+                    })
                     
                     Text("Recommendations")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)

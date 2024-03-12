@@ -137,7 +137,6 @@ class UserData: ObservableObject {
 
         // Trigger data changes notification
                 
-        print("Printing hello world")
         print("Saved Profile:")
         print("Age: \(self.age)")
         print("Gender: \(self.gender)")
