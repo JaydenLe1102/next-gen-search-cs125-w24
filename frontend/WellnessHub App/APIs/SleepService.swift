@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+@MainActor
 class SleepService: ObservableObject {
     
     @Published var sleepRec: [Int] = []
@@ -14,7 +14,7 @@ class SleepService: ObservableObject {
     @Published var sleepProgressPercentage: Double = 0
     @Published var sleepMessageRecommendation: String = "N/A"
     
-    let maxPointPerDay:Double = 10
+    let maxPointPerWeek:Double = 10
     
     func fetch_sleep_rec_point(idToken: String?) async throws {
         try await self.fetchSleepRec(idToken: idToken)
@@ -87,7 +87,7 @@ class SleepService: ObservableObject {
         
         await DispatchQueue.main.async {
             self.sleepPoint = (jsonResponse?["sleep_point"])!
-            self.sleepProgressPercentage = self.sleepPoint / self.maxPointPerDay
+            self.sleepProgressPercentage = self.sleepPoint / self.maxPointPerWeek
         }
     }
     

@@ -10,6 +10,7 @@ import SwiftUI
 struct Sleep: View {
     @EnvironmentObject var healthManager: HealthkitManager
     @EnvironmentObject var sleepService: SleepService
+    @StateObject private var authManager = AuthenticationManager.shared
     var body: some View {
         VStack{
             TopBar()
@@ -47,12 +48,24 @@ struct Sleep: View {
                 Spacer()
             })
         }
+        .onAppear{
+//            Task{
+//                do{
+//                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+//                }
+//                catch{
+//                    // Handle network errors
+//                    print("Error fetching data:", error)
+//                }
+//                
+//            }
+        }
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-        .environmentObject(DietService())
-        .environmentObject(HealthkitManager())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}

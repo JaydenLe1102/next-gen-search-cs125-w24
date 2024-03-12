@@ -146,9 +146,9 @@ struct Profile: View {
     
 }
 
-#Preview {
-    Profile()
-        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-        .environmentObject(DietService())
-        .environmentObject(HealthkitManager())
-}
+//#Preview {
+//    Profile()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}

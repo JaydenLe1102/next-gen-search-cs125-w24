@@ -16,6 +16,7 @@ struct RecipeDetails: View {
     var imageURL: String
     
     @State private var isModalPresented = false
+    @EnvironmentObject var dietService: DietService
     
     var body: some View {
         

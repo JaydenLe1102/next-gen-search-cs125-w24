@@ -9,7 +9,8 @@ import SwiftUI
 
 struct Diet: View {
 
-    @State var caloriesConsume: Double
+    @EnvironmentObject var dietService: DietService
+    @EnvironmentObject var userData: UserData
 
 
 
@@ -24,19 +25,34 @@ struct Diet: View {
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 
                 HStack(spacing: 50, content: {
-                    CircularProgressView(progress: 0.75).frame(width: 150, height: 150)
+                    CircularProgressView(progress: dietService.dietProgressPercentage).frame(width: 150, height: 150)
                         .padding()
                     
-                    VStack{
-                        VStack(alignment: .leading, content:  {
-                            Text("Calories consume")
-                            Text(String(caloriesConsume))
-                                .font(.system(size: 30))
-                        })
-                        .padding()
-                    }
-                    .background(Color(red: 214/255, green: 239/255, blue: 244/255))
-                    .cornerRadius(13)
+                    
+                    VStack(content: {
+                        VStack{
+                            VStack(alignment: .leading, content:  {
+                                Text("Calories recommended")
+                                Text(String(dietService.caloriesIntakeRec))
+                                    .font(.system(size: 30))
+                            })
+                            .padding()
+                        }
+                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                        .cornerRadius(13)
+                        
+                        VStack{
+                            VStack(alignment: .leading, content:  {
+                                Text("Calories consumed")
+                                Text(String(dietService.caloriesConsume))
+                                    .font(.system(size: 30))
+                            })
+                            .padding()
+                            
+                        }
+                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                        .cornerRadius(13)
+                    })
                 })
                 
                 
@@ -60,10 +76,10 @@ struct Diet: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-        .environmentObject(DietService())
-        .environmentObject(HealthkitManager())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}
 

@@ -18,10 +18,17 @@ struct Recipe: Identifiable{
     
 }
 
-
+@MainActor
 class DietService: ObservableObject {
     
     @Published var recipes: [Recipe] = []
+    @Published var choosen_recipes: [Recipe] = []
+    @Published var caloriesConsume: Double = 0
+    @Published var dietScore:Double = 0
+    @Published var dietProgressPercentage: Double = 0
+    @Published var caloriesIntakeRec: Double = 0
+    
+    let maxPointPerWeek:Double = 10
     
     
     func fetchRecipesAsyncAwait(idToken: String?) async throws {
@@ -77,6 +84,66 @@ class DietService: ObservableObject {
     
         await DispatchQueue.main.async {
             self.recipes = recipes
+        }
+    }
+    
+    
+    func addCaloriesConsume(calories:Double, idToken: String?){
+        self.caloriesConsume += calories
+        
+        Task{
+            try await self.getDietScore(idToken: idToken)
+        }
+    }
+    
+    func removeCaloriesConsume(calories:Double, idToken: String?){
+        self.caloriesConsume -= calories
+        
+        Task{
+            try await self.getDietScore(idToken: idToken)
+        }
+    }
+    
+    func getDietScore(idToken: String?) async throws {
+        
+        guard let idToken = idToken else {
+          throw  NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])
+        }
+
+      // Replace with your actual API endpoint URL
+      var urlComponents = URLComponents(string: baseURL + "/get_diet_score")!
+        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "idToken", value: idToken),
+            URLQueryItem(name: "calories_consumed", value: String(self.caloriesConsume))
+        ]
+
+      let url = urlComponents.url!
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+
+        // Perform the network request
+        let (data, response) = try await URLSession.shared.data(for: request)
+          
+      
+
+        // Check for successful response
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+          throw URLError(.badServerResponse)
+        }
+        
+        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Double]
+        
+        let score = jsonResponse?["diet_score"]
+        
+        
+        await DispatchQueue.main.async {
+            self.dietScore = score!
+            self.dietProgressPercentage = self.dietScore / self.maxPointPerWeek
         }
     }
 }

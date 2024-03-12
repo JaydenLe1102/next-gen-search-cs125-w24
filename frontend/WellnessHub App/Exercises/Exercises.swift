@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct Exercises: View {
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var dietService: DietService
     @EnvironmentObject var healthManager: HealthkitManager
+    @EnvironmentObject var sleepService: SleepService
+    
+    
+    @StateObject private var authManager = AuthenticationManager.shared
     var body: some View {
         
             VStack{
@@ -49,13 +55,14 @@ struct Exercises: View {
                 Spacer()
                 })
             }
+
         }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-        .environmentObject(DietService())
-        .environmentObject(HealthkitManager())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}
 

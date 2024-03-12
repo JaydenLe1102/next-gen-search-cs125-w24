@@ -15,16 +15,18 @@ let baseURL = "http://127.0.0.1:5000"
 struct WellnessHub_AppApp: App {
 
     @StateObject private var healthKitManager = HealthkitManager()
+    @StateObject private var dietService = DietService()
+    @StateObject private var sleepService = SleepService()
 //    @StateObject private var dietService = DietService()
 //    @StateObject private var userData = UserData(healthKitManager: healthKitManager)
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(UserData(healthKitManager: healthKitManager))
-                .environmentObject(DietService())
+                .environmentObject(UserData(healthKitManager: healthKitManager, dietService: dietService, sleepService: sleepService))
+                .environmentObject(dietService)
                 .environmentObject(healthKitManager)
-                .environmentObject(SleepService())
+                .environmentObject(sleepService)
         }
     }
 }

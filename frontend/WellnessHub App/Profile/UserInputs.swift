@@ -143,9 +143,9 @@ struct UserInputs: View {
     }
 }
 
-#Preview {
-    UserInputs()
-        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-        .environmentObject(DietService())
-        .environmentObject(HealthkitManager())
-}
+//#Preview {
+//    UserInputs()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}

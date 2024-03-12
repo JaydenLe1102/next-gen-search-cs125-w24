@@ -20,6 +20,8 @@ class UserData: ObservableObject {
     
     private var authManager = AuthenticationManager.shared
     var healthKitManager: HealthkitManager
+    var dietService: DietService
+    var sleepService: SleepService
     var formatter: DateFormatter
     
     //UserInfo
@@ -37,14 +39,18 @@ class UserData: ObservableObject {
     @Published var activityLevel: String = ""
     @Published var dietaryPreferences: String = "N/A"
     @Published var target_weight: String = "N/A"
+    
+    @Published var week_score_percentage: Double = 0
 
     // Selected index properties (if applicable)
     @Published var selectedGenderIndex: Int = 0 // Update type to Int
     @Published var selectedGoalIndex: Int = 0 // Update type to Int
     @Published var selectedActivityLvlIndex: Int = 0 // Update type to Int
     
-    init(healthKitManager: HealthkitManager){
+    init(healthKitManager: HealthkitManager, dietService: DietService, sleepService: SleepService){
         self.healthKitManager = healthKitManager
+        self.dietService = dietService
+        self.sleepService = sleepService
         self.formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
 
@@ -74,7 +80,9 @@ class UserData: ObservableObject {
             "weight": self.weight,
             "sleep_time_yesterday": self.healthKitManager.sleep_time_yesterday,
             "last_update_weight": self.last_update_weight,
-            "target_weight": self.target_weight
+            "target_weight": self.target_weight,
+            "calories_consumed": self.dietService.caloriesConsume,
+            "caloriesIntakeRec": self.dietService.caloriesIntakeRec
         ]
         
         return param
@@ -130,6 +138,7 @@ class UserData: ObservableObject {
         self.activityLevel = UserData.activityLevels[self.selectedActivityLvlIndex]
         self.dietaryPreferences = self.dietaryPreferences.trimmingCharacters(in: .whitespacesAndNewlines)
         self.target_weight = self.target_weight.trimmingCharacters(in: .whitespacesAndNewlines)
+        
 //        self.last_update_weight = formatter.string(from: Date())
 
         // Persist data to storage (optional, see comments below)
@@ -178,6 +187,11 @@ class UserData: ObservableObject {
                 self.dietaryPreferences = dataExtracted["dietary_preference"] as? String ?? ""
                 self.age = (dataExtracted["age"] as AnyObject).description
                 self.target_weight = (dataExtracted["target_weight"] as AnyObject).description
+                self.dietService.caloriesConsume = Double((dataExtracted["calories_consumed"] as AnyObject).description)!
+                
+                
+                self.dietService.caloriesIntakeRec = Double((dataExtracted["caloriesIntakeRec"] as AnyObject).description)!
+                
                 
                 let gender1 = dataExtracted["gender"] as? String ?? ""
                 for (index, gender) in UserData.genders.enumerated() {
@@ -265,6 +279,14 @@ class UserData: ObservableObject {
         // Handle unexpected response format
         throw URLError(.cannotDecodeRawData)
       }
+    }
+    
+    func getScoreForWeek() async{
+        
+        
+        await DispatchQueue.main.async {
+            self.week_score_percentage = (self.dietService.dietScore + self.sleepService.sleepPoint) / 30
+        }
     }
     
 }

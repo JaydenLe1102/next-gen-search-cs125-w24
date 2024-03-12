@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@MainActor
 class LoginSignupService: ObservableObject {
     static let shared = LoginSignupService()
     

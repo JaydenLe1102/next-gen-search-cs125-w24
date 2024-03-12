@@ -31,6 +31,7 @@ struct ContentView: View {
     @State private var isLoading = false
     
     
+    
     func fake_fetch_calories_burn_and_update(){
         
         let calories = 609.9019999999992
@@ -151,7 +152,7 @@ struct ContentView: View {
                     
                     Home().tag(1)
                     
-                    Diet(caloriesConsume: 20).tag(2)
+                    Diet().tag(2)
                     
                     Exercises().tag(3)
                     
@@ -185,11 +186,13 @@ struct ContentView: View {
                 Task{
                     isLoading = true
                     do {
+                        try await dietService.getDietScore(idToken: authManager.authToken)
+                        
+                        try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
                         try await userData.fetch_and_update(idToken: authManager.authToken )
                         try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
                         
-                        try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
-                        
+                        try await userData.getScoreForWeek()
                         
                         let date = userData.get_last_update_weight_date()
                         let today = Date()
@@ -255,9 +258,9 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-        .environmentObject(DietService())
-        .environmentObject(HealthkitManager())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}
