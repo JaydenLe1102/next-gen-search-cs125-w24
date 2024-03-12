@@ -17,7 +17,7 @@ class AuthenticationManager: ObservableObject {
     @Published var isAuthenticated = false
     
     var authToken: String? {
-        return authTokenKey
+        return UserDefaults.standard.string(forKey: authTokenKey)
     }
     
 //    @Published

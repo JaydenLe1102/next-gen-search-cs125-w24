@@ -66,8 +66,21 @@ struct LogIn: View {
                     }
                 
                 Button(action: {
-                    authManager.fakeLogin()
-                    selectedTab = 1
+                    
+                    loginSignupService.login(email: emailID, password: password) { result in
+                                                switch result {
+                                                case .success(let tokens):
+                                                    print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
+                                                    authManager.login(withToken: tokens.idToken, userId: tokens.userID)
+                    
+                                                    print("Login successful with checking token")
+                                                    print(authManager.authToken)
+                                                case .failure(let error):
+                                                    print("Login failed: \(error)")
+                                                }
+                                            }
+                                            
+                                            selectedTab = 1
                 }) {
                     Text("Log in")
                         .frame(maxWidth: .infinity)
