@@ -327,7 +327,7 @@ def exercise():
             
 
         # Generate prompt based on parameters
-        prompt = f"Creating a work out plan for 7 days, with 6 recommendation of exercises in a day that adds up to total of {workoutTime} with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height} tall, who wants to {preference} in JSON Format."
+        prompt = f"Creating a work out plan for 7 days, with 6 recommendation of exercises in a day that adds up to total of {workoutTime} with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height} tall, who wants to {preference} in JSON Format. Having fixed json format of day_1:[list of exercise object inside] to day_7:[list of exercise object inside]. Always fill out all the day from 1 to 7 exercises."
 
         # Generate exercise recommendations using OpenAI's GPT-3.5 model
         response = openai.chat.completions.create(
@@ -363,7 +363,7 @@ def exercise():
         #     image_url = image_response.data[0].url
         #     exercise['image_url'] = image_url
         # Return exercise recommendations with image URLs as JSON response
-        return jsonify({"exercises": exercise_data})
+        return exercise_data, 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 

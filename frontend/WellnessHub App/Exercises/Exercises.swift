@@ -10,13 +10,7 @@ import SwiftUI
 
 //delete after done getting exercise data vvv
 
-struct ExerciseActivity: Codable, Identifiable {
-    let id = UUID()
-    let calories_burned: Int
-    let instructions: String
-    let length: String
-    let title: String
-}
+
 //delete after done getting exercise data ^^^
 
 
@@ -25,6 +19,7 @@ struct Exercises: View {
     @EnvironmentObject var dietService: DietService
     @EnvironmentObject var healthManager: HealthkitManager
     @EnvironmentObject var sleepService: SleepService
+    @EnvironmentObject var exerciseService: ExerciseService
     
     
     @StateObject private var authManager = AuthenticationManager.shared
@@ -113,7 +108,7 @@ struct Exercises: View {
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding(.top,20)
                     ScrollView(.horizontal, showsIndicators: false, content: {
-                        ForEach(exerciseData.sorted(by: { $0.key < $1.key }), id: \.key) { day, activities in
+                        ForEach(exerciseService.exerciseData.sorted(by: { $0.key < $1.key }), id: \.key) { day, activities in
                             let dayNumber = String(day.dropFirst(4))
                             let iconIndex = Int(dayNumber)! - 1
                             VStack(alignment: .leading) {

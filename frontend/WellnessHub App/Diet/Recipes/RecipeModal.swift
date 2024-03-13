@@ -21,7 +21,7 @@ struct RecipeModal: View {
     @State private var isModalPresented = false
     
     @State private var addButtonDisabled = false
-    @State private var removeButtonDisabled = true
+
     
     var body: some View {
         VStack{
@@ -68,7 +68,6 @@ struct RecipeModal: View {
                         Button(action: {
                             // Add your button action here (e.g., increment calories)
                             print("Button tapped!")
-                            removeButtonDisabled = false
                             addButtonDisabled = true
                             
                             dietService.addCaloriesConsume(calories: Double(calories)!, idToken: authManager.authToken)
@@ -81,21 +80,6 @@ struct RecipeModal: View {
                         .buttonStyle(.plain)
                         .disabled(addButtonDisabled)
                         
-                        
-                        Button(action: {
-                            // Add your button action here (e.g., increment calories)
-                            print("Button tapped remove calories!")
-                            removeButtonDisabled = true
-                            addButtonDisabled = false
-                            dietService.removeCaloriesConsume(calories: Double(calories)!, idToken: authManager.authToken)
-//                            dietService.choosen_recipes.append(recipe)
-                            
-                        }) {
-                            Image(systemName: "minus")
-                                .foregroundColor(.black)
-                        }
-                        .buttonStyle(.plain)
-                        .disabled(removeButtonDisabled)
                     })
            
                 }

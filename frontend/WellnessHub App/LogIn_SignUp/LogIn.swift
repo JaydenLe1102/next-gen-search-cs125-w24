@@ -15,6 +15,7 @@ struct LogIn: View {
     @EnvironmentObject var dietService: DietService
     @EnvironmentObject var healthManager: HealthkitManager
     @EnvironmentObject var sleepService: SleepService
+    @EnvironmentObject var exerciseService: ExerciseService
     
     
     @Binding var showSignUp: Bool
@@ -90,6 +91,7 @@ struct LogIn: View {
                                                             
                                                             try await userData.getScoreForDay(idToken: tokens.idToken)
                                                             
+                                                            try await exerciseService.fetchExerciseRecommendation(idToken: tokens.idToken)
                                                         }
                                                         catch{
                                                             
