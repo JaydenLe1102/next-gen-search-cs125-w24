@@ -28,7 +28,7 @@ from datetime import datetime, date
 #firebaseDatabaseConfig = {
 #}
 
-openai.api_key = "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"
+openai.api_key = ""
 # load and read from pickle file 
 basePath = os.path.dirname(__file__) 
 
