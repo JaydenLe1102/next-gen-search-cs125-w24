@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		283A646F2BA15F8A00CDCEF3 /* GeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A646E2BA15F8A00CDCEF3 /* GeneralInfo.swift */; };
+		283A64712BA1721400CDCEF3 /* ExerciseRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A64702BA1721400CDCEF3 /* ExerciseRecommendation.swift */; };
 		289AFE412B7577A00027FB84 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE402B7577A00027FB84 /* SignUp.swift */; };
 		289AFE472B7D4A680027FB84 /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE462B7D4A680027FB84 /* Restaurants.swift */; };
 		289AFE4B2B7D8A6D0027FB84 /* RestaurantModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */; };
@@ -22,7 +24,7 @@
 		289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE632B83ED480027FB84 /* RecommendationModal.swift */; };
 		289AFE662B8416820027FB84 /* ExactTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE652B8416820027FB84 /* ExactTime.swift */; };
 		289AFE692B8423430027FB84 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE682B8423430027FB84 /* Exercises.swift */; };
-		289AFE6D2B842FF10027FB84 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE6C2B842FF10027FB84 /* Exercise.swift */; };
+		289AFE6D2B842FF10027FB84 /* ExerciseModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE6C2B842FF10027FB84 /* ExerciseModal.swift */; };
 		289AFE722B851D5B0027FB84 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE712B851D5B0027FB84 /* CustomTabView.swift */; };
 		289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE732B92C9350027FB84 /* UserInputs.swift */; };
 		289AFE762B94281E0027FB84 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE752B94281E0027FB84 /* UserData.swift */; };
@@ -47,6 +49,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		283A646E2BA15F8A00CDCEF3 /* GeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfo.swift; sourceTree = "<group>"; };
+		283A64702BA1721400CDCEF3 /* ExerciseRecommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecommendation.swift; sourceTree = "<group>"; };
 		289AFE402B7577A00027FB84 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		289AFE462B7D4A680027FB84 /* Restaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantModal.swift; sourceTree = "<group>"; };
@@ -62,7 +66,7 @@
 		289AFE632B83ED480027FB84 /* RecommendationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationModal.swift; sourceTree = "<group>"; };
 		289AFE652B8416820027FB84 /* ExactTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExactTime.swift; sourceTree = "<group>"; };
 		289AFE682B8423430027FB84 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
-		289AFE6C2B842FF10027FB84 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		289AFE6C2B842FF10027FB84 /* ExerciseModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModal.swift; sourceTree = "<group>"; };
 		289AFE712B851D5B0027FB84 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		289AFE732B92C9350027FB84 /* UserInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputs.swift; sourceTree = "<group>"; };
 		289AFE752B94281E0027FB84 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -154,7 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				289AFE682B8423430027FB84 /* Exercises.swift */,
-				289AFE6C2B842FF10027FB84 /* Exercise.swift */,
+				289AFE6C2B842FF10027FB84 /* ExerciseModal.swift */,
+				283A646E2BA15F8A00CDCEF3 /* GeneralInfo.swift */,
+				283A64702BA1721400CDCEF3 /* ExerciseRecommendation.swift */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -351,7 +357,9 @@
 				289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */,
 				289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */,
 				289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */,
-				289AFE6D2B842FF10027FB84 /* Exercise.swift in Sources */,
+				283A64712BA1721400CDCEF3 /* ExerciseRecommendation.swift in Sources */,
+				283A646F2BA15F8A00CDCEF3 /* GeneralInfo.swift in Sources */,
+				289AFE6D2B842FF10027FB84 /* ExerciseModal.swift in Sources */,
 				289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */,
 				289AFE5D2B81B1D20027FB84 /* Profile.swift in Sources */,
 				289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */,

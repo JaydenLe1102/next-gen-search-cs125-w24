@@ -20,7 +20,6 @@ struct RecipeModal: View {
     
     @State private var isModalPresented = false
     
-    @State private var addButtonDisabled = false
 
     
     var body: some View {
@@ -32,6 +31,10 @@ struct RecipeModal: View {
                 VStack(spacing: 15) {
                     Text(name)
                         .foregroundStyle(.black)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .fontWeight(.semibold)
+
                     
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image.resizable()
@@ -46,45 +49,29 @@ struct RecipeModal: View {
 
                     }
                     
-                    HStack(spacing: 8,content: {
-                        HStack(spacing: 3,content: {
+//                    HStack(spacing: 15,content: {
+                        HStack(spacing: 5,content: {
                             Image(systemName: "clock")
+                                .foregroundColor(.red)
                             Text(time)
                                 .foregroundStyle(.black)
                         })
                         
-                        HStack(spacing: 3,content: {
+                        HStack(spacing: 5,content: {
                             Image(systemName: "fork.knife")
+                                .foregroundColor(.red)
                             Text(calories)
                                 .foregroundStyle(.black)
                         })
                         
                         
                         
-                    })
+//                    })
                     
-                    HStack(spacing: 8,content: {
-                        
-                        Button(action: {
-                            // Add your button action here (e.g., increment calories)
-                            print("Button tapped!")
-                            addButtonDisabled = true
-                            
-                            dietService.addCaloriesConsume(calories: Double(calories)!, idToken: authManager.authToken)
-//                            dietService.choosen_recipes.append(recipe)
-                            
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.black)
-                        }
-                        .buttonStyle(.plain)
-                        .disabled(addButtonDisabled)
-                        
-                    })
-           
+                               
                 }
-                .padding(10)
-                .frame(height: UIScreen.main.bounds.height / 3)
+                .padding(20)
+                .frame(height: UIScreen.main.bounds.height / 3.5)
                 .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
                 
@@ -102,5 +89,12 @@ struct RecipeModal: View {
 }
 
 //#Preview {
-//    Recipes()
+//    RecipeModal(
+//        name: "Title",
+//        time: "2 mins",
+//        calories: 200,
+//        description: "Instruction",
+//        imageURL: recipe.image,
+//        recipe: recipe
+//    )
 //}

@@ -137,7 +137,7 @@ class ExerciseService: ObservableObject {
     
     
     func fetchExerciseDay(idToken: String?) async throws {
-        print("calling fetchExerciseScore")
+        print("calling fetchExerciseday")
           
           guard let idToken = idToken else {
             throw  NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])

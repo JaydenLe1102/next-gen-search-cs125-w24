@@ -16,26 +16,24 @@ struct Diet: View {
     var body: some View {
         VStack{
             TopBar()
-            
-            
             ScrollView(.vertical, showsIndicators: false,content: {
             VStack(alignment: .leading,content: {
                 Text("Food Analysis")
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 
-                HStack(spacing: 50, content: {
+                HStack(spacing: 20, content: {
                     ZStack { // 1
                         Circle()
                             .stroke(
                                 Color.pink.opacity(0.5),
-                                lineWidth: 30
+                                lineWidth: 25
                             )
                         Circle() // 2
                             .trim(from: 0, to: dietService.dietProgressPercentage)
                             .stroke(
                                 Color.pink,
                                 style: StrokeStyle(
-                                    lineWidth: 30,
+                                    lineWidth: 25,
                                     lineCap: .round
                                 )
                             )
@@ -43,9 +41,9 @@ struct Diet: View {
 
 
 
-                            Text("\(Int(dietService.dietProgressPercentage * 100))%") // Display progress percentage
-                                .foregroundColor(.pink)
-                                .font(.system(size: 20, weight: .semibold))
+                    Text("\(Int(dietService.dietProgressPercentage * 100))%") // Display progress percentage
+                        .foregroundColor(.pink)
+                        .font(.system(size: 20, weight: .semibold))
                     }
                 .frame(width: 150, height: 150)
                         .padding()
@@ -54,24 +52,32 @@ struct Diet: View {
                     VStack(content: {
                         VStack{
                             VStack(alignment: .leading, content:  {
-                                Text("Calories recommended")
-                                Text(String(dietService.caloriesIntakeRec))
-                                    .font(.system(size: 30))
+                                Text("Recommended")
+                                Text("\(String(format: "%.1f", dietService.caloriesIntakeRec)) cal")
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(Color.pink)
+
                             })
                             .padding()
                         }
+                        .frame(width: 150)
                         .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                         .cornerRadius(13)
                         
                         VStack{
                             VStack(alignment: .leading, content:  {
-                                Text("Calories consumed")
-                                Text(String(dietService.caloriesConsume))
-                                    .font(.system(size: 30))
+                                Text("Consumed")
+                                Text("\(String(format: "%.1f", dietService.caloriesConsume)) cal")
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(Color.pink)
+
                             })
                             .padding()
-                            
                         }
+                        .frame(width: 150)
+
                         .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                         .cornerRadius(13)
                     })

@@ -27,7 +27,7 @@ struct Profile: View {
                             .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                             .cornerRadius(70.0)
 
-                        Text("Name")
+                        Text("\(userData.fullname)")
                     })
                     .padding(40)
 

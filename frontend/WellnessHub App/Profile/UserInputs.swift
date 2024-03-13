@@ -27,6 +27,9 @@ struct UserInputs: View {
     @State private var isSaveEnable = false
     @State private var isLoading = false
     
+    @State private var showAlert = false
+
+    
     func fake_fetch_calories_burn_and_update() async throws{
         
         let calories = 609.9019999999992
@@ -138,7 +141,12 @@ struct UserInputs: View {
                 VStack(alignment: .leading,spacing: 30, content: {
                     
                     HStack( content: {
-                        Text("Full Name:")
+                        HStack {
+                            Text("Full Name:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Full Name", text: $userData.fullname)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.leading)
@@ -146,7 +154,12 @@ struct UserInputs: View {
                     })
                     
                     HStack( content: {
-                        Text("Age:")
+                        HStack {
+                            Text("Age:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Age", text: $userData.age)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.leading)
@@ -157,16 +170,28 @@ struct UserInputs: View {
                     
                     
                     HStack(content: {
-                        Text("Gender:")
+                        HStack {
+                            Text("Gender:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         Picker("Gender", selection: $userData.selectedGenderIndex) {
                             ForEach(0..<2) { index in
                                 Text(UserData.genders[index])
+                                    .foregroundColor(Color.teal)
+
                             }
                         }
                     })
                     
                     HStack( content: {
-                        Text("Weight:")
+                        HStack {
+                            Text("Weight:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Weight", text: $userData.weight)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("lbs")
@@ -176,7 +201,12 @@ struct UserInputs: View {
 
                     
                     HStack(content: {
-                        Text("Height: ")
+                        HStack {
+                            Text("Height:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Height", text: $userData.height)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("ft")
@@ -186,30 +216,48 @@ struct UserInputs: View {
 
                             
                     HStack(content: {
-                        Text("Activity Level:")
+                        HStack {
+                            Text("Activity Level:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
 
                         Section {
                             Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
                                 ForEach(0..<3) { index in
                                     Text(UserData.activityLevels[index])
+                                        .foregroundColor(Color.teal)
                                 }
                             }
                         }
                     })
                     
                     HStack(content: {
-                        Text("Goal:")
+                        HStack {
+                            Text("Goal:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         Section {
                             Picker("Goals", selection: $userData.selectedGoalIndex) {
                                 ForEach(0..<3) { index in
                                     Text(UserData.goals[index])
+                                        .foregroundColor(Color.teal)
+
                                 }
                             }
                         }
                     })
                     
                     HStack( content: {
-                        Text("Target weight:")
+                        HStack {
+                            Text("Target weight:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Target weight", text: $userData.target_weight)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.leading)
@@ -234,54 +282,68 @@ struct UserInputs: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
                 Button(action: {
-                    if isFromSignUp == false {
-                        isModalPresented = true
-                        userData.saveProfile()
-                    }
-                    else {
-                        
-                        Task{
-                            isLoading = true
-                            do{
-                                
-                                try await userData.saveProfileAsyncAwait()
+                    showAlert = true
 
-                                try await fake_fetch_calories_burn_and_update()
-
-                                try await fake_fetch_sleeptime_and_update()
-
-                                
-                                try await dietService.fetchBmiRec(idToken: authManager.authToken)
-                                try await dietService.getDietScore(idToken: authManager.authToken)
-                                try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
-                                
-                                try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
-                                
-                                try await exerciseService.fetchExerciseRecommendation(idToken: authManager.authToken)
-                                
-                                try await exerciseService.fetchExerciseScore(idToken: authManager.authToken)
-                                
-                                try await userData.getScoreForDay(idToken: authManager.authToken)
-                            }
-                            catch{
-                                
-                            }
-                            isLoading = false
-                            authManager.login()
-                        }
-                        
-                        
-                    }
-                    
                 }) {
                     Text("Save Profile")
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(.teal)
+//                        .foregroundColor(.teal)
+                        .foregroundColor(userData.fullname.isEmpty || userData.age.isEmpty || userData.weight.isEmpty || userData.height.isEmpty || (userData.selectedGoalIndex != 2 && userData.target_weight.isEmpty) ? Color.gray : Color.teal)
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+//                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                        .background(userData.fullname.isEmpty || userData.age.isEmpty || userData.weight.isEmpty || userData.height.isEmpty || (userData.selectedGoalIndex != 2 && userData.target_weight.isEmpty) ? RoundedRectangle(cornerRadius: 10).foregroundColor(Color.gray.opacity(0.2)) : RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
                 }
                 .padding(20)
                 .disabled(userData.fullname.isEmpty || userData.age.isEmpty || userData.weight.isEmpty || userData.height.isEmpty ||  (userData.selectedGoalIndex != 2 && userData.target_weight.isEmpty))
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Are you sure you want to save your changes?"),
+                          primaryButton: .default(Text("Save"), action: {
+                        if isFromSignUp == false {
+                            isModalPresented = true
+                            userData.saveProfile()
+                        }
+                        else{
+                            Task{
+                                isLoading = true
+                                do{
+                                    
+                                    try await userData.saveProfileAsyncAwait()
+
+                                    try await fake_fetch_calories_burn_and_update()
+
+                                    try await fake_fetch_sleeptime_and_update()
+
+                                    
+                                    try await dietService.fetchBmiRec(idToken: authManager.authToken)
+                                    try await dietService.getDietScore(idToken: authManager.authToken)
+                                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+                                    
+                                    try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseRecommendation(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseScore(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseDay(idToken: authManager.authToken)
+                                    
+                                    try await userData.getScoreForDay(idToken: authManager.authToken)
+                                    
+                                }
+                                catch{
+                                    
+                                }
+                                isLoading = false
+                                authManager.login()
+                            }
+                        }
+
+                    }),
+                          secondaryButton: .cancel()
+                    )
+
+                        }
+                
+
 
                 Spacer()
                

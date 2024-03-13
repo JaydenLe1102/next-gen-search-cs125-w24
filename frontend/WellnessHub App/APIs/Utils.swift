@@ -14,11 +14,13 @@ class Utils{
         return seconds / 3600
     }
     
-    static func convertSecondsToHoursMinutes(_ seconds: Double) -> (hours: Double, minutes: Double) {
-      let hours = seconds / 3600  // Get hours with decimals
-      let minutes = (seconds.truncatingRemainder(dividingBy: 3600) / 60).rounded(.toNearestOrAwayFromZero)  // Get minutes and round
+    static func convertSecondsToHoursMinutes(_ seconds: Double) -> String {
+        let hours = Int(seconds) / 3600  // Get whole hours
+        let remainingSeconds = Int(seconds) % 3600
+        let minutes = remainingSeconds / 60  // Get remaining minutes
 
-      return (hours, minutes)
+        return "\(hours)h \(minutes)m"
     }
+
     
 }

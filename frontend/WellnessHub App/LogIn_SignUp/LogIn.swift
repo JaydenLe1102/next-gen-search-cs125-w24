@@ -81,6 +81,7 @@ struct LogIn: View {
                                                             try await exerciseService.fetchExerciseRecommendation(idToken: tokens.idToken)
                                                             
                                                             try await exerciseService.fetchExerciseScore(idToken: tokens.idToken)
+                                                            try await exerciseService.fetchExerciseDay(idToken: tokens.idToken)
                                                         }
                                                         catch{
                                                             print("Failed to load initial data")
