@@ -28,7 +28,7 @@ struct ContentView: View {
     
     @State private var isWeightModalPresented = false
     @State private var currentWeight = ""
-    @State private var isLoading = false
+
     
     
     
@@ -144,9 +144,6 @@ struct ContentView: View {
         
         if authManager.isAuthenticated {
             VStack{
-                ProgressView() // Display the loading spinner
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .opacity(isLoading ? 1 : 0)
                 
                 TabView(selection: $selectedTab) {
                     
@@ -181,7 +178,7 @@ struct ContentView: View {
                 
 
             }
-            .disabled(isLoading)
+
             .onAppear{
                 
                         Task{

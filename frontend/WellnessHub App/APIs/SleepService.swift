@@ -12,7 +12,7 @@ class SleepService: ObservableObject {
     @Published var sleepRec: [Int] = []
     @Published var sleepPoint: Double = 0
     @Published var sleepProgressPercentage: Double = 0
-    @Published var sleepMessageRecommendation: String = "N/A"
+    @Published var sleepMessageRecommendation: String = ""
     
     let maxPointPerWeek:Double = 10
     

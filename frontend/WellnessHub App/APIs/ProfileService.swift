@@ -14,7 +14,7 @@ class UserData: ObservableObject {
     
     private let baseURL = "http://127.0.0.1:5000"
     
-    static let genders = ["Male", "Female", "Other"]
+    static let genders = ["Male", "Female"]
     static let  goals = ["Lose weight", "Gain weight", "Remain weight"]
     static let activityLevels = ["Beginner", "Intermediate", "Professional"]
     
@@ -25,21 +25,21 @@ class UserData: ObservableObject {
     var formatter: DateFormatter
     
     //UserInfo
-    @Published var email: String = "N/A"
-    @Published var fullname: String = "N/A"
-    @Published var last_update_weight:String = "N/A"
+//    @Published var email: String = ""
+    @Published var fullname: String = ""
+    @Published var last_update_weight:String = ""
     
     
     
     // User data properties
-    @Published var weight: String = "N/A"
-    @Published var height: String = "N/A"
-    @Published var age: String = "N/A"
-    @Published var goal: String = "N/A"
-    @Published var gender: String = "N/A"
+    @Published var weight: String = ""
+    @Published var height: String = ""
+    @Published var age: String = ""
+    @Published var goal: String = ""
+    @Published var gender: String = ""
     @Published var activityLevel: String = ""
-    @Published var dietaryPreferences: String = "N/A"
-    @Published var target_weight: String = "N/A"
+    @Published var dietaryPreferences: String = ""
+    @Published var target_weight: String = ""
     
     @Published var day_score_percentage: Double = 0
     
@@ -70,7 +70,7 @@ class UserData: ObservableObject {
             "activity_level": self.activityLevel,
             "age": Int(self.age) ?? "",
             "dietary_preference":  self.dietaryPreferences,
-            "email": self.email,
+//            "email": self.email,
             "full_name": self.fullname,
             "gender": self.gender,
             "health_goal": self.goal,
@@ -78,8 +78,6 @@ class UserData: ObservableObject {
             "weight": self.weight,
             "last_update_weight": self.last_update_weight,
             "target_weight": self.target_weight,
-            //            "calories_consumed": self.dietService.caloriesConsume,
-            //            "caloriesIntakeRec": self.dietService.caloriesIntakeRec
         ]
         
         return param
@@ -121,6 +119,71 @@ class UserData: ObservableObject {
         
         task.resume()
     }
+    
+    func updateUserInfoAsyncAwait(param: [String: Any]) async throws {
+      let urlString = baseURL + "/userinfo"
+      guard let url = URL(string: urlString) else {
+        throw NSError(domain: "InvalidURL", code: -1, userInfo: nil)
+      }
+
+      var request = URLRequest(url: url)
+      request.httpMethod = "PATCH"
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+      let jsonData = try JSONSerialization.data(withJSONObject: param)
+      request.httpBody = jsonData
+
+      let session = URLSession.shared
+      let (data, response) = try await session.data(for: request)
+
+      if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+        return
+      } else {
+        throw NSError(domain: "APIError", code: -3, userInfo: nil)
+      }
+    }
+    
+    
+    func saveProfileAsyncAwait()async throws {
+        
+        // Update data properties
+        self.weight = self.weight.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.height = self.height.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.age = self.age.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.goal = UserData.goals[self.selectedGoalIndex]
+        self.gender = UserData.genders[self.selectedGenderIndex]
+        self.activityLevel = UserData.activityLevels[self.selectedActivityLvlIndex]
+        self.dietaryPreferences = self.dietaryPreferences.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.target_weight = self.target_weight.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        //        self.last_update_weight = formatter.string(from: Date())
+        
+        // Persist data to storage (optional, see comments below)
+        // ... (add persistence implementation here)
+        
+        // Trigger data changes notification
+        
+        print("Saved Profile:")
+        print("Age: \(self.age)")
+        print("Gender: \(self.gender)")
+        print("Weight: \(self.weight) lbs")
+        print("Height: \(self.height) ft")
+        print("Goal: \(self.goal)")
+        print("Activity Level: \(self.activityLevel)")
+        
+        print("done update user data")
+        objectWillChange.send()
+        
+        let param = self.getUpdateInfoForApi()
+        
+        print("update info param")
+        print(param)
+        
+        try await self.updateUserInfoAsyncAwait(param: param)
+        
+    }
+
+    
     
     
     // Function to update user data
@@ -218,7 +281,7 @@ class UserData: ObservableObject {
                         break
                     }
                 }
-                self.email = dataExtracted["email"] as! String
+//                self.email = dataExtracted["email"] as! String
                 self.last_update_weight = dataExtracted["last_update_weight"] as! String
                 
                 //                self.saveProfile()
@@ -276,7 +339,7 @@ class UserData: ObservableObject {
                             break
                         }
                     }
-                    self.email = dataExtracted["email"] as! String
+//                    self.email = dataExtracted["email"] as! String
                     self.last_update_weight = dataExtracted["last_update_weight"] as! String
                     
                     print("before complete update userData")
@@ -427,5 +490,8 @@ class UserData: ObservableObject {
         }
         
     }
+    
+    
+
     
 }

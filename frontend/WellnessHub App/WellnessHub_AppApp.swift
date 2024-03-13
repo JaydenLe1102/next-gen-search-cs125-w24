@@ -18,6 +18,8 @@ struct WellnessHub_AppApp: App {
     @StateObject private var dietService = DietService()
     @StateObject private var sleepService = SleepService()
     @StateObject private var userData = UserData()
+    @StateObject private var exerciseService = ExerciseService()
+    @StateObject private var loginSignUpService = LoginSignupService()
     
     
 //    @StateObject private var dietService = DietService()
@@ -30,6 +32,8 @@ struct WellnessHub_AppApp: App {
                 .environmentObject(dietService)
                 .environmentObject(healthKitManager)
                 .environmentObject(sleepService)
+                .environmentObject(exerciseService)
+                .environmentObject(loginSignUpService)
         }
     }
 }

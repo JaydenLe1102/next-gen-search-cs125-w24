@@ -62,36 +62,286 @@ sample_recipe = [
 ]	
  
  
-sample_user_info = {
-    "activity_level": "Beginner",
-    "age": 30,
-    "dietary_preference": "Vegetarian",
-    "email": "test@email.com",
-    "first_name": "John",
-    "gender": "Male",
-    "health_goal": "Gain weight",
-    "height": 180,
-    "last_name": "Doe",
-    "weight": 75,
-    "target_weight": 80,
-}
-
-
-{
-    "activity_level": "Beginner",
+sample_user_info = {"activity_level": "Beginner",
     "age": 30,
     "caloriesIntakeRec": 924.31368,
     "calories_burn_yesterday": 609.9019999999992,
-    "calories_consumed": 30.7,
-    "dietary_preference": "N/A",
+    "calories_consumed": 783.0,
+    "createdDate": "2024-03-10",
     "email": "test@email.com",
-    "first_name": "John",
-    "full_name": "N/A",
+    "exercisePlan": {
+        "day_1": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many push-ups as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Push-ups"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Hold a plank position for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Plank"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many squats as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Squats"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            }
+        ],
+        "day_2": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Hold a plank position for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Plank"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many squats as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Squats"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do mountain climbers for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Mountain Climbers"
+            }
+        ],
+        "day_3": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many push-ups as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Push-ups"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Hold a plank position for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Plank"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many crunches as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Crunches"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            }
+        ],
+        "day_4": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do mountain climbers for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Mountain Climbers"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many squats as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Squats"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many crunches as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Crunches"
+            }
+        ],
+        "day_5": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many push-ups as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Push-ups"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Hold a plank position for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Plank"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many crunches as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Crunches"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            }
+        ],
+        "day_6": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do mountain climbers for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Mountain Climbers"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many squats as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Squats"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many crunches as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Crunches"
+            }
+        ],
+        "day_7": [
+            {
+                "calories_burned": 50,
+                "instruction": "Run in place or do jumping jacks for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Cardio"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many push-ups as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Push-ups"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Hold a plank position for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Plank"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many crunches as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Crunches"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Jump rope for 5 minutes.",
+                "length": "5 minutes",
+                "title": "Jump rope"
+            },
+            {
+                "calories_burned": 50,
+                "instruction": "Do as many burpees as you can in 5 minutes.",
+                "length": "5 minutes",
+                "title": "Burpees"
+            }
+        ]
+    },
+    "full_name": "",
     "gender": "Male",
     "health_goal": "Lose weight",
     "height": 180,
-    "last_name": "Doe",
-    "last_update_weight": "03/10/2024",
+    "last_update_weight": "2024-03-12",
     "sleep_time_yesterday": 20600,
     "target_weight": "160",
     "weight": "165"
