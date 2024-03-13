@@ -282,49 +282,8 @@ struct UserInputs: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
                 Button(action: {
-                    if isFromSignUp == false {
-//                        isModalPresented = true
-                        showAlert = true
-                    }
-                    else {
-                        
-                        Task{
-                            isLoading = true
-                            do{
-                                
-                                try await userData.saveProfileAsyncAwait()
+                    showAlert = true
 
-                                try await fake_fetch_calories_burn_and_update()
-
-                                try await fake_fetch_sleeptime_and_update()
-
-                                
-                                try await dietService.fetchBmiRec(idToken: authManager.authToken)
-                                try await dietService.getDietScore(idToken: authManager.authToken)
-                                try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
-                                
-                                try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
-                                
-                                try await exerciseService.fetchExerciseRecommendation(idToken: authManager.authToken)
-                                
-                                try await exerciseService.fetchExerciseScore(idToken: authManager.authToken)
-                                
-                                try await exerciseService.fetchExerciseDay(idToken: authManager.authToken)
-                                
-                                try await userData.getScoreForDay(idToken: authManager.authToken)
-                                
-                            }
-                            catch{
-                                
-                            }
-                            isLoading = false
-                            authManager.login()
-                        }
-                        
-                        
-                    }
-
-                    
                 }) {
                     Text("Save Profile")
                         .frame(maxWidth: .infinity)
@@ -339,8 +298,44 @@ struct UserInputs: View {
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Are you sure you want to save your changes?"),
                           primaryButton: .default(Text("Save"), action: {
-                        isModalPresented = true
-                        userData.saveProfile()
+                        if isFromSignUp == false {
+                            isModalPresented = true
+                            userData.saveProfile()
+                        }
+                        else{
+                            Task{
+                                isLoading = true
+                                do{
+                                    
+                                    try await userData.saveProfileAsyncAwait()
+
+                                    try await fake_fetch_calories_burn_and_update()
+
+                                    try await fake_fetch_sleeptime_and_update()
+
+                                    
+                                    try await dietService.fetchBmiRec(idToken: authManager.authToken)
+                                    try await dietService.getDietScore(idToken: authManager.authToken)
+                                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+                                    
+                                    try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseRecommendation(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseScore(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseDay(idToken: authManager.authToken)
+                                    
+                                    try await userData.getScoreForDay(idToken: authManager.authToken)
+                                    
+                                }
+                                catch{
+                                    
+                                }
+                                isLoading = false
+                                authManager.login()
+                            }
+                        }
 
                     }),
                           secondaryButton: .cancel()
