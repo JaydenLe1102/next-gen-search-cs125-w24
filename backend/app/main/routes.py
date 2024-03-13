@@ -191,6 +191,8 @@ def update_user_info():
         
         update_info = request.json
         
+        user_info = getUserInfo(user_id_token)
+        
         
         del update_info["idToken"]
 
@@ -198,7 +200,15 @@ def update_user_info():
         if ("weight" in update_info.keys()):
             today = date.today()
             today_str = today.strftime("%Y-%m-%d")
-            update_info["last_update_weight"] = today_str
+            update_info["last_update_weight"] = today_str  
+            
+        reset_properties_list = [ 'gender', 'age', 'weight','height','health_goal','activity_level']
+        for prop in reset_properties_list:
+            if (prop in update_info.keys()):
+                if (update_info[prop] != user_info[prop]):
+                    update_info["exercisePlan"] = None
+                    print("RESET EXERCISE PLAN and last_update_weight")
+                    break
         
         print(f'update_info: {update_info}')
         db.collection("users").document(user_uid).update(update_info)
