@@ -10,3 +10,5 @@ creds.py
 project.xcworkspace
 xcuserdata
 xcuserdata/
+dataset/
+data.pkl

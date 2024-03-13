@@ -4,3 +4,5 @@ python-dotenv
 pyrebase4
 firebase_admin 
 openai
+pandas
+scikit-learn

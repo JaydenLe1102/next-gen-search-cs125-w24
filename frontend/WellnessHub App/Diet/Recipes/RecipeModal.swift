@@ -14,8 +14,13 @@ struct RecipeModal: View {
     var calories: String
     var description: String
     var imageURL: String
+    var recipe: Recipe
+    @EnvironmentObject var dietService: DietService
+    @StateObject private var authManager = AuthenticationManager.shared
     
     @State private var isModalPresented = false
+    
+
     
     var body: some View {
         VStack{
@@ -26,6 +31,10 @@ struct RecipeModal: View {
                 VStack(spacing: 15) {
                     Text(name)
                         .foregroundStyle(.black)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .fontWeight(.semibold)
+
                     
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image.resizable()
@@ -40,21 +49,29 @@ struct RecipeModal: View {
 
                     }
                     
-                    HStack(spacing: 5,content: {
-                        Image(systemName: "clock")
-                        Text(time)
-                            .foregroundStyle(.black)
-                    })
+//                    HStack(spacing: 15,content: {
+                        HStack(spacing: 5,content: {
+                            Image(systemName: "clock")
+                                .foregroundColor(.red)
+                            Text(time)
+                                .foregroundStyle(.black)
+                        })
+                        
+                        HStack(spacing: 5,content: {
+                            Image(systemName: "fork.knife")
+                                .foregroundColor(.red)
+                            Text(calories)
+                                .foregroundStyle(.black)
+                        })
+                        
+                        
+                        
+//                    })
                     
-                    HStack(spacing: 5,content: {
-                        Image(systemName: "fork.knife")
-                        Text(calories)
-                            .foregroundStyle(.black)
-                    })
-           
+                               
                 }
-                .padding(10)
-                .frame(height: UIScreen.main.bounds.height / 3)
+                .padding(20)
+                .frame(height: UIScreen.main.bounds.height / 3.5)
                 .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
                 
@@ -63,7 +80,7 @@ struct RecipeModal: View {
             }
             .sheet(isPresented: $isModalPresented) {
                 VStack{
-                    RecipeDetails(name: name, time: time, calories: calories,description:"This is a description", imageURL: imageURL)
+                    RecipeDetails(name: name, time: time, calories: calories,description: description, imageURL: imageURL)
                 }
                 .padding()
             }
@@ -71,6 +88,13 @@ struct RecipeModal: View {
     }
 }
 
-#Preview {
-    Recipes()
-}
+//#Preview {
+//    RecipeModal(
+//        name: "Title",
+//        time: "2 mins",
+//        calories: 200,
+//        description: "Instruction",
+//        imageURL: recipe.image,
+//        recipe: recipe
+//    )
+//}

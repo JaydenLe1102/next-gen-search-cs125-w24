@@ -20,15 +20,20 @@ struct RecommendationModal: View {
                     
                     Image(systemName: imageURL)
                         .resizable()
+                        .frame(width: 50, height: 40)
                         .aspectRatio(contentMode: .fit)
                         .padding()
+                        .foregroundColor(.black)
+
                         
                     Text(recommendation)
                         .padding([.bottom, .horizontal])
+                        .lineLimit(2)
+                        .truncationMode(.tail)
+                        .foregroundColor(.black)
                 }
                  .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                 .cornerRadius(13)
-                .frame(width: 140)
         })
         
     }

@@ -12,11 +12,29 @@ struct CustomInputModal: View {
     @Binding var currentWeight: String
     
     @EnvironmentObject var userData: UserData
-
+    @StateObject private var authManager = AuthenticationManager.shared
     
     func updateWeight() {
 
         userData.weight = userData.weight.trimmingCharacters(in: .whitespacesAndNewlines)
+        userData.last_update_weight = userData.formatter.string(from: Date())
+        
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "weight": userData.weight,
+            "last_update_weight": userData.last_update_weight
+        ]
+        
+        
+        userData.updateUserInfo(param: param){result in
+            switch result {
+            case .success:
+                print("User information updated successfully!")
+            case .failure(let error):
+                print("Error updating user info: \(error.localizedDescription)")
+            }
+            
+        }
     }
     
 
@@ -33,7 +51,7 @@ struct CustomInputModal: View {
             
             Button(action: {
                 updateWeight()
-                isWeightModalPresented = true
+                isWeightModalPresented = false
             }) {
                 Text("Save")
                     .frame(maxWidth: .infinity)
@@ -54,7 +72,7 @@ struct CustomInputModal: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData(healthKitManager: healthKitManager))
+//}

@@ -7,30 +7,13 @@
 
 import SwiftUI
 
+@MainActor
 struct Profile: View {
     @StateObject private var authManager = AuthenticationManager.shared
     @EnvironmentObject var userData: UserData
     @State private var isModalPresented = false
     @State private var navigateBackToProfile = false
 
-
-    
-    let genders = ["Male", "Female", "Other"]
-    let goals = ["Lose weight", "Gain weight", "Remain weight"]
-    let activityLevels = ["Beginner", "Intermediate", "Professional"]
-    
-    func saveProfile() {
-        // Save user inputs into UserData object
-        // You can add more logic/validation as needed
-        userData.weight = userData.weight.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.height = userData.height.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.age = userData.age.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.goal = goals[userData.selectedGoalIndex]
-        userData.gender = genders[userData.selectedGenderIndex]
-        userData.activityLevel = activityLevels[userData.selectedActivityLvlIndex]
-    }
-
-    
     var body: some View {
         NavigationView(content: {
             ScrollView(content: {
@@ -44,7 +27,7 @@ struct Profile: View {
                             .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                             .cornerRadius(70.0)
 
-                        Text("Name")
+                        Text("\(userData.fullname)")
                     })
                     .padding(40)
 
@@ -84,6 +67,12 @@ struct Profile: View {
                                     .foregroundColor(.secondary)
                             })
                             
+                            HStack( content: {
+                                Text("Target Weight:")
+                                Text("\(userData.target_weight) lbs")
+                                    .foregroundColor(.secondary)
+                            })
+                            
                             HStack(content: {
                                 Text("Activity Level:")
                                 Text("\(userData.activityLevel)")
@@ -109,6 +98,7 @@ struct Profile: View {
                         Button(action: {
                             isModalPresented = true
                             print("hihi")
+                            
                         }) {
                             Text("Edit profile")
                                 .frame(maxWidth: .infinity)
@@ -136,7 +126,7 @@ struct Profile: View {
                         }
                         .hidden()
                         Button(action: {
-                            saveProfile()
+                            userData.saveProfile()
                             navigateBackToProfile = true
                         }) {
                             Text("Save")
@@ -152,12 +142,13 @@ struct Profile: View {
                 })  
         })
         .navigationBarBackButtonHidden(true)
-        
     }
     
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    Profile()
+//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
+//        .environmentObject(DietService())
+//        .environmentObject(HealthkitManager())
+//}

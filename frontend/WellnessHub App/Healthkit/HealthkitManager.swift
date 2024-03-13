@@ -21,6 +21,10 @@ extension Date{
 
 class HealthkitManager: ObservableObject {
     
+    @Published var calories_burn_yesterday: Double = 0
+    @Published var sleep_time_yesterday: Double = 0
+    
+    
     let healthStore = HKHealthStore()
     
     init(){
@@ -28,8 +32,9 @@ class HealthkitManager: ObservableObject {
         let calories = HKQuantityType(.activeEnergyBurned)
         let bodyMassType = HKObjectType.quantityType(forIdentifier: .bodyMass)!
         let bodyFatPercentageType = HKObjectType.quantityType(forIdentifier: .bodyFatPercentage)!
+        let sleep = HKCategoryType(.sleepAnalysis)
         
-        let healthTypes:Set = [steps, calories, bodyMassType, bodyFatPercentageType]
+        let healthTypes:Set = [steps, calories, bodyMassType, bodyFatPercentageType, sleep]
         
         Task{
             do{
@@ -44,11 +49,7 @@ class HealthkitManager: ObservableObject {
             }
         }
     }
-    
-    func testRun(){
-        print("hello world")
-    }
-    
+
     func fetchBodyMass() {
         guard let bodyMassType = HKObjectType.quantityType(forIdentifier: .bodyMass) else {
             print("Body mass data is not available.")
@@ -87,21 +88,86 @@ class HealthkitManager: ObservableObject {
         healthStore.execute(query)
     }
     
-    func fetchCalories(){
+    
+    func fetchCaloriesBurnYesterday(completion: @escaping (Double?, Error?) -> Void){
         let calories = HKQuantityType(.activeEnergyBurned)
         let predicate = HKQuery.predicateForSamples(withStart: .startOf7PreviousDay, end: Date())
         let query = HKStatisticsQuery(quantityType: calories, quantitySamplePredicate: predicate){ _, result, error in
-            guard let quantity = result?.sumQuantity(), error == nil else{
+            if let quantity = result?.sumQuantity(), error == nil {
+                let caloriesBurn = quantity.doubleValue(for: .kilocalorie())
+                print("Calories Burn for today: ")
+                print(caloriesBurn)
+                
+                self.calories_burn_yesterday = caloriesBurn
+                    print(caloriesBurn)
+                  completion(caloriesBurn, nil)
+
+            } else {
                 print("error fetching calories")
-                return
+                completion(nil, error)
             }
-            let caloriesBurn = quantity.doubleValue(for: .kilocalorie())
-            print("Calories Burn for today: ")
-            print(caloriesBurn)
         }
         
         healthStore.execute(query)
+        
     }
+    
+    
+    func fetchSleepTimeYesterday(completion: @escaping (Double?, Error?) -> Void) {
+        // Get a reference to the sleep analysis category
+        if let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis) {
+            // Create a predicate to fetch samples only for yesterday
+            let predicate = HKQuery.predicateForSamples(withStart: .startOfYesterday, end: Date())
+            
+            // Sort in descending order by endDate to get most recent samples first
+            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+            
+            print("b4 call")
+            // Create the query
+            let query = HKSampleQuery(sampleType: sleepType, predicate: predicate, limit: 100000, sortDescriptors: [sortDescriptor]) { (query, results, error) -> Void in
+                if let error = error {
+                    print("Error fetching sleep data: \(error.localizedDescription)")
+                    completion(nil, error)
+                }
+                
+                guard let results = results as? [HKCategorySample] else {
+                    print("No sleep data found")
+                    return
+                }
+                var totalSleepTime: TimeInterval = 0
+                // Iterate through the results only for yesterday
+                for sample in results {
+                    
+                        let startDate = sample.startDate
+                        let endDate = sample.endDate
+                        let sleepTimeForOneDay = endDate.timeIntervalSince(startDate)
+                        
+                        print("""
+                          Sample start: \(startDate),
+                          end: \(endDate),
+                          duration: \(sleepTimeForOneDay) seconds
+                        """)
+                    
+                    totalSleepTime += sleepTimeForOneDay
+                    
+                }
+                
+                print("total sleep time")
+                print(totalSleepTime)
+                completion(totalSleepTime, nil)
+            }
+            
+            // Execute the query
+            healthStore.execute(query)
+            
+            print("after call")
+        }
+    }
+
+
+    
+
+    
     
     func fetchAndSendHealthDataToServer() {
         // Check if HealthKit is available on this device

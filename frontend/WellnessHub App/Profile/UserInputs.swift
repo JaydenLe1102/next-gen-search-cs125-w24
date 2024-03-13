@@ -7,85 +7,124 @@
 
 import SwiftUI
 
-class UserData: ObservableObject {
 
-    // User data properties
-    @Published var weight: String = ""
-    @Published var height: String = ""
-    @Published var age: String = ""
-    @Published var goal: String = ""
-    @Published var gender: String = ""
-    @Published var activityLevel: String = ""
-    @Published var dietaryPreferences: String = ""
-
-    // Selected index properties (if applicable)
-    @Published var selectedGenderIndex: Int = 0 // Update type to Int
-    @Published var selectedGoalIndex: Int = 0 // Update type to Int
-    @Published var selectedActivityLvlIndex: Int = 0 // Update type to Int
-
-
-    // Function to update user data
-    func updateUserData(weight: String, height: String, age: String, goal: String,
-                        gender: String, activityLevel: String, dietaryPreferences: String,
-                        selectedGenderIndex: Int, selectedGoalIndex: Int, selectedActivityLvlIndex: Int) {
-        // Input validation and error handling (optional but recommended)
-        if weight.isEmpty || height.isEmpty || age.isEmpty || goal.isEmpty || gender.isEmpty || activityLevel.isEmpty {
-            print("Error: All fields must be filled.")
-            return
-        }
-
-        // Update data properties
-        self.weight = weight
-        self.height = height
-        self.age = age
-        self.goal = goal
-        self.gender = gender
-        self.activityLevel = activityLevel
-        self.dietaryPreferences = dietaryPreferences
-
-        // Update selected indices
-        self.selectedGenderIndex = selectedGenderIndex
-        self.selectedGoalIndex = selectedGoalIndex
-        self.selectedActivityLvlIndex = selectedActivityLvlIndex
-
-        // Persist data to storage (optional, see comments below)
-        // ... (add persistence implementation here)
-
-        // Trigger data changes notification
-        
-        print("done update user data")
-        objectWillChange.send()
-    }
-}
 
 
 struct UserInputs: View {
     
-    @EnvironmentObject var userData: UserData
-    @StateObject private var authManager = AuthenticationManager.shared
-
-    @State private var isModalPresented = false
-
-    let genders = ["Male", "Female", "Other"]
-    let goals = ["Lose weight", "Gain weight", "Remain weight"]
-    let activityLevels = ["Beginner", "Intermediate", "Professional"]
+    var isFromSignUp: Bool = false
     
-    func saveProfile() {
-        // Save user inputs into UserData object
-        // You can add more logic/validation as needed
-        userData.weight = userData.weight.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.height = userData.height.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.age = userData.age.trimmingCharacters(in: .whitespacesAndNewlines)
-        userData.goal = goals[userData.selectedGoalIndex]
-        userData.gender = genders[userData.selectedGenderIndex]
-        userData.activityLevel = activityLevels[userData.selectedActivityLvlIndex]
-    }
+    @EnvironmentObject var userData: UserData
+    @EnvironmentObject var dietService: DietService
+    @EnvironmentObject var healthManager: HealthkitManager
+    @EnvironmentObject var sleepService: SleepService
+    @EnvironmentObject var exerciseService: ExerciseService
+    
+    
+    @StateObject private var authManager = AuthenticationManager.shared
+    @State private var isModalPresented = false
+    
+    @State private var isSaveEnable = false
+    @State private var isLoading = false
+    
+    @State private var showAlert = false
 
+    
+    func fake_fetch_calories_burn_and_update() async throws{
+        
+        let calories = 609.9019999999992
+
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "calories_burn_yesterday": calories
+        ]
+        
+        healthManager.calories_burn_yesterday = calories
+        
+        try await userData.updateUserInfoAsyncAwait(param: param)
+    }
+    
+    func fake_fetch_sleeptime_and_update() async throws{
+        
+        let sleeptime:Double = 20600.0
+
+        let param: [String:Any] = [
+            "idToken": authManager.authToken,
+            "sleep_time_yesterday": sleeptime
+        ]
+        
+        healthManager.sleep_time_yesterday = sleeptime
+        try await userData.updateUserInfoAsyncAwait(param: param)
+
+    }
+    
+    
+    func fetch_calories_burn_and_update(){
+
+            healthManager.fetchCaloriesBurnYesterday{ calories, error in
+                if let calories = calories {
+                    
+                    let param: [String:Any] = [
+                        "idToken": authManager.authToken,
+                        "calories_burn_yesterday": calories
+                    ]
+                    
+                    
+                    userData.updateUserInfo(param: param){result in
+                        switch result {
+                        case .success:
+                            print("User information updated successfully!")
+                        case .failure(let error):
+                            print("Error updating user info: \(error.localizedDescription)")
+                        }
+                        
+                    }
+                    
+                    print("Calories Burn for yesterday: \(calories)")
+                  // Use the calories as needed
+                } else if let error = error {
+                  print("Error fetching calories: \(error)")
+                  // Handle the error
+                }
+              }
+    }
+    
+    func fetch_sleep_time_and_update(){
+        healthManager.fetchSleepTimeYesterday{ sleepTime, error in
+            
+            if let sleepTime = sleepTime {
+                
+                let param: [String:Any] = [
+                    "idToken": authManager.authToken,
+                    "sleep_time_yesterday": sleepTime
+                ]
+                
+                
+                userData.updateUserInfo(param: param){result in
+                    switch result {
+                    case .success:
+                        print("User information updated successfully!")
+                    case .failure(let error):
+                        print("Error updating user info: \(error.localizedDescription)")
+                    }
+                    
+                }
+                
+                print("sleep_time_yesterday: \(sleepTime)")
+              // Use the calories as needed
+            } else if let error = error {
+              print("Error fetching calories: \(error)")
+              // Handle the error
+            }
+            
+        }
+    }
 
     var body: some View {
         NavigationView(content: {
             ScrollView(content: {
                 VStack(alignment: .center, content: {
+                    
                     Image(systemName: "person.circle")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -95,13 +134,32 @@ struct UserInputs: View {
                         .background(Color(red: 214/255, green: 239/255, blue: 244/255))
                         .cornerRadius(70.0)
 
-                    Text("Name")
+                    Text(userData.fullname)
                 })
                 .padding(40)
 
                 VStack(alignment: .leading,spacing: 30, content: {
+                    
                     HStack( content: {
-                        Text("Age:")
+                        HStack {
+                            Text("Full Name:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
+                        TextField("Full Name", text: $userData.fullname)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.leading)
+                    
+                    })
+                    
+                    HStack( content: {
+                        HStack {
+                            Text("Age:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Age", text: $userData.age)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .padding(.leading)
@@ -112,16 +170,28 @@ struct UserInputs: View {
                     
                     
                     HStack(content: {
-                        Text("Gender:")
+                        HStack {
+                            Text("Gender:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         Picker("Gender", selection: $userData.selectedGenderIndex) {
-                            ForEach(0..<3) { index in
-                                Text(genders[index])
+                            ForEach(0..<2) { index in
+                                Text(UserData.genders[index])
+                                    .foregroundColor(Color.teal)
+
                             }
                         }
                     })
                     
                     HStack( content: {
-                        Text("Weight:")
+                        HStack {
+                            Text("Weight:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Weight", text: $userData.weight)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("lbs")
@@ -131,7 +201,12 @@ struct UserInputs: View {
 
                     
                     HStack(content: {
-                        Text("Height: ")
+                        HStack {
+                            Text("Height:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
                         TextField("Height", text: $userData.height)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Text("ft")
@@ -140,30 +215,59 @@ struct UserInputs: View {
                     .frame(maxWidth: UIScreen.main.bounds.width)
 
                             
-                    
-                    
                     HStack(content: {
-                        Text("Goal:")
-                        Section {
-                            Picker("Goals", selection: $userData.selectedGoalIndex) {
-                                ForEach(0..<3) { index in
-                                    Text(goals[index])
-                                }
-                            }
+                        HStack {
+                            Text("Activity Level:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
                         }
-                    })
-                    
-                    HStack(content: {
-                        Text("Activity Level:")
 
                         Section {
                             Picker("Activity Levels", selection: $userData.selectedActivityLvlIndex) {
                                 ForEach(0..<3) { index in
-                                    Text(activityLevels[index])
+                                    Text(UserData.activityLevels[index])
+                                        .foregroundColor(Color.teal)
                                 }
                             }
                         }
                     })
+                    
+                    HStack(content: {
+                        HStack {
+                            Text("Goal:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
+                        Section {
+                            Picker("Goals", selection: $userData.selectedGoalIndex) {
+                                ForEach(0..<3) { index in
+                                    Text(UserData.goals[index])
+                                        .foregroundColor(Color.teal)
+
+                                }
+                            }
+                        }
+                    })
+                    
+                    HStack( content: {
+                        HStack {
+                            Text("Target weight:")
+                                .foregroundColor(.black)
+                            Text("*")
+                                .foregroundColor(.red)
+                        }
+                        TextField("Target weight", text: $userData.target_weight)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.leading)
+                            .disabled(userData.selectedGoalIndex == 2)
+                        Text("lbs")
+                            .foregroundColor(.secondary)
+                    })
+                    
+                    
+
                 })
                 .padding()
                 
@@ -171,33 +275,92 @@ struct UserInputs: View {
                     EmptyView()
                 }
                 .hidden()
+                
+                ProgressView() // Display the loading spinner
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .opacity(isLoading ? 1 : 0)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
                 Button(action: {
-                    if authManager.isAuthenticated == true {
-                        isModalPresented = true
-                    }
-                    else {
-                        authManager.fakeLogin()
-                        saveProfile()
-                    }
-                    
+                    showAlert = true
+
                 }) {
                     Text("Save Profile")
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(.teal)
+//                        .foregroundColor(.teal)
+                        .foregroundColor(userData.fullname.isEmpty || userData.age.isEmpty || userData.weight.isEmpty || userData.height.isEmpty || (userData.selectedGoalIndex != 2 && userData.target_weight.isEmpty) ? Color.gray : Color.teal)
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+//                        .background(RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
+                        .background(userData.fullname.isEmpty || userData.age.isEmpty || userData.weight.isEmpty || userData.height.isEmpty || (userData.selectedGoalIndex != 2 && userData.target_weight.isEmpty) ? RoundedRectangle(cornerRadius: 10).foregroundColor(Color.gray.opacity(0.2)) : RoundedRectangle(cornerRadius: 10).foregroundColor(Color.teal.opacity(0.2)))
                 }
                 .padding(20)
+                .disabled(userData.fullname.isEmpty || userData.age.isEmpty || userData.weight.isEmpty || userData.height.isEmpty ||  (userData.selectedGoalIndex != 2 && userData.target_weight.isEmpty))
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Are you sure you want to save your changes?"),
+                          primaryButton: .default(Text("Save"), action: {
+                        if isFromSignUp == false {
+                            isModalPresented = true
+                            userData.saveProfile()
+                        }
+                        else{
+                            Task{
+                                isLoading = true
+                                do{
+                                    
+                                    try await userData.saveProfileAsyncAwait()
+
+                                    try await fake_fetch_calories_burn_and_update()
+
+                                    try await fake_fetch_sleeptime_and_update()
+
+                                    
+                                    try await dietService.fetchBmiRec(idToken: authManager.authToken)
+                                    try await dietService.getDietScore(idToken: authManager.authToken)
+                                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+                                    
+                                    try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseRecommendation(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseScore(idToken: authManager.authToken)
+                                    
+                                    try await exerciseService.fetchExerciseDay(idToken: authManager.authToken)
+                                    
+                                    try await userData.getScoreForDay(idToken: authManager.authToken)
+                                    
+                                }
+                                catch{
+                                    
+                                }
+                                isLoading = false
+                                authManager.login()
+                            }
+                        }
+
+                    }),
+                          secondaryButton: .cancel()
+                    )
+
+                        }
+                
+
 
                 Spacer()
+               
             })
             .padding()
         })
         .navigationBarBackButtonHidden(true)
+        .disabled(isLoading)
     }
 }
 
 #Preview {
     UserInputs()
-        .environmentObject(UserData())
+    .environmentObject(UserData())
+    .environmentObject(DietService())
+    .environmentObject(HealthkitManager())
+    .environmentObject(SleepService())
+    .environmentObject(ExerciseService())
+    .environmentObject(LoginSignupService())
 }

@@ -10,13 +10,14 @@ import SwiftUI
 struct SignUp: View {
     @Binding var showSignUp: Bool
     //view properties
-    @State private var fullName: String = ""
     @State private var emailID: String = ""
     @State private var password: String = ""
     @State private var confirmedPassword: String = ""
     @Binding var selectedTab: Int
     
     @State private var isModalPresented = false
+    
+    @EnvironmentObject var userData: UserData
 
 
 
@@ -37,9 +38,6 @@ struct SignUp: View {
             
             VStack(spacing: 25) {
                 
-                CustomTextField(icon: "person", hint: "Full Name", value: $fullName)
-                    .padding(.top, 5)
-                //Custom  Text Field
                 CustomTextField(icon: "at", hint: "Email ID", value: $emailID)
                 
                
@@ -50,12 +48,25 @@ struct SignUp: View {
                 CustomTextField(icon: "lock", hint: "Confirm Password", isPassword: true, value: $confirmedPassword)
                     .padding(.top, 5)
                 
-                NavigationLink(destination: UserInputs(), isActive: $isModalPresented) {
+                NavigationLink(destination: UserInputs(isFromSignUp: true), isActive: $isModalPresented) {
                                         EmptyView()
                                     }
                                     .hidden()                
                 Button(action: {
-                    isModalPresented = true
+                    
+                    loginSignupService.signup(email: emailID, password: password){ result in
+                        switch result {
+                        case .success(let tokens):
+                            print("Sign Up successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
+                            authManager.signUp(withToken: tokens.idToken, userId: tokens.userID)
+                            isModalPresented = true
+
+                        case .failure(let error):
+                            print("Sign Up failed: \(error)")
+                        }
+                    }
+                    
+                    
                 }) {
                     Text("Sign up")
                         .frame(maxWidth: .infinity)
@@ -102,7 +113,7 @@ struct SignUp: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(UserData())
-}
+//#Preview {
+//    ContentView()
+//        .environmentObject(UserData())
+//}

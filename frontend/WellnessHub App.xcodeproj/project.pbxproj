@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		283A646F2BA15F8A00CDCEF3 /* GeneralInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A646E2BA15F8A00CDCEF3 /* GeneralInfo.swift */; };
+		283A64712BA1721400CDCEF3 /* ExerciseRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283A64702BA1721400CDCEF3 /* ExerciseRecommendation.swift */; };
 		289AFE412B7577A00027FB84 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE402B7577A00027FB84 /* SignUp.swift */; };
 		289AFE472B7D4A680027FB84 /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE462B7D4A680027FB84 /* Restaurants.swift */; };
 		289AFE4B2B7D8A6D0027FB84 /* RestaurantModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */; };
@@ -22,7 +24,7 @@
 		289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE632B83ED480027FB84 /* RecommendationModal.swift */; };
 		289AFE662B8416820027FB84 /* ExactTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE652B8416820027FB84 /* ExactTime.swift */; };
 		289AFE692B8423430027FB84 /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE682B8423430027FB84 /* Exercises.swift */; };
-		289AFE6D2B842FF10027FB84 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE6C2B842FF10027FB84 /* Exercise.swift */; };
+		289AFE6D2B842FF10027FB84 /* ExerciseModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE6C2B842FF10027FB84 /* ExerciseModal.swift */; };
 		289AFE722B851D5B0027FB84 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE712B851D5B0027FB84 /* CustomTabView.swift */; };
 		289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE732B92C9350027FB84 /* UserInputs.swift */; };
 		289AFE762B94281E0027FB84 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289AFE752B94281E0027FB84 /* UserData.swift */; };
@@ -39,9 +41,16 @@
 		92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */; };
 		92297B942B89127200C8E4E1 /* HealthkitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B932B89127200C8E4E1 /* HealthkitManager.swift */; };
 		92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92297B952B8965CE00C8E4E1 /* DietService.swift */; };
+		92D08A742B9F68AB000B3EF3 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D08A732B9F68AB000B3EF3 /* Utils.swift */; };
+		92D08A782B9F788E000B3EF3 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D08A772B9F788E000B3EF3 /* CircularProgressView.swift */; };
+		92E8CE2C2BA07DD80010DF07 /* SleepService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8CE2B2BA07DD80010DF07 /* SleepService.swift */; };
+		92E8CE322BA138C60010DF07 /* ExerciseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E8CE312BA138C60010DF07 /* ExerciseService.swift */; };
+		92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F010812B96D9BA00D4C7F9 /* ProfileService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		283A646E2BA15F8A00CDCEF3 /* GeneralInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfo.swift; sourceTree = "<group>"; };
+		283A64702BA1721400CDCEF3 /* ExerciseRecommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecommendation.swift; sourceTree = "<group>"; };
 		289AFE402B7577A00027FB84 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		289AFE462B7D4A680027FB84 /* Restaurants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		289AFE4A2B7D8A6D0027FB84 /* RestaurantModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantModal.swift; sourceTree = "<group>"; };
@@ -57,7 +66,7 @@
 		289AFE632B83ED480027FB84 /* RecommendationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationModal.swift; sourceTree = "<group>"; };
 		289AFE652B8416820027FB84 /* ExactTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExactTime.swift; sourceTree = "<group>"; };
 		289AFE682B8423430027FB84 /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
-		289AFE6C2B842FF10027FB84 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		289AFE6C2B842FF10027FB84 /* ExerciseModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModal.swift; sourceTree = "<group>"; };
 		289AFE712B851D5B0027FB84 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		289AFE732B92C9350027FB84 /* UserInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputs.swift; sourceTree = "<group>"; };
 		289AFE752B94281E0027FB84 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -71,10 +80,16 @@
 		28B6084A2B73386D00829229 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		28B6084D2B733B4C00829229 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		28B6084F2B7428AF00829229 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		920795D22B9D57E5008D655B /* WellnessHub App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WellnessHub App.entitlements"; sourceTree = "<group>"; };
 		92297B8C2B86A2A500C8E4E1 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_SignUp.service.swift; sourceTree = "<group>"; };
 		92297B932B89127200C8E4E1 /* HealthkitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitManager.swift; sourceTree = "<group>"; };
 		92297B952B8965CE00C8E4E1 /* DietService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietService.swift; sourceTree = "<group>"; };
+		92D08A732B9F68AB000B3EF3 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		92D08A772B9F788E000B3EF3 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		92E8CE2B2BA07DD80010DF07 /* SleepService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepService.swift; sourceTree = "<group>"; };
+		92E8CE312BA138C60010DF07 /* ExerciseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseService.swift; sourceTree = "<group>"; };
+		92F010812B96D9BA00D4C7F9 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +109,6 @@
 				289AFE542B81761F0027FB84 /* Recipes */,
 				289AFE452B7D4A3E0027FB84 /* Restaurants */,
 				289AFE4C2B7DAEFA0027FB84 /* Diet.swift */,
-				92297B952B8965CE00C8E4E1 /* DietService.swift */,
 			);
 			path = Diet;
 			sourceTree = "<group>";
@@ -144,7 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				289AFE682B8423430027FB84 /* Exercises.swift */,
-				289AFE6C2B842FF10027FB84 /* Exercise.swift */,
+				289AFE6C2B842FF10027FB84 /* ExerciseModal.swift */,
+				283A646E2BA15F8A00CDCEF3 /* GeneralInfo.swift */,
+				283A64702BA1721400CDCEF3 /* ExerciseRecommendation.swift */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -168,6 +184,8 @@
 		28B608272B7181B900829229 /* WellnessHub App */ = {
 			isa = PBXGroup;
 			children = (
+				920795D22B9D57E5008D655B /* WellnessHub App.entitlements */,
+				92F010802B96D97500D4C7F9 /* APIs */,
 				92297B922B89125800C8E4E1 /* Healthkit */,
 				92297B8B2B86A28300C8E4E1 /* Authentication */,
 				289AFE672B8423340027FB84 /* Exercises */,
@@ -209,7 +227,6 @@
 				28B6084A2B73386D00829229 /* LogIn.swift */,
 				28B6084F2B7428AF00829229 /* CustomTextField.swift */,
 				289AFE402B7577A00027FB84 /* SignUp.swift */,
-				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
 			);
 			path = LogIn_SignUp;
 			sourceTree = "<group>";
@@ -219,6 +236,7 @@
 			children = (
 				28B6084D2B733B4C00829229 /* Extensions.swift */,
 				289AFE752B94281E0027FB84 /* UserData.swift */,
+				92D08A772B9F788E000B3EF3 /* CircularProgressView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -237,6 +255,19 @@
 				92297B932B89127200C8E4E1 /* HealthkitManager.swift */,
 			);
 			path = Healthkit;
+			sourceTree = "<group>";
+		};
+		92F010802B96D97500D4C7F9 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				92297B952B8965CE00C8E4E1 /* DietService.swift */,
+				92297B902B86C1F600C8E4E1 /* Login_SignUp.service.swift */,
+				92F010812B96D9BA00D4C7F9 /* ProfileService.swift */,
+				92D08A732B9F68AB000B3EF3 /* Utils.swift */,
+				92E8CE2B2BA07DD80010DF07 /* SleepService.swift */,
+				92E8CE312BA138C60010DF07 /* ExerciseService.swift */,
+			);
+			path = APIs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,11 +350,16 @@
 				289AFE562B81764A0027FB84 /* Recipes.swift in Sources */,
 				92297B8D2B86A2A500C8E4E1 /* AuthenticationManager.swift in Sources */,
 				289AFE782B95A2B40027FB84 /* CustomInputModal.swift in Sources */,
+				92E8CE322BA138C60010DF07 /* ExerciseService.swift in Sources */,
+				92D08A782B9F788E000B3EF3 /* CircularProgressView.swift in Sources */,
+				92E8CE2C2BA07DD80010DF07 /* SleepService.swift in Sources */,
 				28B608502B7428AF00829229 /* CustomTextField.swift in Sources */,
 				289AFE642B83ED480027FB84 /* RecommendationModal.swift in Sources */,
 				289AFE742B92C9350027FB84 /* UserInputs.swift in Sources */,
 				289AFE582B817BBA0027FB84 /* RecipeModal.swift in Sources */,
-				289AFE6D2B842FF10027FB84 /* Exercise.swift in Sources */,
+				283A64712BA1721400CDCEF3 /* ExerciseRecommendation.swift in Sources */,
+				283A646F2BA15F8A00CDCEF3 /* GeneralInfo.swift in Sources */,
+				289AFE6D2B842FF10027FB84 /* ExerciseModal.swift in Sources */,
 				289AFE5A2B817BDA0027FB84 /* RecipeDetails.swift in Sources */,
 				289AFE5D2B81B1D20027FB84 /* Profile.swift in Sources */,
 				289AFE4D2B7DAEFA0027FB84 /* Diet.swift in Sources */,
@@ -332,6 +368,7 @@
 				92297B912B86C1F600C8E4E1 /* Login_SignUp.service.swift in Sources */,
 				289AFE602B83ECFE0027FB84 /* Sleep.swift in Sources */,
 				289AFE532B8139670027FB84 /* TopBar.swift in Sources */,
+				92D08A742B9F68AB000B3EF3 /* Utils.swift in Sources */,
 				28B6084E2B733B4C00829229 /* Extensions.swift in Sources */,
 				289AFE692B8423430027FB84 /* Exercises.swift in Sources */,
 				28B6083F2B732A0800829229 /* Home.swift in Sources */,
@@ -339,6 +376,7 @@
 				92297B962B8965CE00C8E4E1 /* DietService.swift in Sources */,
 				289AFE412B7577A00027FB84 /* SignUp.swift in Sources */,
 				28B608292B7181B900829229 /* WellnessHub_AppApp.swift in Sources */,
+				92F010822B96D9BA00D4C7F9 /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,16 +507,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WellnessHub App/WellnessHub App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WellnessHub App/Preview Content\"";
+				DEVELOPMENT_TEAM = FAKAGZ6NHX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "$(EXECUTABLE_NAME)";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -497,16 +540,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "WellnessHub App/WellnessHub App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WellnessHub App/Preview Content\"";
+				DEVELOPMENT_TEAM = FAKAGZ6NHX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "$(EXECUTABLE_NAME)";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

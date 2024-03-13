@@ -7,11 +7,33 @@
 
 import SwiftUI
 
+
+let baseURL = "http://127.0.0.1:5000"
+
+
 @main
 struct WellnessHub_AppApp: App {
+
+    @StateObject private var healthKitManager = HealthkitManager()
+    @StateObject private var dietService = DietService()
+    @StateObject private var sleepService = SleepService()
+    @StateObject private var userData = UserData()
+    @StateObject private var exerciseService = ExerciseService()
+    @StateObject private var loginSignUpService = LoginSignupService()
+    
+    
+//    @StateObject private var dietService = DietService()
+//    @StateObject private var userData = UserData(healthKitManager: healthKitManager)
+    
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(UserData())
+            ContentView()
+                .environmentObject(userData)
+                .environmentObject(dietService)
+                .environmentObject(healthKitManager)
+                .environmentObject(sleepService)
+                .environmentObject(exerciseService)
+                .environmentObject(loginSignUpService)
         }
     }
 }
