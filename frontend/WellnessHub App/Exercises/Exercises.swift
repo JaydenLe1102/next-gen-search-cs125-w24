@@ -88,7 +88,29 @@ struct Exercises: View {
                 VStack(alignment: .leading,content: {
 
                     HStack(spacing: 50, content: {
-                        CircularProgressView(currentProgress: 0.75).frame(width: 150, height: 150)
+                        ZStack { // 1
+                            Circle()
+                                .stroke(
+                                    Color.pink.opacity(0.5),
+                                    lineWidth: 30
+                                )
+                            Circle() // 2
+                                .trim(from: 0, to: exerciseService.exerciseScorePercentage)
+                                .stroke(
+                                    Color.pink,
+                                    style: StrokeStyle(
+                                        lineWidth: 30,
+                                        lineCap: .round
+                                    )
+                                )
+                                .rotationEffect(.degrees(-90))
+
+
+
+                                Text("\(Int(exerciseService.exerciseScorePercentage * 100))%") // Display progress percentage
+                                    .foregroundColor(.pink)
+                                    .font(.system(size: 20, weight: .semibold))
+                        }.frame(width: 150, height: 150)
                             .padding()
                         
                         VStack{

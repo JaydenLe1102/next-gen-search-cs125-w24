@@ -26,11 +26,13 @@ struct LogIn: View {
     @State private var password: String = "123456"
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var loginSignupService = LoginSignupService.shared
+    @State private var isLoading = false
     
 
 
     var body: some View {
-            VStack(alignment: .leading, spacing:50, content: {
+            VStack(alignment: .center, spacing:50, content: {
+                
                 
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
                 
@@ -53,23 +55,7 @@ struct LogIn: View {
                     .tint(.gray)
                     .hSpacing()
                     
-//                    ColoredButton(title: "Log In") {
-//                        loginSignupService.login(email: emailID, password: password) { result in
-//                            switch result {
-//                            case .success(let tokens):
-//                                print("Login successful. idToken: \(tokens.idToken), userID: \(tokens.userID)")
-//                                authManager.login(withToken: tokens.idToken, userId: tokens.userID)
-////
-////                                print("Login successful with checking token")
-////                                print(authManager.authToken)
-//                            case .failure(let error):
-//                                print("Login failed: \(error)")
-//                            }
-//                        }
-                        
-//                        authManager.fakeLogin()
-//                        selectedTab = 1
-                        
+
                         
                     }
                 
@@ -82,6 +68,7 @@ struct LogIn: View {
                 
                                                     
                                                     Task{
+                                                        isLoading = true
                                                         do{
                                                             try await userData.fetch_and_update(idToken: tokens.idToken)
                                                             try await dietService.getDietScore(idToken: tokens.idToken)
@@ -92,10 +79,13 @@ struct LogIn: View {
                                                             try await userData.getScoreForDay(idToken: tokens.idToken)
                                                             
                                                             try await exerciseService.fetchExerciseRecommendation(idToken: tokens.idToken)
+                                                            
+                                                            try await exerciseService.fetchExerciseScore(idToken: tokens.idToken)
                                                         }
                                                         catch{
-                                                            
+                                                            print("Failed to load initial data")
                                                         }
+                                                        isLoading = false
                                                         
                                                         authManager.login(withToken: tokens.idToken, userId: tokens.userID)
                         
@@ -122,11 +112,13 @@ struct LogIn: View {
                 }
                 
   
-                    //disabling until the email and pw are entered
-//                    .disableWithOpacity(emailID.isEmpty || password.isEmpty)
-                    
-//                }
+//                    disabling until the email and pw are entered
+                .disableWithOpacity(emailID.isEmpty || password.isEmpty)
+                .disabled(isLoading)
                 
+                ProgressView() // Display the loading spinner
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .opacity(isLoading ? 1 : 0)
                 
                 
                 Spacer(minLength: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/)
@@ -146,6 +138,7 @@ struct LogIn: View {
             .padding(.vertical, 15)
             .padding(.horizontal, 45)
             .toolbar(.hidden, for: .navigationBar)
+            .disabled(isLoading)
             
         }
     

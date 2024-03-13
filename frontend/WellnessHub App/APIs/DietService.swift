@@ -203,5 +203,49 @@ class DietService: ObservableObject {
         }
       }.resume()
     }
+    
+    
+    func fetchBmiRec(idToken: String?) async throws{
+        guard let idToken = idToken else {
+            throw  NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])
+        }
+        
+        var urlComponents = URLComponents(string: baseURL + "/get_bmi_rec")!
+        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "idToken", value: idToken),
+        ]
+        
+        let url = urlComponents.url!
+        
+        
+        
+        // Create the request
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        // Perform the network request
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        
+        
+        // Check for successful response
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+        }
+        
+        
+        // Decode the JSON response
+        let decodedData = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+        
+        let calIntakeRec = decodedData!["caloriesIntakeRec"]
+        
+        DispatchQueue.main.async {
+            self.caloriesIntakeRec = calIntakeRec as! Double
+        }
+    }
 
 }

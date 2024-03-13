@@ -18,6 +18,9 @@ struct ExerciseActivity: Codable, Identifiable {
 @MainActor
 class ExerciseService: ObservableObject {
     @Published var exerciseData: [String: [ExerciseActivity]] = [:]
+    @Published var score: Double = 0
+    @Published var exerciseScorePercentage: Double = 0
+    @Published var todayExercise: Int = 0
     
     func fetchExerciseRecommendation(idToken: String?) async throws {
       print("calling fetchExercise")
@@ -67,7 +70,10 @@ class ExerciseService: ObservableObject {
                 for exercise in exercisesDay1{
                     
                     let caloriesBurned = exercise["calories_burned"] as! Double
-                    let instruction = exercise["instruction"]
+                    var instruction = exercise["instruction"]
+                    if (instruction == nil){
+                        instruction = exercise["instructions"]
+                    }
                     let length = exercise["length"]
                     let title = exercise["title"]
                     
@@ -84,6 +90,94 @@ class ExerciseService: ObservableObject {
             self.exerciseData = exerciseData2
         }
     }
+    
+    
+    func fetchExerciseScore(idToken: String?) async throws {
+        print("calling fetchExerciseScore")
+          
+          guard let idToken = idToken else {
+            throw  NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])
+          }
+
+        // Replace with your actual API endpoint URL
+        var urlComponents = URLComponents(string: baseURL + "/get_exercise_score")!
+          
+          urlComponents.queryItems = [
+              URLQueryItem(name: "idToken", value: idToken),
+          ]
+
+        let url = urlComponents.url!
+
+          var request = URLRequest(url: url)
+          request.httpMethod = "GET"
+          request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+
+          // Perform the network request
+          let (data, response) = try await URLSession.shared.data(for: request)
+            
+        
+
+          // Check for successful response
+          guard let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+          }
+
+        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Double]
+        
+        let score = jsonResponse!["exercise_score"]
+        
+        await DispatchQueue.main.async {
+            self.score = score!
+            self.exerciseScorePercentage = score! / 10
+        }
+        
+    }
+    
+    
+    func fetchExerciseDay(idToken: String?) async throws {
+        print("calling fetchExerciseScore")
+          
+          guard let idToken = idToken else {
+            throw  NSError(domain: "MyErrorDomain", code: 1, userInfo: ["message": "Missing idToken"])
+          }
+
+        // Replace with your actual API endpoint URL
+        var urlComponents = URLComponents(string: baseURL + "/get_exercise_day")!
+          
+          urlComponents.queryItems = [
+              URLQueryItem(name: "idToken", value: idToken),
+          ]
+
+        let url = urlComponents.url!
+
+          var request = URLRequest(url: url)
+          request.httpMethod = "GET"
+          request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+
+          // Perform the network request
+          let (data, response) = try await URLSession.shared.data(for: request)
+            
+        
+
+          // Check for successful response
+          guard let httpResponse = response as? HTTPURLResponse,
+                httpResponse.statusCode == 200 else {
+            throw URLError(.badServerResponse)
+          }
+
+        let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Int]
+        
+        let day = jsonResponse!["exercise_day"]
+        
+        await DispatchQueue.main.async {
+            self.todayExercise = day!
+        }
+        
+    }
+    
     
     
 }

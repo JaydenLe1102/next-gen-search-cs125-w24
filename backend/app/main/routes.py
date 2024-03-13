@@ -15,11 +15,12 @@ from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 from app.main.data import sample_user_info
 from app.sleep_recommendation.sleep_recommendation import sleep_rec, sleep_time, goodness_of_sleep
-from app.main.utils import convertSecondsToFloatingHours, getExerciseDurationNumber, getGenderNumber, convertLbsToKilogram
+from app.main.utils import convertSecondsToFloatingHours, getExerciseDurationNumber, getGenderNumber, convertLbsToKilogram, getExerciseDateYesterday, calculateExerciseScore
 from app.main.diet_recommendation.preprocess import calc_bmr, cacl_calories, bmi_cal, bmi_result, increase_weight, decrease_weight, data_preprocess, maintain_weight, diet_score
 from app.main.diet_recommendation.diet_rec import predict
 import pandas as pd
 import pickle 
+from datetime import datetime, date
 
 # Replace the config and firebaseDatabaseConfig with one in docs
 #config = {
@@ -77,6 +78,7 @@ def login():
     try:
         email = request.json['email']
         password = request.json['password']
+
         user = auth.sign_in_with_email_and_password(email, password)
         print(user)
         return jsonify({"message": "Login successful", "idToken": user['idToken'], "userID": user['localId']}), 200
@@ -88,8 +90,32 @@ def signup():
     try:
         email = request.json['email']
         password = request.json['password']
+        print(email, password)
         auth.create_user_with_email_and_password(email, password)
-        return jsonify({"message": "Signup successful"}), 201
+        user = auth.sign_in_with_email_and_password(email, password)
+        
+        print(user)
+        user_uid = user['localId']
+        
+        # Extract user information
+        email = email
+        today = date.today()
+        print(today)
+        today_str = today.strftime("%Y-%m-%d")
+
+        # Store user information in Firestore
+        user_info = {
+            "email": email,
+            "calories_consumed": 0,
+            "exercisePlan": None,
+            "createdDate": today_str          
+        }
+        
+        print(user_info)
+
+        db.collection("users").document(user_uid).set(user_info)
+        
+        return jsonify({"message": "Signup successful", "idToken": user['idToken'], "userID": user['localId']}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
@@ -125,7 +151,6 @@ def store_user_info():
         height= request.json['height']
         weight = request.json['weight']
         activity_level= request.json['activity_level']
-        dietary_preference = request.json['dietary_preference']
         health_goal = request.json['health_goal']
 
         # Store user information in Firestore
@@ -137,7 +162,6 @@ def store_user_info():
             "height": height,
             "weight": weight,
             "activity_level": activity_level,
-            "dietary_preference": dietary_preference,
             "health_goal": health_goal
             # Add additional fields here as needed
         }
@@ -169,6 +193,13 @@ def update_user_info():
         
         
         del update_info["idToken"]
+
+        
+        if ("weight" in update_info.keys()):
+            today = date.today()
+            today_str = today.strftime("%Y-%m-%d")
+            update_info["last_update_weight"] = today_str
+        
         print(f'update_info: {update_info}')
         db.collection("users").document(user_uid).update(update_info)
         # db.child("users").child(user_uid).set(user_info)
@@ -307,69 +338,121 @@ def exercise():
         user_id_token = request.args.get('idToken')
         #return sample_user_info, 200
         user_info = getUserInfo(user_id_token)
+        
+        if (user_info["exercisePlan"] == None):
+            # Get parameters from the request
+            gender = user_info['gender']
+            age = user_info['age']
+            weight = user_info['weight']
+            height = user_info['height']
+            preference = user_info['health_goal']  
+            activityLevel = user_info['activity_level']
 
-        # Get parameters from the request
-        gender = user_info['gender']
-        age = user_info['age']
-        weight = user_info['weight']
-        height = user_info['height']
-        preference = user_info['health_goal']  
-        activityLevel = user_info['activity_level']
+            if activityLevel == "Beginner":
+                workoutTime = "30 minutes"
+            elif activityLevel == "Intermediate":
+                workoutTime = "1 hour"
+            elif activityLevel == "Professional":
+                workoutTime = "2 hours"
+            else:
+                workoutTime = "10 minutes"
+                
 
-        if activityLevel == "Beginner":
-            workoutTime = "30 minutes"
-        elif activityLevel == "Intermediate":
-            workoutTime = "1 hour"
-        elif activityLevel == "Professional":
-            workoutTime = "2 hours"
-        else:
-            workoutTime = "10 minutes"
+            # Generate prompt based on parameters
+            prompt = f"Creating a work out plan for 7 days, with 6 recommendation of exercises in a day that adds up to total of {workoutTime} with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height} tall, who wants to {preference} in JSON Format. Having fixed json format of day_1:[list of exercise object inside] to day_7:[list of exercise object inside]. Always fill out all the day from 1 to 7 exercises."
+
+            # Generate exercise recommendations using OpenAI's GPT-3.5 model
+            response = openai.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+
+            # Extract exercise recommendations from the API response
+            exercise_data_str = response.choices[0].message.content
+            # Parse exercise data as JSON
+            try:
+                exercise_data = json.loads(exercise_data_str)
+            except json.JSONDecodeError as e:
+                return jsonify({"error": str(e)}), 500
+
+            # # Generate images for each exercise title
+            # for exercise in exercise_data['exercises']:
+            #     # Generate image prompt
+            #     image_prompt = f"Generate cartoon of {exercise['title']} exercise"
+
+            #     # Generate image using DALL-E model
+            #     image_response = openai.images.generate(
+            #         model="dall-e-2",
+            #         prompt=image_prompt,
+            #         size="1024x1024",
+            #         quality="standard",
+            #         n=1,
+            #     )
+
+            #     # Get image URL from the response and add it to the exercise data
+            #     image_url = image_response.data[0].url
+            #     exercise['image_url'] = image_url
+            # Return exercise recommendations with image URLs as JSON response
             
-
-        # Generate prompt based on parameters
-        prompt = f"Creating a work out plan for 7 days, with 6 recommendation of exercises in a day that adds up to total of {workoutTime} with title, length, calories burned, and instruction for a {gender} aged {age} weighing {weight}lbs and {height} tall, who wants to {preference} in JSON Format. Having fixed json format of day_1:[list of exercise object inside] to day_7:[list of exercise object inside]. Always fill out all the day from 1 to 7 exercises."
-
-        # Generate exercise recommendations using OpenAI's GPT-3.5 model
-        response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
-        )
-
-        # Extract exercise recommendations from the API response
-        exercise_data_str = response.choices[0].message.content
-        # Parse exercise data as JSON
-        try:
-            exercise_data = json.loads(exercise_data_str)
-        except json.JSONDecodeError as e:
-            return jsonify({"error": str(e)}), 500
-
-        # # Generate images for each exercise title
-        # for exercise in exercise_data['exercises']:
-        #     # Generate image prompt
-        #     image_prompt = f"Generate cartoon of {exercise['title']} exercise"
-
-        #     # Generate image using DALL-E model
-        #     image_response = openai.images.generate(
-        #         model="dall-e-2",
-        #         prompt=image_prompt,
-        #         size="1024x1024",
-        #         quality="standard",
-        #         n=1,
-        #     )
-
-        #     # Get image URL from the response and add it to the exercise data
-        #     image_url = image_response.data[0].url
-        #     exercise['image_url'] = image_url
-        # Return exercise recommendations with image URLs as JSON response
-        return exercise_data, 200
+            user = auth.get_account_info(user_id_token)
+            user_uid = user['users'][0]['localId']
+            update_info = {
+                "exercisePlan": exercise_data
+            }
+            db.collection("users").document(user_uid).update(update_info)
+            
+            return exercise_data, 200
+        else:
+            return user_info["exercisePlan"], 200
+            
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-
-
-
+@bp.route('/get_exercise_score', methods=['GET'])
+def get_exercise_score():
+    
+    try:
+        user_id_token = request.args.get('idToken')
+        #return sample_user_info, 200
+        user_info = getUserInfo(user_id_token)
+        
+        createdDate = date.fromisoformat(user_info['createdDate'])
+        
+        todayDate = date.today()
+        
+        return jsonify({"exercise_score" : calculateExerciseScore(createdDate, todayDate, user_info)}), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    
+    
+@bp.route('/get_exercise_day', methods=['GET'])
+def get_exercise_day():
+    
+    try:
+        user_id_token = request.args.get('idToken')
+        #return sample_user_info, 200
+        user_info = getUserInfo(user_id_token)
+        
+        createdDate = date.fromisoformat(user_info['createdDate'])
+        
+        todayDate = date.today()
+        
+        exerciseDate = getExerciseDateYesterday(createdDate, todayDate) 
+        if (exerciseDate == 7):
+            exerciseDate = 1
+        else:
+            exerciseDate += 1
+            
+        return jsonify({"exercise_day" : exerciseDate}), 200
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    
+    
+    
 @bp.route('/get_bmi_rec', methods=['GET'])
 def get_bmi_rec():
     
@@ -538,6 +621,7 @@ def get_week_score():
         
         
         user_info = getUserInfo(user_id_token)
+        
         calories_consumed = user_info['calories_consumed']
         if user_info['calories_consumed'] == None:
             calories_consumed = 0
@@ -556,7 +640,13 @@ def get_week_score():
         
         sleep = goodness_of_sleep(sleep_track, sleep_recommendation)
         
-        return jsonify({"day_score": float(diet + sleep)}), 200
+        createdDate = date.fromisoformat(user_info['createdDate'])
+        
+        todayDate = date.today()
+        
+        exercise = calculateExerciseScore(createdDate, todayDate, user_info)
+        
+        return jsonify({"day_score": float(diet + sleep + exercise)}), 200
     
     except Exception as e:
         return jsonify({"error": str(e)}), 400
