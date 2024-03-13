@@ -16,37 +16,24 @@ struct Recipes: View {
     
     
     var body: some View {
-//        ScrollView(.horizontal, showsIndicators: false,content: {
-//            HStack(content: {
-//                            ForEach(dietService.recipes) { recipe in
-//                                RecipeModal(
-//                                    name: recipe.title,
-//                                    time: recipe.cookTime,
-//                                    calories: String(recipe.calories),
-//                                    description: recipe.instruction,
-//                                    imageURL: recipe.image
-//                                )
-//                                .frame(minWidth: 0, maxWidth: .infinity)
-//                            }
-//                        }
-//             )
-//        })
-        
-        ScrollView(.vertical, showsIndicators: false,content: {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: UIScreen.main.bounds.width / 3), spacing: 16)], spacing: 16) {
-                            ForEach(dietService.recipes) { recipe in
-                                RecipeModal(
-                                    name: recipe.title,
-                                    time: recipe.cookTime,
-                                    calories: String(recipe.calories),
-                                    description: recipe.instruction,
-                                    imageURL: recipe.image,
-                                    recipe: recipe
-                                )
-                                .frame(minWidth: 0, maxWidth: .infinity)
-                            }
-                        }
-                        .padding(.vertical, 16)
+            ScrollView(.vertical, showsIndicators: false,content: {
+                LazyVGrid(columns: [
+                    GridItem(.adaptive(minimum: UIScreen.main.bounds.width / 3))
+                ]) {
+                    ForEach(dietService.recipes) { recipe in
+                        RecipeModal(
+                            name: recipe.title,
+                            time: recipe.cookTime,
+                            calories: String(recipe.calories),
+                            description: recipe.instruction,
+                            imageURL: recipe.image,
+                            recipe: recipe
+                        )
+                        .padding(2)
+                        .frame(minWidth: UIScreen.main.bounds.width / 2.25, maxWidth: .infinity)
+                        
+                    }
+                }
         })
             
 
@@ -54,9 +41,6 @@ struct Recipes: View {
 }
 
 //#Preview {
-//    ContentView()
-//        .environmentObject(UserData(healthKitManager: HealthkitManager()))
-//        .environmentObject(DietService())
-//        .environmentObject(HealthkitManager())
+//    Recipes().
 //}
 

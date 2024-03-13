@@ -29,6 +29,9 @@ struct Exercises: View {
     
     @StateObject private var authManager = AuthenticationManager.shared
     
+    @State private var isModalPresented = false
+
+    
     let icons = ["figure.cooldown", "figure.flexibility", "figure.strengthtraining.functional", "figure.basketball", "figure.strengthtraining.functional","figure.climbing"]
 
     
@@ -94,19 +97,31 @@ struct Exercises: View {
 
                     HStack(spacing: 50, content: {
                         CircularProgressView(currentProgress: 0.75).frame(width: 150, height: 150)
-                            .padding()
-                        
-                        VStack{
-                            VStack(alignment: .leading, content:  {
-                              Text("Calories burned")
-                                Spacer()
-                                Text("\(String(format: "%.1f", healthManager.calories_burn_yesterday)) cal")
-                              .font(.title)
-                            })
-                            .padding()
-                        }
-                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
-                        .cornerRadius(13)
+                        VStack(content: {
+                            VStack{
+                                VStack(alignment: .leading, content:  {
+                                    Text("Calories burned")
+                                    Text("\(String(format: "%.1f", healthManager.calories_burn_yesterday)) cal")
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                })
+                                .padding()
+                            }
+                            .frame(width: 150)
+                            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                            .cornerRadius(13)
+                            
+                            
+                            VStack{
+                                VStack(alignment: .leading, content:  {
+                                    Text("Date")
+                                })
+                                .padding()
+                            }
+                            .frame(width: 150)
+                            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                            .cornerRadius(13)
+                        })
                     })
                     
                     Text("Recommendations")
@@ -123,15 +138,37 @@ struct Exercises: View {
                                 HStack {
                                     if Int(dayNumber) == 7 {
                                         ForEach(activities) { activity in
-                                            RecommendationModal(recommendation: activity.title, imageURL: "sparkles")
+                                            
+                                            Button(action: {
+                                                isModalPresented.toggle()
+                                            }) {
+                                                ExerciseRecommendation(recommendation: activity.title, imageURL: "sparkles")
+                                            }
+                                            .sheet(isPresented: $isModalPresented) {
+                                                VStack{
+                                                    ExerciseModal(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks", imageURL: "photo")
+                                                }
+                                                .padding()
+                                            }
+                                            
                                         }
                                         Spacer()
                                     }
                                     else {
                                         ForEach(0..<activities.count) { index in
-                                                            let imageURL = icons[index]
-                                                            RecommendationModal(recommendation: activities[index].title, imageURL: imageURL)
-                                                        }
+                                            let imageURL = icons[index]
+                                            Button(action: {
+                                                isModalPresented.toggle()
+                                            }) {
+                                                ExerciseRecommendation(recommendation: activities[index].title, imageURL: imageURL)
+                                            }
+                                            .sheet(isPresented: $isModalPresented) {
+                                                VStack{
+                                                    ExerciseModal(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks", imageURL: "photo")
+                                                }
+                                                .padding()
+                                            }
+                                        }
                                         
                                     }
                                     
@@ -143,12 +180,14 @@ struct Exercises: View {
                     })
 
                 })
-                .padding(.horizontal,20)
+                
                 Spacer()
                 })
             }
+            .padding(.horizontal,20)
 
         }
+    
 }
 
 //#Preview {

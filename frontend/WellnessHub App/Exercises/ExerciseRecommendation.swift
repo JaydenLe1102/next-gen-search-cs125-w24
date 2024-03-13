@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RecommendationModal: View {
+struct ExerciseRecommendation: View {
     var recommendation: String
     var imageURL: String
     
@@ -20,7 +20,6 @@ struct RecommendationModal: View {
                     
                     Image(systemName: imageURL)
                         .resizable()
-                        .frame(width: 50, height: 40)
                         .aspectRatio(contentMode: .fit)
                         .padding()
                         .foregroundColor(.black)
