@@ -295,9 +295,6 @@ def get_sleep():
         user_age = user_info['age']
         sleep_recommendation = sleep_rec(int(user_age))
         
-        print("Getting sleep recommendation")
-        print(sleep_recommendation)
-        
         if (sleep_recommendation):
             return jsonify(sleep_recommendation), 200
         else:
