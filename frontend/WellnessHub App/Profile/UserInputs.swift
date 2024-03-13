@@ -308,10 +308,14 @@ struct UserInputs: View {
                                 do{
                                     
                                     try await userData.saveProfileAsyncAwait()
+                                    
+                                    
 
-                                    try await fake_fetch_calories_burn_and_update()
-
-                                    try await fake_fetch_sleeptime_and_update()
+                                    //try await fake_fetch_calories_burn_and_update()
+                                    //try await fake_fetch_sleeptime_and_update()
+                                    
+                                    fetch_calories_burn_and_update()
+                                    fetch_sleep_time_and_update()
 
                                     
                                     try await dietService.fetchBmiRec(idToken: authManager.authToken)
