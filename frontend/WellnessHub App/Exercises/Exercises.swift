@@ -37,19 +37,19 @@ struct Exercises: View {
                 ScrollView(.vertical, showsIndicators: false,content: {
                 VStack(alignment: .leading,content: {
 
-                    HStack(spacing: 50, content: {
+                    HStack(spacing: 20, content: {
                         ZStack { // 1
                             Circle()
                                 .stroke(
                                     Color.pink.opacity(0.5),
-                                    lineWidth: 30
+                                    lineWidth: 25
                                 )
                             Circle() // 2
                                 .trim(from: 0, to: exerciseService.exerciseScorePercentage)
                                 .stroke(
                                     Color.pink,
                                     style: StrokeStyle(
-                                        lineWidth: 30,
+                                        lineWidth: 25,
                                         lineCap: .round
                                     )
                                 )
@@ -69,6 +69,7 @@ struct Exercises: View {
                                     Text("\(String(format: "%.1f", healthManager.calories_burn_yesterday)) cal")
                                         .font(.title2)
                                         .fontWeight(.semibold)
+                                        .foregroundStyle(Color.pink)
                                 })
                                 .padding()
                             }
@@ -83,6 +84,8 @@ struct Exercises: View {
                                     Text("Day \(exerciseService.todayExercise)")
                                         .font(.title2)
                                         .fontWeight(.semibold)
+                                        .foregroundStyle(Color.pink)
+
                                 })
                                 .padding()
                             }
@@ -95,6 +98,7 @@ struct Exercises: View {
                     Text("Recommendations")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding(.top,20)
+                    
                     ScrollView(.horizontal, showsIndicators: false, content: {
                         ForEach(exerciseService.exerciseData.sorted(by: { $0.key < $1.key }), id: \.key) { day, activities in
                             let dayNumber = String(day.dropFirst(4))
@@ -104,25 +108,7 @@ struct Exercises: View {
                                     .font(.title)
                                     .padding(.bottom, 10)
                                 HStack {
-                                    if Int(dayNumber) == 7 {
-                                        ForEach(activities) { activity in
-                                            
-                                            Button(action: {
-                                                isModalPresented.toggle()
-                                            }) {
-                                                ExerciseRecommendation(recommendation: activity.title, imageURL: "sparkles")
-                                            }
-                                            .sheet(isPresented: $isModalPresented) {
-                                                VStack{
-                                                    ExerciseModal(calories_burned: 50, instructions: "Perform jumping jacks continuously for 5 minutes.", length: "5 minutes", title: "Jumping Jacks", imageURL: "photo")
-                                                }
-                                                .padding()
-                                            }
-                                            
-                                        }
-                                        Spacer()
-                                    }
-                                    else {
+                                    
                                         ForEach(0..<activities.count) { index in
                                             let imageURL = icons[index]
                                             Button(action: {
@@ -138,8 +124,7 @@ struct Exercises: View {
                                             }
                                         }
                                         
-                                    }
-                                    
+                                           Spacer()
                                 }
                                 .padding(.bottom, 10)
                             }
@@ -151,8 +136,9 @@ struct Exercises: View {
                 
                 Spacer()
                 })
+                .padding(.horizontal,20)
+
             }
-            .padding(.horizontal,20)
 
         }
     

@@ -43,7 +43,7 @@ struct ExerciseModal: View {
                 }
                 
                 Text(title)
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .font(.title2)
                     .foregroundStyle(.black)
       
                 HStack(spacing: 100, content:{

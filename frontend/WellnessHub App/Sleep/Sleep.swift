@@ -44,10 +44,12 @@ struct Sleep: View {
                         
                         VStack{
                             VStack(alignment: .leading,spacing: 10, content:  {
-                              Text("Sleep time yesterday")
+                              Text("Sleep duration yesterday")
                                 Text(Utils.convertSecondsToHoursMinutes(healthManager.sleep_time_yesterday))
                               .font(.title2)
                               .fontWeight(.semibold)
+                              .foregroundStyle(Color.pink)
+
                             })
                             .padding()
                         }

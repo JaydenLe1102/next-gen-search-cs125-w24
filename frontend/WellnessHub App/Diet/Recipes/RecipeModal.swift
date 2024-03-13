@@ -32,7 +32,9 @@ struct RecipeModal: View {
                     Text(name)
                         .foregroundStyle(.black)
                         .lineLimit(1)
-                            .truncationMode(.tail)
+                        .truncationMode(.tail)
+                        .fontWeight(.semibold)
+
                     
                     AsyncImage(url: URL(string: imageURL)) { image in
                         image.resizable()

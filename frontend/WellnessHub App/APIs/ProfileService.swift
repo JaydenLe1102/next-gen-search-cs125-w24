@@ -283,6 +283,7 @@ class UserData: ObservableObject {
                 }
 //                self.email = dataExtracted["email"] as! String
                 self.last_update_weight = dataExtracted["last_update_weight"] as! String
+                self.fullname = dataExtracted["full_name"] as! String
                 
                 //                self.saveProfile()
             }

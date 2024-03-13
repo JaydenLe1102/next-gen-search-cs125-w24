@@ -16,8 +16,6 @@ struct Diet: View {
     var body: some View {
         VStack{
             TopBar()
-            
-            
             ScrollView(.vertical, showsIndicators: false,content: {
             VStack(alignment: .leading,content: {
                 Text("Food Analysis")
@@ -43,9 +41,9 @@ struct Diet: View {
 
 
 
-                            Text("\(Int(dietService.dietProgressPercentage * 100))%") // Display progress percentage
-                                .foregroundColor(.pink)
-                                .font(.system(size: 20, weight: .semibold))
+                    Text("\(Int(dietService.dietProgressPercentage * 100))%") // Display progress percentage
+                        .foregroundColor(.pink)
+                        .font(.system(size: 20, weight: .semibold))
                     }
                 .frame(width: 150, height: 150)
                         .padding()
@@ -58,6 +56,8 @@ struct Diet: View {
                                 Text("\(String(format: "%.1f", dietService.caloriesIntakeRec)) cal")
                                     .font(.title2)
                                     .fontWeight(.semibold)
+                                    .foregroundStyle(Color.pink)
+
                             })
                             .padding()
                         }
@@ -71,6 +71,8 @@ struct Diet: View {
                                 Text("\(String(format: "%.1f", dietService.caloriesConsume)) cal")
                                     .font(.title2)
                                     .fontWeight(.semibold)
+                                    .foregroundStyle(Color.pink)
+
                             })
                             .padding()
                         }
