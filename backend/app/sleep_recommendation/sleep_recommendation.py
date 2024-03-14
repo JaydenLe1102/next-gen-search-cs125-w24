@@ -2,7 +2,15 @@ from statistics import mean
 
 
 def sleep_rec(age):
-    if age in range(14, 18):
+    if age in range(0, 2):
+        return list(range(14, 17))
+    elif age in range(1, 3):
+        return list(range(11, 14))
+    elif age in range(3, 6):
+        return list(range(10, 13))
+    elif age in range(6, 14):
+        return list(range(9, 11))  
+    elif age in range(14, 18):
         return list(range(8, 11))
     elif age in range(18,26):
         return list(range(7, 10))
