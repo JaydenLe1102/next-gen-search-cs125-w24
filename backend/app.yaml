@@ -1,0 +1,13 @@
+runtime: python39
+env: standard
+
+instance_class: F4_1G
+
+handlers:
+  - url: .*
+    script: auto
+
+runtime_config:
+  python_version: 3.9
+
+entrypoint: gunicorn -b :$PORT 'app:create_app()'
