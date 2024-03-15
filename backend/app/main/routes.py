@@ -24,19 +24,31 @@ from datetime import datetime, date
 
 # Replace the config and firebaseDatabaseConfig with one in docs
 config = {
- 'apiKey': "AIzaSyAgTCgwmHagAMa59FfdSnKAwchZg51OQCw",
- 'authDomain' : "cs125-project-b6ea5.firebaseapp.com",
- 'projectId' : "cs125-project-b6ea5",
- 'storageBucket' : "cs125-project-b6ea5.appspot.com",
- 'messagingSenderId' : "63446463144",
- 'appId' : "1:63446463144:web:5f3d8e158538109690489d",
- 'measurementId': "G-YKGZ6Q2317",
- 'databaseURL' : ""
 }
 firebaseDatabaseConfig = {
 }
 
+
 openai.api_key = ""
+
+
+# load and read from pickle file 
+basePath = os.path.dirname(__file__) 
+
+model_low_path = os.path.join(basePath, "diet_recommendation/model_low.pkl")
+model_med_path = os.path.join(basePath, "diet_recommendation/model_med.pkl")
+model_high_path = os.path.join(basePath, "diet_recommendation/model_high.pkl")
+data_path = os.path.join(basePath, "diet_recommendation/data.pkl")
+
+model_low = pickle.load(open(model_low_path, "rb"))
+model_med = pickle.load(open(model_med_path, "rb"))
+model_high = pickle.load(open(model_high_path, "rb"))
+data = pickle.load(open(data_path, "rb"))
+#data = data_preprocess()
+#os.makedirs(os.path.dirname(data_path), exist_ok=True)
+#pickle.dump(data, open(data_path, "wb"))
+
+print("Done load model and preprocess data")
 
 #Using pyrebase to authenticate
 firebase = pyrebase.initialize_app(config)
