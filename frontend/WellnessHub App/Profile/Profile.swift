@@ -11,6 +11,10 @@ import SwiftUI
 struct Profile: View {
     @StateObject private var authManager = AuthenticationManager.shared
     @EnvironmentObject var userData: UserData
+    @EnvironmentObject var dietService: DietService
+    @EnvironmentObject var healthManager: HealthkitManager
+    @EnvironmentObject var sleepService: SleepService
+    @EnvironmentObject var exerciseService: ExerciseService
     @State private var isModalPresented = false
     @State private var navigateBackToProfile = false
 
@@ -110,7 +114,16 @@ struct Profile: View {
                         .padding(.top, 20)
                         
                         Button(action: {
-                            authManager.logout()
+                            Task{
+                                await userData.reset_user_data()
+                                await dietService.resetDietService()
+                                await exerciseService.resetExerciseService()
+                                await sleepService.resetSleepService()
+                                await healthManager.reset_HealthkitManager()
+                                authManager.logout()
+                                
+                            }
+                            
                         }) {
                             Text("Log out")
                                 .frame(maxWidth: .infinity)

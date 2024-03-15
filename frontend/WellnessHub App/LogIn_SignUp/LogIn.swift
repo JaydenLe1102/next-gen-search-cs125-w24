@@ -22,8 +22,8 @@ struct LogIn: View {
     @Binding var selectedTab: Int
 
     //view properties
-    @State private var emailID: String = "test@email.com"
-    @State private var password: String = "123456"
+    @State private var emailID: String = ""
+    @State private var password: String = ""
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var loginSignupService = LoginSignupService.shared
     @State private var isLoading = false
@@ -72,7 +72,7 @@ struct LogIn: View {
                                                         do{
                                                             try await userData.fetch_and_update(idToken: tokens.idToken)
                                                             try await dietService.getDietScore(idToken: tokens.idToken)
-                                                            try await sleepService.fetch_sleep_rec_point(idToken: tokens.idToken)
+                                                            try await sleepService.fetch_sleep_rec_point(idToken: tokens.idToken,sleep_time_yesterday:  healthManager.sleep_time_yesterday)
                                                             
                                                             try await dietService.fetchRecipesAsyncAwait(idToken: tokens.idToken)
                                                             

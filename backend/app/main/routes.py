@@ -28,7 +28,7 @@ from datetime import datetime, date
 #firebaseDatabaseConfig = {
 #}
 
-openai.api_key = ""
+openai.api_key = "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"
 # load and read from pickle file 
 basePath = os.path.dirname(__file__) 
 
@@ -81,6 +81,18 @@ def login():
 
         user = auth.sign_in_with_email_and_password(email, password)
         print(user)
+        user_info = getUserInfo(user['idToken'])
+        
+        lastTimeAddCalories = user_info["lastTimeAddCalories"]
+        
+        if (datetime.strptime(lastTimeAddCalories, "%Y-%m-%d").date() < date.today()):
+            print("reset calories_consumed")
+            update_info = {
+                "calories_consumed": 0
+            }
+            db.collection("users").document(user['localId']).update(update_info)
+        
+        
         return jsonify({"message": "Login successful", "idToken": user['idToken'], "userID": user['localId']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
@@ -202,13 +214,14 @@ def update_user_info():
             today_str = today.strftime("%Y-%m-%d")
             update_info["last_update_weight"] = today_str  
             
-        reset_properties_list = [ 'gender', 'age', 'weight','height','health_goal','activity_level']
-        for prop in reset_properties_list:
-            if (prop in update_info.keys()):
-                if (update_info[prop] != user_info[prop]):
-                    update_info["exercisePlan"] = None
-                    print("RESET EXERCISE PLAN and last_update_weight")
-                    break
+        if(user_info["exercisePlan"] != None):
+            reset_properties_list = [ 'gender', 'age', 'weight','height','health_goal','activity_level']
+            for prop in reset_properties_list:
+                if (prop in update_info.keys()):
+                    if (update_info[prop] != user_info[prop]):
+                        update_info["exercisePlan"] = None
+                        print("RESET EXERCISE PLAN and last_update_weight")
+                        break
         
         print(f'update_info: {update_info}')
         db.collection("users").document(user_uid).update(update_info)
@@ -303,12 +316,16 @@ def get_sleep():
         user_id_token = request.args.get('idToken')
         user_info = getUserInfo(user_id_token)
         user_age = user_info['age']
-        sleep_recommendation = sleep_rec(int(user_age))
+        time_sleep_yesterday = user_info['sleep_time_yesterday']
+        sleep_recommendation_range, sleep_recommendation_hour = sleep_rec(int(user_age), float(time_sleep_yesterday))
         
-        if (sleep_recommendation):
-            return jsonify(sleep_recommendation), 200
-        else:
-            return jsonify({"error": "Only support age from 14 to 65"}), 400
+        returnDict = {
+            "sleep_recommendation_range": sleep_recommendation_range,
+            "sleep_recommendation_hour": sleep_recommendation_hour
+        }
+
+        return jsonify(returnDict), 200
+
         
 
     except Exception as e:
@@ -325,11 +342,11 @@ def get_sleep_point():
         print("getting sleep point ", user_info['sleep_time_yesterday'])
         sleep_track = convertSecondsToFloatingHours(float(user_info['sleep_time_yesterday']))
 
-        sleep_recommendation = sleep_rec(int(user_info['age']))
+        sleep_recommendation_range, sleep_recommendation_hour = sleep_rec(int(user_info['age']), float(user_info['sleep_time_yesterday']))
         
-        print("sleep_recommendation/point", sleep_recommendation, sleep_track)
+        print("sleep_recommendation/point", sleep_recommendation_range, sleep_track)
         
-        sleep_point = goodness_of_sleep(sleep_track, sleep_recommendation)
+        sleep_point = goodness_of_sleep(sleep_track, sleep_recommendation_range)
         
         sleep_point = {
             "sleep_point": sleep_point
@@ -600,7 +617,8 @@ def get_diet_score():
             calories_consumed = float(calories_consumed)
             
         update_info = {
-            "calories_consumed": calories_consumed
+            "calories_consumed": calories_consumed,
+            "lastTimeAddCalories" : date.today().strftime("%Y-%m-%d")
         }
         
         db.collection("users").document(user_uid).update(update_info)
@@ -643,9 +661,9 @@ def get_week_score():
         
         sleep_track = convertSecondsToFloatingHours(float(sleep_time))
 
-        sleep_recommendation = sleep_rec(int(user_info['age']))
+        sleep_recommendation_range, sleep_recommendation_hour = sleep_rec(int(user_info['age']), float(user_info['sleep_time_yesterday']))
         
-        sleep = goodness_of_sleep(sleep_track, sleep_recommendation)
+        sleep = goodness_of_sleep(sleep_track, sleep_recommendation_range)
         
         createdDate = date.fromisoformat(user_info['createdDate'])
         

@@ -34,7 +34,7 @@ def convertLbsToKilogram(weightInLbs):
 def getExerciseDateYesterday(createdDate, todayDate):
   days_difference = (todayDate - createdDate).days
 
-  if days_difference <= 0:
+  if days_difference < 0:
     return 1 
 
   cycle_day = days_difference % 7

@@ -31,6 +31,18 @@ class DietService: ObservableObject {
     let maxPointPerWeek:Double = 10
     
     
+    func resetDietService() async {
+      await DispatchQueue.main.async {
+        self.recipes = []
+        self.choosen_recipes = []
+        self.caloriesConsume = 0
+        self.dietScore = 0
+        self.dietProgressPercentage = 0
+        self.caloriesIntakeRec = 0
+      }
+    }
+    
+    
     func fetchRecipesAsyncAwait(idToken: String?) async throws {
       print("calling fetchrecipe")
         

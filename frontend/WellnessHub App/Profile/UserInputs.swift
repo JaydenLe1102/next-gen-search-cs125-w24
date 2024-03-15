@@ -303,6 +303,7 @@ struct UserInputs: View {
                             userData.saveProfile()
                         }
                         else{
+                            print("sign up initialized")
                             Task{
                                 isLoading = true
                                 do{
@@ -316,7 +317,7 @@ struct UserInputs: View {
                                     
                                     try await dietService.fetchBmiRec(idToken: authManager.authToken)
                                     try await dietService.getDietScore(idToken: authManager.authToken)
-                                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+                                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken, sleep_time_yesterday: healthManager.sleep_time_yesterday)
                                     
                                     try await dietService.fetchRecipesAsyncAwait(idToken: authManager.authToken)
                                     
@@ -332,6 +333,7 @@ struct UserInputs: View {
                                 catch{
                                     
                                 }
+                                print("sign up initialized done")
                                 isLoading = false
                                 authManager.login()
                             }

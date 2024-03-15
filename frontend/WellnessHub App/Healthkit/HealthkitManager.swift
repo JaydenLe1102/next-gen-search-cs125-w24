@@ -24,6 +24,13 @@ class HealthkitManager: ObservableObject {
     @Published var calories_burn_yesterday: Double = 0
     @Published var sleep_time_yesterday: Double = 0
     
+    func reset_HealthkitManager() async {
+      await DispatchQueue.main.async {
+        self.calories_burn_yesterday = 0
+        self.sleep_time_yesterday = 0
+      }
+    }
+    
     
     let healthStore = HKHealthStore()
     

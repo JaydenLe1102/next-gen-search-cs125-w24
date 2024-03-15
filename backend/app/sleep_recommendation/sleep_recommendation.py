@@ -1,26 +1,35 @@
 from statistics import mean
 
 
-def sleep_rec(age):
+def sleep_rec(age, sleepTimeYesterday):
+    
+    rec_range = []
+    
     if age in range(0, 2):
-        return list(range(14, 17))
+        rec_range = list(range(14, 17))
     elif age in range(1, 3):
-        return list(range(11, 14))
+        rec_range = list(range(11, 14))
     elif age in range(3, 6):
-        return list(range(10, 13))
+        rec_range = list(range(10, 13))
     elif age in range(6, 14):
-        return list(range(9, 11))  
+        rec_range = list(range(9, 11))  
     elif age in range(14, 18):
-        return list(range(8, 11))
+        rec_range = list(range(8, 11))
     elif age in range(18,26):
-        return list(range(7, 10))
+        rec_range = list(range(7, 10))
     elif age in range(26, 65):
-        return list(range(7, 10))
-    elif age >= 65:
-        return list(range(7, 9))
+        rec_range = list(range(7, 10))
     else:
-        return None
+        rec_range = list(range(7, 9))
 
+        
+
+    rec_hour = min(rec_range, key=lambda hour: abs(hour * 3600 - sleepTimeYesterday))
+    
+    
+    return rec_range, rec_hour
+     
+        
 def sleep_time(hours):
     start = [10,11]
     lower= hours[0]

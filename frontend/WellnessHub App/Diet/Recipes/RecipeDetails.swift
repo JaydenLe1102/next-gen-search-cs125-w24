@@ -70,7 +70,7 @@ struct RecipeDetails: View {
                     
                     Button(action: {
                         // Add your button action here (e.g., increment calories)
-                        print("Button tapped!")
+                        print("Button tapped! here")
                         removeButtonDisabled = false
                         addButtonDisabled = true
                         

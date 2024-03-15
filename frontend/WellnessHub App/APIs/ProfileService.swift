@@ -57,6 +57,32 @@ class UserData: ObservableObject {
         
     }
     
+    func reset_user_data() async {
+        await DispatchQueue.main.async {
+            self.fullname = ""
+            self.last_update_weight = ""
+            
+            
+            
+            // User data properties
+            self.weight = ""
+            self.height = ""
+            self.age = ""
+            self.goal = ""
+            self.gender = ""
+            self.activityLevel = ""
+            self.dietaryPreferences = ""
+            self.target_weight = ""
+            
+            self.day_score_percentage = 0
+            
+            // Selected index properties (if applicable)
+            self.selectedGenderIndex = 0 // Update type to Int
+            self.selectedGoalIndex = 0 // Update type to Int
+            self.selectedActivityLvlIndex = 0 // Update type to Int
+        }
+    }
+    
     func get_last_update_weight_date() -> Date?{
         print("lst update weight")
         print(self.last_update_weight)

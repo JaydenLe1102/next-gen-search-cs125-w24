@@ -42,28 +42,50 @@ struct Sleep: View {
                         }.frame(width: 150, height: 150)
                             .padding()
                         
-                        VStack{
-                            VStack(alignment: .leading,spacing: 10, content:  {
-                              Text("Sleep duration yesterday")
-                                Text(Utils.convertSecondsToHoursMinutes(healthManager.sleep_time_yesterday))
-                              .font(.title2)
-                              .fontWeight(.semibold)
-                              .foregroundStyle(Color.pink)
+                        VStack(content: {
+                            VStack{
+                                VStack(alignment: .leading, content:  {
+                                    Text("Sleep duration yesterday")
+                                    Text(Utils.convertSecondsToHoursMinutes(healthManager.sleep_time_yesterday))
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.pink)
+                                })
+                                .padding()
+                            }
+                            .frame(width: 150)
+                            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                            .cornerRadius(13)
+                            
+                            
+                            VStack{
+                                VStack(alignment: .leading, content:  {
+                                    Text("Sleep duration recommended")
+                                    Text("\(sleepService.sleepRecHour) hour(s)")
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.pink)
 
-                            })
-                            .padding()
-                        }
-                        .background(Color(red: 214/255, green: 239/255, blue: 244/255))
-                        .cornerRadius(13)
+                                })
+                                .padding()
+                            }
+                            .frame(width: 150)
+                            .background(Color(red: 214/255, green: 239/255, blue: 244/255))
+                            .cornerRadius(13)
+                        })
                     })
                     
                     Text("Recommendations")
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .padding(.top,20)
                     
-                    HStack(content: {
+                    VStack(content: {
+                        RecommendationModal(recommendation: sleepService.sleepMessageRecommendation2, imageURL: "bed.double")
+                            .frame(width: 350)
                         RecommendationModal(recommendation: sleepService.sleepMessageRecommendation, imageURL: "bed.double")
-                            .frame(maxWidth: UIScreen.main.bounds.width)
+                            .frame(width: 350)
+                        
+                        
                     })
                     
                     
@@ -75,7 +97,7 @@ struct Sleep: View {
         .onAppear{
             Task{
                 do{
-                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken)
+                    try await sleepService.fetch_sleep_rec_point(idToken: authManager.authToken, sleep_time_yesterday: healthManager.sleep_time_yesterday)
                     
                 }
                 catch{}

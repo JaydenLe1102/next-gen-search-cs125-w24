@@ -22,6 +22,15 @@ class ExerciseService: ObservableObject {
     @Published var exerciseScorePercentage: Double = 0
     @Published var todayExercise: Int = 0
     
+    func resetExerciseService() async {
+      await DispatchQueue.main.async {
+        self.exerciseData = [:]
+        self.score = 0
+        self.exerciseScorePercentage = 0
+        self.todayExercise = 0
+      }
+    }
+    
     func fetchExerciseRecommendation(idToken: String?) async throws {
       print("calling fetchExercise")
         
@@ -75,7 +84,10 @@ class ExerciseService: ObservableObject {
                         instruction = exercise["instructions"]
                     }
                     let length = exercise["length"]
-                    let title = exercise["title"]
+                    var title = exercise["title"]
+                    if (title == nil){
+                        title = exercise["exercise"]
+                    }
                     
                     let newExercise = ExerciseActivity(calories_burned: caloriesBurned, instructions: instruction as! String, length: length as! String, title: title as! String)
                     
