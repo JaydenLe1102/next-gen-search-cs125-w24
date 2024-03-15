@@ -239,10 +239,10 @@ struct ContentView: View {
                         Task{
 
                             do {
-//                                fetch_calories_burn_and_update()
-//                                fetch_sleep_time_and_update()
-                                fake_fetch_calories_burn_and_update()
-                                fake_fetch_sleeptime_and_update()
+                                fetch_calories_burn_and_update()
+                                fetch_sleep_time_and_update()
+//                                fake_fetch_calories_burn_and_update()
+//                                fake_fetch_sleeptime_and_update()
                             } catch {
                                 print("Error fetching healthkit:", error)
                             }
