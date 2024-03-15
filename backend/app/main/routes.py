@@ -11,7 +11,7 @@ import pyrebase
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
-from app.config.creds import config, firebaseDatabaseConfig
+# from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 from app.main.data import sample_user_info
 from app.sleep_recommendation.sleep_recommendation import sleep_rec, sleep_time, goodness_of_sleep
@@ -23,12 +23,15 @@ import pickle
 from datetime import datetime, date
 
 # Replace the config and firebaseDatabaseConfig with one in docs
-#config = {
-#}
-#firebaseDatabaseConfig = {
-#}
+config = {
+}
+firebaseDatabaseConfig = {
+}
 
-openai.api_key = "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"
+
+openai.api_key = ""
+
+
 # load and read from pickle file 
 basePath = os.path.dirname(__file__) 
 
