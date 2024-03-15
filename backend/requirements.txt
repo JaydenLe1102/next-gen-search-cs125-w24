@@ -1,4 +1,5 @@
-Flask
+uwsgi==2.0.22
+Flask==3.0.0
 flask_cors
 python-dotenv
 pyrebase4
@@ -6,3 +7,4 @@ firebase_admin
 openai
 pandas
 scikit-learn
+gunicorn

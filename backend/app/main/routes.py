@@ -11,7 +11,7 @@ import pyrebase
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
-from app.config.creds import config, firebaseDatabaseConfig
+# from app.config.creds import config, firebaseDatabaseConfig
 from app.main.data import sample_recipe
 from app.main.data import sample_user_info
 from app.sleep_recommendation.sleep_recommendation import sleep_rec, sleep_time, goodness_of_sleep
@@ -23,12 +23,34 @@ import pickle
 from datetime import datetime, date
 
 # Replace the config and firebaseDatabaseConfig with one in docs
-#config = {
-#}
-#firebaseDatabaseConfig = {
-#}
+config = {
+ 'apiKey': "AIzaSyAgTCgwmHagAMa59FfdSnKAwchZg51OQCw",
+ 'authDomain' : "cs125-project-b6ea5.firebaseapp.com",
+ 'projectId' : "cs125-project-b6ea5",
+ 'storageBucket' : "cs125-project-b6ea5.appspot.com",
+ 'messagingSenderId' : "63446463144",
+ 'appId' : "1:63446463144:web:5f3d8e158538109690489d",
+ 'measurementId': "G-YKGZ6Q2317",
+ 'databaseURL' : ""
+}
+firebaseDatabaseConfig = {
+ "type": "service_account",
+ "project_id": "cs125-project-b6ea5",
+ "private_key_id": "dd0c9c4f9c1ce6cf374ba187965a12582f24f09c",
+ "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCzpJsIw/Hhp6cA\njAFGEFU/ffcjNTrZqan8jd7TL+tzWEVDxPfuUIkoBvDUbAwU8XilSyKjGu/lEHPq\npxn3ClkyzNsghM/KAtnYylDFlpPHRz8m/xYllUXsdYonjUx4egXyugQ0jMsPj2O3\n8fHs10iglmNklPP2c0KrSVi7R07AMfcC48dftQ9eNPprG82TL+I1NV/qsXXc/KHm\nTzHGne+ZUDbARiQuroxEDYEb3H7RmZPFBUYWkqEGbwi7X18mcDZd6FjaSSI4/wqT\nHakWIL5TvrW2YwV1Lx2NB3v4RMSDUu9R+0ygKGVnYcU4K8iLpzuJMc+FjND8vnll\nef7wZGE7AgMBAAECggEADgLXIrJhsbdpQ5Yn3UaV14tkFKdorSRaATwxdmhE5Wyr\njlMVAU3fvLL54p+Au7tvrPi0vWLy9fs4B0O8NzPj7B3lM16YdEmPoyR4c0jAwuiw\nKML5f7nqR7yNJ3OSVM0znJBclpqqlc6ZuPWSaGYMIJZKL0Sc2Ip51zEzzfuMTVoW\nzyqvn1JN+E10huU/ZYRR1GWwvzi8ywCdJCtIH+ANGd2aBYDGzJdSxrLM46IS00jU\nwayz3NLh9Ax2q9ZfvujnI/ZNnq8IsJkpNKCdNzPPKqOxo1l+Egjy4vtBEZewl+ST\ncRUsrhkN1p54WunDAE6RXes4IpHOt4/3DuTx2bLPQQKBgQDe/NUmwdWUY2mWHgLu\nGtyRwtHFBKYoH7MEWE0Xfoy1HU7UVXyelcZVdEVhNP5MWKhRUoNf3s8/gSiD/jf5\nFBbG4VmObslOwntSV66gCQfhml4l65DO9S9dgb3+NpzA37cs1UvhYvhEXIz0VdsP\nQm2Zxnu2ZNfCGCZLTwa6TmUzwQKBgQDOPQYMeGoYj5hkAhV6SfAIN1CkMYUuJmRH\nDAVxiyUWbb8hTcYtG2SAiG84/y9ouDbyvVvVkFkXM15fQvlLAzeAa+IGWFW2YhAj\nOGmoxodaKPHDjQ/k8C8uznQ8FIGEGSUlZLCIWUXeTD/etnyZ1JP5IZ1UT8NkhEAa\nT9hsfedj+wKBgQC4gJaVNPjViNQKg9aE0PEEIiCTVd9tf50N0UooUGt4SEG7auhs\nBx1OA6CMZ96pqQnMD+vn3WG599JgNG53x2l5MWh6c6xZYI3NegNhI1fEEYgo9Bqj\nQzfntLxRpTpaVEEp9WqNmOg3GCUA3jEdFSe+fv5J0nK7hGPbGA5HBSqzgQKBgQCd\nT3S+rFaY92bQ2boSNjWNvsuXAmLIqeYRPz0jt3QJoJqKR62jGGLXm7niqts5sFHR\nY9iZlOovxTH1zbsjmYeLQD7+ggCXBkOy6cPGRfBWOCb49y8pfH8w369PaIDGBvwL\ngrsYtaeSgWyyb1WpbLmV7Sr5dYHfuPTAXSkC0CJgYwKBgQCddingaUB3pJskx7Jz\nypwPPEObPymAIUBbs87wbcnvPiAssmLgQiORkyOIQuBJdeyYpnQq+8aLuE1RygNN\nx6Yhbjodacdk3C0Tn3la+qHfwbqZuK2u/ES4ZltdSVTmmds8J2nDFdbGoZzLTyJj\nLP1puSBL9kCwPWaOa8RTm16nEw==\n-----END PRIVATE KEY-----\n",
+ "client_email": "firebase-adminsdk-i1e1f@cs125-project-b6ea5.iam.gserviceaccount.com",
+ "client_id": "104547378401358564479",
+ "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+ "token_uri": "https://oauth2.googleapis.com/token",
+ "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+ "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-i1e1f%40cs125-project-b6ea5.iam.gserviceaccount.com",
+ "universe_domain": "googleapis.com"
+}
+
 
 openai.api_key = "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"
+
+
 # load and read from pickle file 
 basePath = os.path.dirname(__file__) 
 
