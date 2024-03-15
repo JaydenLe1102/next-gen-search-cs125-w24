@@ -105,7 +105,7 @@ class HealthkitManager: ObservableObject {
                 print("Calories Burn for today: ")
                 print(caloriesBurn)
                 
-                self.calories_burn_yesterday = caloriesBurn
+//                self.calories_burn_yesterday = caloriesBurn
                     print(caloriesBurn)
                   completion(caloriesBurn, nil)
 

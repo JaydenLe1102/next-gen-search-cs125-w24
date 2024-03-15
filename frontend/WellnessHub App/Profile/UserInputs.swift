@@ -68,19 +68,21 @@ struct UserInputs: View {
                         "idToken": authManager.authToken,
                         "calories_burn_yesterday": calories
                     ]
-                    
-                    
-                    userData.updateUserInfo(param: param){result in
-                        switch result {
-                        case .success:
-                            print("User information updated successfully!")
-                        case .failure(let error):
-                            print("Error updating user info: \(error.localizedDescription)")
-                        }
-                        
-                    }
-                    
-                    print("Calories Burn for yesterday: \(calories)")
+                    Task{
+                        await DispatchQueue.main.async {
+                            healthManager.calories_burn_yesterday = calories
+                            userData.updateUserInfo(param: param){result in
+                                switch result {
+                                case .success:
+                                    print("User information updated successfully!")
+                                case .failure(let error):
+                                    print("Error updating user info: \(error.localizedDescription)")
+                                }
+                                
+                            }
+                            
+                            print("Calories Burn for yesterday: \(calories)")
+                        }}
                   // Use the calories as needed
                 } else if let error = error {
                   print("Error fetching calories: \(error)")
@@ -98,19 +100,24 @@ struct UserInputs: View {
                     "idToken": authManager.authToken,
                     "sleep_time_yesterday": sleepTime
                 ]
-                
-                
-                userData.updateUserInfo(param: param){result in
-                    switch result {
-                    case .success:
-                        print("User information updated successfully!")
-                    case .failure(let error):
-                        print("Error updating user info: \(error.localizedDescription)")
+                Task{
+                    await DispatchQueue.main.async {
+                        healthManager.sleep_time_yesterday = sleepTime
+                        userData.updateUserInfo(param: param){result in
+                            switch result {
+                            case .success:
+                                print("User information updated successfully!")
+                            case .failure(let error):
+                                print("Error updating user info: \(error.localizedDescription)")
+                            }
+                            
+                        }
+                        
+                        print("sleep_time_yesterday: \(sleepTime)")
                     }
                     
                 }
-                
-                print("sleep_time_yesterday: \(sleepTime)")
+
               // Use the calories as needed
             } else if let error = error {
               print("Error fetching calories: \(error)")
