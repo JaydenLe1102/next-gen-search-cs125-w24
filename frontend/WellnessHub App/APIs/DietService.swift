@@ -27,6 +27,7 @@ class DietService: ObservableObject {
     @Published var dietScore:Double = 0
     @Published var dietProgressPercentage: Double = 0
     @Published var caloriesIntakeRec: Double = 0
+    @Published var goalRecommendation: String = ""
     
     let maxPointPerWeek:Double = 10
     
@@ -254,9 +255,11 @@ class DietService: ObservableObject {
         let decodedData = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
         
         let calIntakeRec = decodedData!["caloriesIntakeRec"]
+        let goalRec = decodedData!["Recommended Option"]
         
         DispatchQueue.main.async {
             self.caloriesIntakeRec = calIntakeRec as! Double
+            self.goalRecommendation = goalRec as! String 
         }
     }
 

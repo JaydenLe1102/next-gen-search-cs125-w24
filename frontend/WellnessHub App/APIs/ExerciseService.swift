@@ -83,10 +83,14 @@ class ExerciseService: ObservableObject {
                     if (instruction == nil){
                         instruction = exercise["instructions"]
                     }
-                    let length = exercise["length"]
+                    var length = exercise["length"]
                     var title = exercise["title"]
                     if (title == nil){
                         title = exercise["exercise"]
+                    }
+                    
+                    if var lengthExtract = length as? Int{
+                        length = String(lengthExtract)
                     }
                     
                     let newExercise = ExerciseActivity(calories_burned: caloriesBurned, instructions: instruction as! String, length: length as! String, title: title as! String)
