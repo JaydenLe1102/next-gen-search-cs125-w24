@@ -12,7 +12,7 @@ import Foundation
 @MainActor
 class UserData: ObservableObject {
     
-    private let baseURL = "http://127.0.0.1:5000"
+    private let baseURL = "https://cs125-w24-flask-api.uw.r.appspot.com/"
     
     static let genders = ["Male", "Female"]
     static let  goals = ["Lose weight", "Gain weight", "Remain weight"]

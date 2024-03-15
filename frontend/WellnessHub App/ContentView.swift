@@ -209,14 +209,14 @@ struct ContentView: View {
                                 }
                                 
                                 if (healthManager.calories_burn_yesterday == 0){
-//                                    fetch_calories_burn_and_update()
-                                    fake_fetch_calories_burn_and_update()
+                                    fetch_calories_burn_and_update()
+                                    //fake_fetch_calories_burn_and_update()
                                 }
                                 
         //                        fetch_sleep_time_and_update()
                                 if (healthManager.sleep_time_yesterday == 0){
-//                                    fetch_sleep_time_and_update()
-                                    fake_fetch_sleeptime_and_update()
+                                    fetch_sleep_time_and_update()
+                                    //fake_fetch_sleeptime_and_update()
                                 }
                             }
                             catch{

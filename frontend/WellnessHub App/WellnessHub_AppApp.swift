@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-let baseURL = "http://127.0.0.1:5000"
+let baseURL = "https://cs125-w24-flask-api.uw.r.appspot.com"
 
 
 @main
