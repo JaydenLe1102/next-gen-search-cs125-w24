@@ -9,9 +9,10 @@
 ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
 
 ## 😎 Introducing The Project
+- Nowadays, many people desire better health but they do not know where to start. With conflicting advice and overwhelming choices from different sources, people often feel unsure about what they should do. Without detailed guidance, people may go on the wrong path which can affect their health. Poor health can lead to many problems such as reduced energy levels, increased stress, and affected productivity at work, relationships with loved ones, and daily activities. Therefore, it's important to give people helpful recommendations. Adopting a healthy lifestyle, including a balanced diet, regular exercise, and sufficient sleep, can help people significantly improve both mental and physical well-being, leading to higher energy levels and a happier life.
 
 ## 🚀 Development
-
+- To achieve this, we'll build a system with two key aspects: data collection and recommendation generation.
 Clone repository
 
 ```sh
