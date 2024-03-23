@@ -48,11 +48,10 @@ BMR Calculator: https://www.calculator.net/bmr-calculator.html
 SwiftUI Circular Progress bar:  
 https://sarunw.com/posts/swiftui-circular-progress-bar/  
 
-OpenAI API:  
-https://platform.openai.com/docs/guides/text-generation/chat-completions-api  
+- OpenAI API: https://platform.openai.com/docs/guides/text-generation/chat-completions-api  
 
--Flask: https://flask.palletsprojects.com/en/2.0.x/  
--KNeighborsRegressor: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html
--pandas: https://pandas.pydata.org/
--SwiftUI: https://developer.apple.com/xcode/swiftui/
--Numpy: https://numpy.org/
+- Flask: https://flask.palletsprojects.com/en/2.0.x/  
+- KNeighborsRegressor: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html
+- pandas: https://pandas.pydata.org/
+- SwiftUI: https://developer.apple.com/xcode/swiftui/
+- Numpy: https://numpy.org/
