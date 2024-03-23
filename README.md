@@ -30,23 +30,23 @@ git clone git@github.com:JaydenLe1102/cs125-w24-group11.git
 └── README.md
 ```
 
-Works Cited  
-APIs:  
-Food.com - Recipes and Reviews: https://www.kaggle.com/datasets/irkaal/foodcom-recipes-and-reviews/data  
-HealthKit: https://developer.apple.com/documentation/healthkit 
+## Works Cited  
+### APIs:  
+- Food.com - Recipes and Reviews: https://www.kaggle.com/datasets/irkaal/foodcom-recipes-and-reviews/data  
+- HealthKit: https://developer.apple.com/documentation/healthkit 
  
-Research paper: 
-Sleeping hours: what is the ideal number and how does age impact this? : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6267703/
+### Research paper: 
+- Sleeping hours: what is the ideal number and how does age impact this? : https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6267703/
 
-Code:
-zakaria-narjis/Diet-Recommendation-System: Food/Diet Recommendation system using machine learning (github.com)
-https://github.com/zakaria-narjis/Diet-Recommendation-System 
+### Code:
+- zakaria-narjis/Diet-Recommendation-System: Food/Diet Recommendation system using machine learning (github.com)
+- https://github.com/zakaria-narjis/Diet-Recommendation-System 
  
-Others:   
-BMR Calculator: https://www.calculator.net/bmr-calculator.html   
+### Others:   
+- BMR Calculator: https://www.calculator.net/bmr-calculator.html   
 
-SwiftUI Circular Progress bar:  
-https://sarunw.com/posts/swiftui-circular-progress-bar/  
+### SwiftUI Circular Progress bar:  
+- https://sarunw.com/posts/swiftui-circular-progress-bar/  
 
 - OpenAI API: https://platform.openai.com/docs/guides/text-generation/chat-completions-api  
 
