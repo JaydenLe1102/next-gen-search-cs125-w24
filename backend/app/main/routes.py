@@ -267,7 +267,7 @@ def get_recipes():
         #number = request.args.get('number', type=int)
         
         ## API KEY 
-        #api_key = '597f65db5ee4465eb2691af5fa79484a'
+        #api_key = ''
         ## Define the endpoint URL
         #endpoint = 'https://api.spoonacular.com/recipes/complexSearch'
         ## Define the query parameters
